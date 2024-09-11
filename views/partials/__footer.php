@@ -1,0 +1,9 @@
+<message></message>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/Flip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+  <script src="js/ui-functions.js?v=1"></script>
+  <script src="js/calories-functions.js?v=1"></script>
+  <script src="js/account-functions.js?v=1"></script>
+</body>
+</html>

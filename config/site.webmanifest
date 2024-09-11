@@ -1,0 +1,20 @@
+{
+  "display": "standalone",
+  "name": "Cocounut Calories",
+  "short_name": "Calories",
+  "description": "Cuenta tus calorias",
+  "start_url": "../",
+  "scope": ".",
+  "icons": [
+  {
+    "src": "../assets/icon.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+  {
+    "src": "../assets/icon.png",
+    "type": "image/png",
+    "sizes": "512x512"
+  }
+  ]
+}

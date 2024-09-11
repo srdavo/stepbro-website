@@ -1,0 +1,50 @@
+.md-tab{
+  display:none
+}
+.md-tab[active]{
+  display:flex;
+}
+
+md-dialog#dialog-lector form{display:none;}
+md-dialog#dialog-lector form[active]{display:flex;}
+#qr-code-reader-container video{border-radius:16px}
+/* md-dialog#dialog-lector.dialog-active {
+}
+
+md-dialog#dialog-lector {
+  transition: opacity 0.3s ease-in-out !important;
+} */
+
+@keyframes buttonClickAnimation {
+  0% {
+    transform: scaleX(1) scaleY(1);
+  }
+  50% {
+    transform: scaleX(0.95) scaleY(0.9);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+
+}
+
+md-filled-button:focus {
+  animation: buttonClickAnimation 500ms cubic-bezier(.37,1.42,.37,1);
+}
+
+@keyframes progress-indicator-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+md-linear-progress{
+  animation : progress-indicator-in  1000ms cubic-bezier(.75,0,.41,-0.06);
+}
+
+md-outlined-text-field{
+  --md-outlined-text-field-container-shape: 8px;
+}
