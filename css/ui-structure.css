@@ -59,6 +59,9 @@ section#section-home{
 
 
 @media only screen and (max-width: 680px){
+  nav{display:none;}
+  section#section-index{padding-top:8px !important;}
+
   .hide-on-mobile{display:none !important;}
   body{
     height:100vh;

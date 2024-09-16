@@ -5,8 +5,8 @@ cookiesRedirect($cookie_uid);
 ?>
 
 
-<main>
-  <nav >
+<main class="direction-column">
+  <nav class="nav-style-4">
     <?php include_once 'views/index/index-__navbar_items.php'; ?>
   </nav>
   <holder>

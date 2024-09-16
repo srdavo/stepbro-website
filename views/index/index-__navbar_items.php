@@ -7,10 +7,10 @@
   <span class="icon-holder" >
     <span class="material-symbols-rounded">home</span>
   </span>
-  Inicio
+  <span>Inicio</span>
 </button>
 
-<button 
+<!-- <button 
   class="nav-button"
   data-section="section-login" 
   onclick="toggleSection('section-login')"
@@ -19,7 +19,7 @@
   <span class="icon-holder">
     <span class="material-symbols-rounded">login</span>
   </span>
-  Iniciar sesión
+  <span>Iniciar sesión</span>
 </button>
 
 <button 
@@ -31,6 +31,6 @@
   <span class="icon-holder">
     <span class="material-symbols-rounded">person_add</span>
   </span>
-  Crear cuenta
-</button>
+  <span>Crear cuenta</span>
+</button> -->
 

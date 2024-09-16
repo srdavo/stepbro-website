@@ -30,11 +30,13 @@
 .gap-8{gap:8px;}
 .gap-16{gap:16px;}
 
+.padding-0{padding:0px !important;}
 .padding-1{padding:1px !important;}
 .padding-8{padding:8px !important;}
 .padding-16{padding:16px !important;}
 .padding-24{padding:24px !important;}
 .padding-32{padding:32px !important;}
+.t-padding-0{padding-top:0px !important;}
 .h-padding-8{padding-left:8px !important; padding-right:8px !important;}
 .h-padding-16{padding-left:16px !important; padding-right:16px !important;}
 .h-padding-24{padding-left:24px !important; padding-right:24px !important;}
