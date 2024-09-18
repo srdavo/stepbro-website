@@ -1,6 +1,6 @@
 <?php
-$_ENV["APP_NAME"] = "Cocounut Calories";
+$_ENV["APP_NAME"] = "stepbro";
 
 // backend variables
-$_ENV["SESSION_NAME"] = "cocounut-calories";
-$_ENV["DB_NAME"] = "cocounut_calories";
+$_ENV["SESSION_NAME"] = "cocounut-sb";
+$_ENV["DB_NAME"] = "cocounut_sb";

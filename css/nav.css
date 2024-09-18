@@ -222,6 +222,7 @@ nav button.nav-button md-ripple{
     background:var(--md-sys-color-primary);
     color:var(--md-sys-color-on-primary);
   }
+  nav.nav-style-4 button.nav-button.color-gray:not([active]){background:var(--md-sys-color-surface-container)}
   nav.nav-style-4 button.nav-button:not([active]):hover{background:var(--md-sys-color-surface-container-high)}
   nav.nav-style-4 button.nav-button span.icon-holder{
     width: fit-content;
@@ -241,5 +242,4 @@ nav button.nav-button md-ripple{
 
   /* nav.nav-style-4 button.nav-button > span:last-child{ display: none; } */
   nav.nav-style-4 button.nav-button span{margin-bottom:0 !important;}
-  
 }

@@ -7,31 +7,10 @@
   <span class="icon-holder" >
     <span class="material-symbols-rounded">home</span>
   </span>
-  <span>Inicio</span>
+  Inicio
 </button>
 
-<div class="simple-container grow-1"></div>
-<?php 
-  if(!isset($_SESSION["id"])){
-    echo '
-      <button 
-        class="nav-button color-gray" 
-        data-section="section-login" 
-        onclick="toggleSection(`section-login`)"
-        >
-        <md-ripple></md-ripple>
-        <span class="icon-holder" >
-          <span class="material-symbols-rounded">login</span>
-        </span>
-        <span>Iniciar sesión</span>
-      </button>
-    ';
-  }
-?>
-
-
-
-<!-- <button 
+<button 
   class="nav-button"
   data-section="section-login" 
   onclick="toggleSection('section-login')"
@@ -40,7 +19,7 @@
   <span class="icon-holder">
     <span class="material-symbols-rounded">login</span>
   </span>
-  <span>Iniciar sesión</span>
+  Iniciar sesión
 </button>
 
 <button 
@@ -52,6 +31,6 @@
   <span class="icon-holder">
     <span class="material-symbols-rounded">person_add</span>
   </span>
-  <span>Crear cuenta</span>
-</button> -->
+  Crear cuenta
+</button>
 

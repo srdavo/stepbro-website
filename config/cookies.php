@@ -5,7 +5,9 @@ $cookie_pwd = $_ENV["SESSION_NAME"]."-pwd";
 
 function cookiesRedirect($cookie_uid){
   if (isset($_COOKIE[$cookie_uid])) {
-    header("location: controllers/users.controller.php?cookies");
+    if(!isset($_SESSION["id"])){
+      header("location: controllers/users.controller.php?cookies");
+    }
   }
 }
 

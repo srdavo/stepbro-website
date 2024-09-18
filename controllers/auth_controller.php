@@ -9,7 +9,7 @@ function checkSession(){
         }
     }else{
         $currentPage = basename($_SERVER['PHP_SELF']);
-        $allowedPages = ['index.php'];
+        $allowedPages = [''];
         if (in_array($currentPage, $allowedPages)) {
             header ("location: home");
             exit();

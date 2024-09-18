@@ -4,7 +4,7 @@ class Connect {
         $serverName = "localhost";
         $dbUsername = "root";
         $dbPassword = "";
-        $bNamed = "cocounut_calories";
+        $bNamed = "cocounut_sb";
         try {
             $connect = new PDO("mysql:host=$serverName;dbname=$bNamed", $dbUsername, $dbPassword);
             $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

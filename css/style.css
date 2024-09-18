@@ -38,6 +38,7 @@ md-icon {--md-icon-font: 'Material Symbols Rounded'; }
 .material-symbols-rounded{user-select: none;}
 
 .dm-sans{font-family: 'DM Sans', sans-serif !important;}
+.bricolage{font-family: "Bricolage Grotesque", system-ui !important;}
 .weight-600{font-weight: 600 !important;}
 .weight-500{font-weight: 500 !important;}
 input::-webkit-date-and-time-value{ text-align:left; }

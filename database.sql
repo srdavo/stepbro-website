@@ -1,5 +1,5 @@
-CREATE DATABASE data_base_name;
-USE data_base_name;
+CREATE DATABASE cocounut_sb;
+USE cocounut_sb;
 
 CREATE TABLE users (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
@@ -14,6 +14,7 @@ CREATE TABLE users_data (
     user_token VARCHAR(8) UNIQUE,
     permissions int(1) NOT NULL,
     store_name varchar(200) NOT NULL,
+    creation_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

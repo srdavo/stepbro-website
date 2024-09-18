@@ -9,7 +9,7 @@ if (isset($_GET["cookies"])) {
         $username = $_COOKIE[$cookie_uid];
         $pwd= $_COOKIE[$cookie_pwd];
         $login = $users->login($username, $pwd, $cookie_uid, $cookie_pwd);
-        if($login){header("location: ../home");}else{
+        if($login){header("location: ../");}else{
             header("location: ../index?error=true");
         }
         exit;
