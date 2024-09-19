@@ -56,10 +56,12 @@ section#section-home{
   background: var(--md-sys-color-surface-container-low);
 } */
 
-
+.only-on-mobile{display:none !important}
 
 @media only screen and (max-width: 680px){
-  nav{display:none;}
+  .only-on-mobile{display:flex !important}
+  /* nav{display:none;} */
+  main{flex-direction: column-reverse !important;}
   section#section-index{padding-top:8px !important;}
 
   .hide-on-mobile{display:none !important;}

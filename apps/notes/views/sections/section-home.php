@@ -1,70 +1,27 @@
 <section id="section-home" active>
   
-  <!-- <div class="content-box minimal direction-row justify-between align-center on-background-text">
-    <div class="simple-container">
-      <span class="headline-medium">Inicio</span>
-    </div>
-    <div class="simple-containe">
-      <md-filled-button 
+    <div class="content-box border-radius-32 secondary-container on-secondary-container-text overflow-auto grow-1 padding-0">
         
-        data-flip-id="animate"
-        onclick="toggleWindow('#window-add-register', 1 ,1)"
-        >
-        <md-icon slot="icon">add</md-icon>
-        Registrar calorias
-      </md-filled-button>
-    </div>
-    <span class="justify-right" style="display:flex; position: relative;">
-      <md-icon-button id="toggler-menu-basic-options" onclick="toggleMenu('menu-basic-options')">
-        <md-icon>more_vert</md-icon>
-      </md-icon-button>
-      <md-menu id="menu-basic-options" anchor="toggler-menu-basic-options" style="min-width:200px;">
+        <div class="simple-container justify-between align-center padding-24">
+            <div class="simple-container"><span class="headline-large">Inicio</span> </div>
+            <div class="simple-container">
+                <md-filled-button
+                    onclick="toggleWindow('#window-create-note', '', 1)"
+                    data-flip-id="animate"
+                    >
+                    <md-icon slot="icon">edit_square</md-icon>
+                    Crear nota
+                </md-filled-button>
+            </div>
+        </div>
 
-        <md-menu-item onclick="toggleDialog('dialog-account')">
-          <div slot="headline">Cuenta</div>
-          <md-icon slot="start">account_circle</md-icon>
-        </md-menu-item>
-        <md-menu-item onclick="toggleDialog('dialog-logout-confirmation')">
-          <div slot="headline">Cerrar sesión</div>
-          <md-icon slot="start">logout</md-icon>
-        </md-menu-item>
-
-      </md-menu>
-    </span>
-  </div> -->
-
-
-
-  <div class="content-box border-radius-32 justify-center align-center primary-container on-primary-container-text overflow-auto grow-1">
-    <div class="simple-container direction-column">
-      <span class="headline-small">Hoy</span>
-      <span id="response-total-day-calories" class="display-large weight-600 dm-sans" style="font-size:18vw; line-height:18vw">0</span>
-      <div class="simple-container">
-        <span class="body-medium dm-sans weight-600">Kcal</span>
-      </div>
-      
-
-    </div>
-
-    <md-filled-button 
-      class="big"
-      data-flip-id="animate"
-      onclick="toggleWindow('#window-register-calories', 1 ,1)"
-      >
-      <md-icon slot="icon">add</md-icon>
-      Registrar calorias
-    </md-filled-button>
-  </div>
-
-  <!-- <div class="simple-container justify-right">
+        <div class="simple-container direction-column primary-container grow-1 padding-24 border-radius-32 align-center justify-center">
+           <span class="headline-small weight-600">Bienvenido a la aplicación de notas.</span> 
+           <span class="body-large">Aplicacion demo para demostración de sistema.</span> 
+        </div>
     
-  </div> -->
-
-  
-
-  
 
 
+    </div>
 
-  
 </section>

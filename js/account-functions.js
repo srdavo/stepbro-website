@@ -33,7 +33,7 @@ async function signUp(){
     email: userInput.value,
     pwd: pwdInput.value,
   };
-  const url = 'controllers/users.controller.php';
+  const url = `${BASE_URL}controllers/users.controller.php`;
   const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -71,7 +71,7 @@ async function logIn(){
     user: userInput.value,
     pwd: pwdInput.value,
   };
-  const url = 'controllers/users.controller.php';
+  const url = `${BASE_URL}controllers/users.controller.php`;
   const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -89,7 +89,7 @@ async function logIn(){
         pwdInput.setAttribute("error", "");
         break;
       case "access_accepted":
-        window.location.href='home';
+        window.location.href='index';
         break;
     }
     toggleButton(parent, false);
@@ -103,7 +103,7 @@ async function logOut(){
   const data = {
     op: "logout",
   };
-  const url = 'controllers/users.controller.php';
+  const url = `${BASE_URL}controllers/users.controller.php`;
   const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -126,7 +126,7 @@ async function modifyUserData(){
     op: "modifyUserData",
     name: username.value,
   };
-  const url = 'controllers/users.controller.php';
+  const url = `${BASE_URL}controllers/users.controller.php`;
   const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),
@@ -153,7 +153,7 @@ async function getUserData(){
   const data = {
     op: "getUserData",
   };
-  const url = 'controllers/users.controller.php';
+  const url = `${BASE_URL}controllers/users.controller.php`;
   const response = await fetch(url, {
     method: 'POST',
     body: JSON.stringify(data),

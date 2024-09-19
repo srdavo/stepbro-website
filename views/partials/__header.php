@@ -1,17 +1,29 @@
 <?php 
-define('BASE_URL', '/cocounut-sb/');
+define('BASE_URL', '/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
 
+include_once  $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/cookies.php';
+cookiesRedirect($cookie_uid, "$_SERVER[REQUEST_URI]");
+
 checkSession();
+
+// if(!isset($_SESSION["id"])){
+//     echo "<span style='opacity:0.5;position:absolute;top:0;left:0;z-index:10000;color:white;background:red;'>La sesión No existe </span>";
+//   }else{
+//     echo "<span style='opacity:0.5;position:absolute;top:0;left:0;z-index:10000;color:white;background:green;'>La sesión Sí existe </span>";
+//     echo "<span style='opacity:0.5;position:absolute;top:24px;left:0;z-index:10000;color:white;background:green;'>UserId:".$_SESSION['id']."</span>";
+//   }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
+    <title><?php echo $_ENV['APP_NAME'] ?></title>
+    
+
     <!-- style and themes -->
-    <!-- <link rel="stylesheet" href="./css/style.css?v=100"> -->
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=15">
 
@@ -20,13 +32,14 @@ checkSession();
 
 
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="<?=BASE_URL?>assets/icon.png">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
 
     <!-- Manifest -->
     <link rel="manifest" href="<?= BASE_URL?>config/site.webmanifest" >
 
-    <title><?php echo $_ENV['APP_NAME'] ?></title>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -34,7 +47,7 @@ checkSession();
     <!-- Theme selector -->
     <!-- <script src="js/theme-controller.js"></script> -->
 
-    <link rel="shorcut icon" type="image" href="<?= BASE_URL?>/assets/icon.png">
+    
 
     <!-- fonts / icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,5 +66,6 @@ checkSession();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/Flip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
-</head>
+    <script> const BASE_URL = "/"</script>
+  </head>
 <body>

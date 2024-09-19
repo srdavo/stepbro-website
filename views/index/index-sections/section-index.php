@@ -48,7 +48,7 @@
         Vanguardia en software y estilo
       </p>
       <div class="simple-container v-margin">
-        <!-- <md-filled-button href="home"><md-icon slot="icon">login</md-icon>Entrar</md-filled-button> -->
+        <md-filled-button data-flip-id="animate" onclick="toggleWindow('#window-apps', undefined, 1)"><md-icon slot="icon">apps</md-icon>Apps</md-filled-button>
       </div>
     </div>
 

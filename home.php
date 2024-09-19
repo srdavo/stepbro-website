@@ -1,6 +1,8 @@
 <?php 
 include_once 'views/partials/__header.php'; 
 include_once 'config/utilities.php';
+
+
 ?>
 
 <transparent>
@@ -20,6 +22,9 @@ include_once 'config/utilities.php';
     <?php include_once 'views/sections.php'; include_once 'views/modals/dialogs.php'; ?>  
   </holder>
 </main>
+
+<script src="js/calories-functions.js"></script>
+
 <script>
   document.addEventListener("DOMContentLoaded", function(event) {
     getUserData();

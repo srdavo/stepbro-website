@@ -1,4 +1,4 @@
 <?php
-include_once 'views/windows/window-example.php';
-include_once 'views/windows/window-add-register.php';
-include_once 'views/windows/window-register-calories.php';
+// here we include the windows that are going to be used in the app
+include_once 'views/windows/window-create-note.php';
+include_once 'views/windows/window-sb.php';

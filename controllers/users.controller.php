@@ -1,6 +1,6 @@
 <?php
 require_once("../config/connect.php");
-require_once("../models/users.php");
+require_once("../models/Users.php");
 require_once("../config/cookies.php");
 $users = new users();
 
@@ -9,7 +9,8 @@ if (isset($_GET["cookies"])) {
         $username = $_COOKIE[$cookie_uid];
         $pwd= $_COOKIE[$cookie_pwd];
         $login = $users->login($username, $pwd, $cookie_uid, $cookie_pwd);
-        if($login){header("location: ../");}else{
+        if($login){header("location: ".$_GET["desired_url"]);}else{
+     
             header("location: ../index?error=true");
         }
         exit;

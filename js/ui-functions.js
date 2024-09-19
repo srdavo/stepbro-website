@@ -320,7 +320,7 @@ function animate(element, windowNew, position, scale){
   windowNew.classList.toggle('active');
   Flip.from(state, {
     targets: windowNew,
-    duration: 0.5,
+    duration: 0.7,
     scale: scaleValue,
     ease: easeType,
     // ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),

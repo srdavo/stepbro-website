@@ -26,6 +26,20 @@
         <span>Iniciar sesión</span>
       </button>
     ';
+  }else{
+    echo '
+      <button 
+        class="nav-button color-gray" 
+        data-flip-id="animate"
+        onclick="toggleWindow(`#window-account`, `absolute`, 1)"
+        >
+        <md-ripple></md-ripple>
+        <span class="icon-holder" >
+          <span class="material-symbols-rounded">account_circle</span>
+        </span>
+        <span>Mi cuenta</span>
+      </button>
+    ';
   }
 ?>
 

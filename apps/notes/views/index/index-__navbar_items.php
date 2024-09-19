@@ -9,7 +9,7 @@
   </span>
   Inicio
 </button>
-
+<!-- 
 <button 
   class="nav-button"
   data-section="section-login" 
@@ -32,5 +32,5 @@
     <span class="material-symbols-rounded">person_add</span>
   </span>
   Crear cuenta
-</button>
+</button> -->
 

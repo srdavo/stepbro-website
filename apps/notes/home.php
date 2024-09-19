@@ -1,12 +1,6 @@
 <?php 
 include_once '../../views/partials/__header.php'; 
 include_once '../../config/utilities.php';
-if(!isset($_SESSION["id"])){
-  echo "<span style='position:absolute;top:0;left:0;z-index:10000;color:white;background:red;'>La sesión No existe </span>";
-}else{
-  echo "<span style='position:absolute;top:0;left:0;z-index:10000;color:white;background:green;'>La sesión Sí existe </span>";
-  echo "<span style='position:absolute;top:24px;left:0;z-index:10000;color:white;background:green;'>UserId:".$_SESSION['id']."</span>";
-}
 ?>
 
 <transparent>
@@ -14,7 +8,7 @@ if(!isset($_SESSION["id"])){
 </transparent>
 
 <main>
-  <nav class="nav-style-3">
+  <nav class="nav-style-2">
     <?php include_once 'views/partials/__navbar_items.php'; ?>
   </nav>
   <holder>
@@ -26,10 +20,13 @@ if(!isset($_SESSION["id"])){
     <?php include_once 'views/sections.php'; include_once 'views/modals/dialogs.php'; ?>  
   </holder>
 </main>
+
+<script src="js/notes-functions.js"></script>
+
 <script>
+  
   document.addEventListener("DOMContentLoaded", function(event) {
-    getUserData();
-    syncCalories()
+    syncNotes();
   });
 </script>
 

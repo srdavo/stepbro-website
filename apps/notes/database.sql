@@ -1,0 +1,10 @@
+CREATE DATABASE sb_notes;
+USE sb_notes;
+
+CREATE TABLE notes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT(20) NOT NULL,
+    title VARCHAR(255),
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
