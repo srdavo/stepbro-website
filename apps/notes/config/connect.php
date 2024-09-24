@@ -1,17 +1,11 @@
 <?php
-class Connect {
-    protected function Conection(){
-        $serverName = "localhost";
-        $dbUsername = "root";
-        $dbPassword = "";
-        $bNamed = "sb_notes";
-        try {
-            $connect = new PDO("mysql:host=$serverName;dbname=$bNamed", $dbUsername, $dbPassword);
-            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $connect; // Agrega esta línea para devolver la conexión
-        } catch (Exception $e) {
-            print "¡Error BD!: " . $e->getMessage() . "<br/>";
-            die();
-        }
-    }
+require_once __DIR__ . '/../models/ActiveRecord.php';
+$db = mysqli_connect('localhost','root','root','cocounut_sb');
+
+if (!$db) {
+    echo "Error: No se pudo conectar a MySQL.";
+    echo "error de depuración: " . mysqli_connect_errno();
+    echo "error de depuración: " . mysqli_connect_error();
+    exit;
 }
+ActiveRecord::setDB($db);
