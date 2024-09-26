@@ -187,8 +187,13 @@ function toggleWindowFullSize(){
 function toggleWindow(windowId, position, scale){
   if (windowId == ''){windowId = null}
 
+  const windowNew = document.querySelector(windowId);
+  if(windowNew){
+    transparent = windowNew.closest('transparent');
+  }
+
   // Close any other open window
-  const transparent = document.querySelector('transparent');
+  
   const activeWindow = transparent.querySelector('window.active');
 
   function closingAnimation() {
@@ -221,7 +226,6 @@ function toggleWindow(windowId, position, scale){
 
 
   // Window to open
-  const windowNew = document.querySelector(windowId);
   if (!windowNew) { return; }
   transparent.classList.add('active'); 
   localStorage.setItem("currentWindow", windowId); 
@@ -249,7 +253,7 @@ function toggleWindow(windowId, position, scale){
       getUserData()
     break;
     case "#window-settings":
-      displaySettings();  
+      // displaySettings();  
       break;
     case "#window-register-calories":
 
@@ -290,13 +294,13 @@ function toggleWindow(windowId, position, scale){
     }
     
     
-    requestAnimationFrame(function() {
-      var windowHeight = windowNew.offsetHeight;
-      var windowBottom = screenHeight - (windowNew.offsetTop + windowNew.offsetHeight);
+    // requestAnimationFrame(function() {
+    //   var windowHeight = windowNew.offsetHeight;
+    //   var windowBottom = screenHeight - (windowNew.offsetTop + windowNew.offsetHeight);
       
-      var windowWidth = windowNew.offsetWidth;
+    //   var windowWidth = windowNew.offsetWidth;
 
-    });
+    // });
   }
   if(scale === undefined){scale = 0}else{scale = 1}
   animate(element, windowNew, position, scale);
@@ -476,3 +480,48 @@ function getTime(){
   }
   return response;
 }
+
+function toggleWSection(wSectionId, originButton){
+  const holder = originButton.closest("HOLDER");
+
+  const activeWSection = holder.querySelector('.w-section[active]');
+  const activeWSectionButton = holder.querySelector('button[active]');
+  if(wSectionId === activeWSection.id){console.log("seccion repetida"); return;}
+
+  const objetiveWSection = holder.querySelector(`#${wSectionId}`);
+  const objetiveWSectionButton = holder.querySelector(`button[data-w-section="${wSectionId}"]`);
+
+  const activeWSectionParent = activeWSection.parentElement;
+  const objetiveWSectionParent = objetiveWSection.parentElement;
+  // objetiveWSectionParent.style.background = "blue";
+
+  // objetiveWSection.style.background = "red";
+
+
+  // activeWSectionParent.style.background = "red";
+  // objetiveWSectionParent.style.background = "blue";
+
+
+  if(activeWSectionParent !== objetiveWSectionParent){
+
+    var innerActiveWSectionButton = objetiveWSectionParent.querySelector('button[active]');
+    var innerActiveWSection = objetiveWSectionParent.querySelector('.w-section[active]');
+
+    if(innerActiveWSectionButton){ innerActiveWSectionButton.removeAttribute('active');}
+    if(innerActiveWSection){ innerActiveWSection.removeAttribute('active');}
+
+    objetiveWSection.setAttribute('active', '');
+    objetiveWSectionButton.setAttribute('active', '');
+    return;
+  }
+
+
+  if(objetiveWSection){
+    if(activeWSection){activeWSection.removeAttribute('active');}
+    if(activeWSectionButton){activeWSectionButton.removeAttribute('active');}
+    objetiveWSection.setAttribute('active', '');
+    objetiveWSectionButton.setAttribute('active', '');
+  }
+
+}
+

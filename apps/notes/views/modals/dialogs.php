@@ -14,7 +14,7 @@
   </div>
 </md-dialog>
 
-<md-dialog id="dialog-account" style="min-width: calc(-1600px + 100vw)">
+<!-- <md-dialog id="dialog-account" style="min-width: calc(-1600px + 100vw)">
   <div slot="headline">Cuenta</div>
   <form id="form-dialog-account" slot="content" method="dialog">
     <md-list style="border-radius:16px;">
@@ -42,9 +42,9 @@
     <md-text-button form="form-dialog-account" value="cancel">Cancelar</md-text-button>
     <md-filled-tonal-button form="form-dialog-account" onclick="modifyUserData()" value="save">Guardar</md-filled-tonal-button>
   </div>
-</md-dialog>
+</md-dialog> -->
 
-<md-dialog id="dialog-logout-confirmation">
+<!-- <md-dialog id="dialog-logout-confirmation">
   <div slot="headline">Cerrar sesión</div>
   <md-icon slot="icon" aria-hidden="true">logout</md-icon>
   <form id="form-dialog-logout-confirmation" slot="content" method="dialog">
@@ -54,7 +54,7 @@
     <md-text-button form="form-dialog-logout-confirmation" value="cancel">Cancelar</md-text-button>
     <md-filled-tonal-button value="save" onclick="logOut()">Cerrar sesión</md-filled-tonal-button>
   </div>
-</md-dialog>
+</md-dialog> -->
 
 <md-dialog id="dialog-delete-calorie-log-confirmation">
   <div slot="headline">Eliminar</div>

@@ -91,7 +91,7 @@ window.increased{
   max-width: 1200px;
   height: 100%;
 }
-window.semi-slim{ max-width: 600px; }
+window.semi-slim{ max-width: 800px; }
 window.slim{ max-width: 400px; }
 window.increased.slim.h-auto{ height: auto; }
 :root[data-theme="dark"] window{

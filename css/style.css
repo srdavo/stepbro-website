@@ -1,5 +1,5 @@
 @import url(nav.css?v=4.0.0); /* Brings the Nav Bar styles */ 
-@import url(ui-structure.css?v=7.0.0); /* Brings the main styles for the structure, important */ 
+@import url(ui-structure.css?v=1.0.0); /* Brings the main styles for the structure, important */ 
 @import url(ui-elements/content-box.css?v=5); /* Its a basic container with many uses */ 
 @import url(ui-elements/default-rules.css?v=200); /* Brings classes with propetys that all elements could use */ 
 @import url(ui-elements/message.css?v=4); /* Brings the styles for the message box */
@@ -8,7 +8,8 @@
 @import url(ui-elements/data-line.css?v=4); /* Brings the styles for the data line */
 @import url(ui-elements/select.css); /* Brings the styles for the data line */
 @import url(ui-elements/md-elements.css?v=4); /* Brings the styles for some things of material web components */
-
+@import url(ui-elements/window-navigation.css?v=1); 
+@import url(ui-elements/theme-selector.css?v=1);
 
 
 :root {
@@ -19,11 +20,12 @@ a,button{
   -webkit-user-drag: none; 
   user-select: none;
 }
+html{overflow: hidden;}
 
 body{
   width:100vw;
   height:100vh;
-  height: 100svh;
+  height: 100dvh;
   margin:0;
 
   display: flex;
@@ -31,7 +33,8 @@ body{
   align-items: center;
   background: var(--md-sys-color-background);
   font-family: 'Roboto', sans-serif;
-  -webkit-tap-highlight-color: transparent
+  -webkit-tap-highlight-color: transparent;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 h1,h2,h3,h4,h5,h6,p{margin:0; color:var(--md-sys-color-on-background)}
 

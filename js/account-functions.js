@@ -145,7 +145,8 @@ async function modifyUserData(){
       return false;
     }
     message("Datos modificados", "success");
-    toggleWindow();
+    syncUserData();
+    // toggleWindow();
   }
 }
 
@@ -169,8 +170,24 @@ async function getUserData(){
     var name = result.name;
     var email = result.email;
 
-    document.getElementById("response-account-id").textContent = id;
-    document.getElementById("response-account-email").textContent = email;
-    document.getElementById("modify-account-username").value = name;
+    return {id, name, email};
+
+    // document.getElementById("response-account-id").textContent = id;
+    // document.getElementById("response-account-email").textContent = email;
+    // document.getElementById("modify-account-username").value = name;
   }
+}
+
+async function syncUserData(){
+  const data = await getUserData();
+  if(!data) { message("Error obteniendo datos del usuario"); return; }
+
+  document.getElementById("response-account-id").textContent = data.id;
+  document.getElementById("response-account-email").textContent = data.email;
+  document.getElementById("modify-account-username").value = data.name;
+
+  document.getElementById("response-settings-account-email").textContent = data.email;
+  document.getElementById("response-settings-account-username").textContent = data.name;
+  document.getElementById("response-settings-account-username-title").textContent = data.name;
+  document.getElementById("response-settings-account-username-first-letter").textContent = data.name.charAt(0).toUpperCase();
 }
