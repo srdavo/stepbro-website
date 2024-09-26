@@ -16,9 +16,9 @@ switch ($data["op"]){
             "user_id" => $userid
         ];
         $note = new Notes($data_array);
-        $resultado =  $note->guardar();
+        $result =  $note->save();
         // $create_note = $Notes->createNote($userid, $data_array);
-        echo json_encode($resultado);
+        echo json_encode($result);
         break;
     case "get_notes":
         $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
