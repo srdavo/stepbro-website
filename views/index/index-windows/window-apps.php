@@ -13,7 +13,7 @@
         <div class="content-box light-color padding-16 border-radius-40 align-center">
             <div class="simple-container gap-8 direction-column">
                 <span class="headline-small on-surface-background bricolage weight-500">Stepbro Notes</span>
-                <md-outlined-button href="apps/notes/"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-outlined-button>
+                <md-outlined-button href="apps/notes/home"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-outlined-button>
             </div>
             
         </div>

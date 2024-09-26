@@ -1,5 +1,5 @@
 <?php
-function checkSession(){
+function checkSession($cookie_uid){
     if (!isset($_SESSION["id"])) {
         $currentPage = basename($_SERVER['PHP_SELF']);
         $allowedPages = ['index.php'];

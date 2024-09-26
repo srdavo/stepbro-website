@@ -18,10 +18,11 @@ async function createNote(event){
             method: 'POST',
             body: JSON.stringify(data),
         });
+        const result = await response.json();
+        console.log(result);
         toggleButton(parentId, false);
-        if (response.ok) {
-            const result = await response.json();
-            if (result.success) {
+        if (result) {
+            if (result.id) {
                 message("Nota creada", "success");
 
                 syncNotes();
@@ -52,6 +53,7 @@ async function getNotes(page = 0){
         if (response.ok) {
             const result = await response.json();
             if(result.success){ 
+                console.log(result);
                 return result;
             } else { 
                 message(`Hubo un error: ${result.message}`, "error"); 

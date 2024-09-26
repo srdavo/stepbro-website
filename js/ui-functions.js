@@ -149,7 +149,9 @@ function toggleButton(parentId, state, type){
   }
 }
 
-let currentTimeoutId = null;function message(message, action){
+let currentTimeoutId = null;
+
+function message(message, action){
   const messageElement = document.querySelector("MESSAGE");
   if (action === "error") {messageElement.classList.add('error');}
   if (action === "success") {messageElement.classList.add('success'); }

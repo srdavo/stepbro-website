@@ -7,7 +7,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
 include_once  $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/cookies.php';
 cookiesRedirect($cookie_uid, "$_SERVER[REQUEST_URI]");
 
-checkSession();
+checkSession($cookie_uid);
 
 // if(!isset($_SESSION["id"])){
 //     echo "<span style='opacity:0.5;position:absolute;top:0;left:0;z-index:10000;color:white;background:red;'>La sesión No existe </span>";
@@ -66,6 +66,7 @@ checkSession();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/Flip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script> const BASE_URL = "/"</script>
   </head>
 <body>

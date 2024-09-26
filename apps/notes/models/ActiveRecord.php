@@ -84,13 +84,13 @@ class ActiveRecord{
         $query .= join(', ', array_keys($atributos));
         $query .= " ) VALUES ('"; 
         $query .= join("', '", array_values($atributos));
-        $query .= " ') ";
+        $query .= "') ";
 
         // Resultado de la consulta
         $resultado = self::$db->query($query);
 
         return [
-           'resultado' =>  $resultado,
+           'ok' =>  $resultado,
            'id' => self::$db->insert_id
         ];
     }

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/ActiveRecord.php';
-$db = mysqli_connect('localhost','root','root','cocounut_sb');
+$db = mysqli_connect('localhost','root','root','sb_notes');
 
 if (!$db) {
     echo "Error: No se pudo conectar a MySQL.";
