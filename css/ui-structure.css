@@ -62,7 +62,7 @@ section#section-home{
   .only-on-mobile{display:flex !important}
   /* nav{display:none;} */
   main{flex-direction: column-reverse !important;}
-  section#section-index{padding-top:8px !important;}
+  /* section#section-index{padding-top:8px !important;} */
 
   .hide-on-mobile{display:none !important;}
   body{

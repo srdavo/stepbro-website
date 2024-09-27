@@ -18,7 +18,19 @@
         <div class="simple-container direction-column primary-container grow-1 padding-24 border-radius-32 align-center justify-center">
            <span class="headline-small weight-600">Bienvenido a la aplicación de notas.</span> 
            <span class="body-large">Aplicacion demo para demostración de sistema.</span> 
+           <button 
+                class="nav-button color-gray" 
+                data-flip-id="animate"
+                onclick="toggleWindow(`#window-settings`, ``, 1)"
+                >
+                <md-ripple></md-ripple>
+                <span class="icon-holder" >
+                <span class="material-symbols-rounded">account_circle</span>
+                </span>
+                <span>Mi cuenta</span>
+            </button>
         </div>
+
     
 
 

@@ -42,7 +42,7 @@ class Notes extends ActiveRecord{
 
     public static function getRowstoPaginator($userid, $data_array){
         $query = "SELECT * FROM notes
-        WHERE user_id = $userid ORDER BY id DESC LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}
+            WHERE user_id = $userid ORDER BY id DESC LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}
         ";
         $result = self::querySQL($query);
         return $result;

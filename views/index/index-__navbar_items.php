@@ -31,13 +31,12 @@
       <button 
         class="nav-button color-gray" 
         data-flip-id="animate"
-        onclick="toggleWindow(`#window-account`, `absolute`, 1)"
+        onclick="toggleWindow(`#window-settings`, ``, 1)"
         >
         <md-ripple></md-ripple>
         <span class="icon-holder" >
-          <span class="material-symbols-rounded">account_circle</span>
+          <span class="material-symbols-rounded">settings</span>
         </span>
-        <span>Mi cuenta</span>
       </button>
     ';
   }

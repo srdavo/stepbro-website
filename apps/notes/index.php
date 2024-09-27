@@ -1,9 +1,5 @@
 <?php 
-include_once 'config/connect.php'; 
 include_once '../../views/partials/__header.php'; 
-
-
-
 ?>
 
 

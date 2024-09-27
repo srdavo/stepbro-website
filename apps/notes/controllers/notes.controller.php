@@ -33,7 +33,7 @@ switch ($data["op"]){
         $response = [
             'success' => true,
             'data' => $get_notes,
-            'total_rows' => $total_rows,
+            'total_rows' => $Notes->getTotalrowsByUserId($userid),
             'limit' => $data_array["limit"],
             'offset' => $data_array["offset"]
         ];
