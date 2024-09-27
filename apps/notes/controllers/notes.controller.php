@@ -12,12 +12,11 @@ $data = json_decode($json_data, true);
 switch ($data["op"]){
     case "create_note":
         $data_array = [
-            "content" => filter_var($data["content"], FILTER_SANITIZE_STRING),
+            "content" => $data["content"], // filter_var($data["content"], FILTER_SANITIZE_STRING)
             "user_id" => $userid
         ];
         $note = new Notes($data_array);
-        $result =  $note->save();
-        // $create_note = $Notes->createNote($userid, $data_array);
+        $result =  $note->createNote();
         echo json_encode($result);
         break;
     case "get_notes":

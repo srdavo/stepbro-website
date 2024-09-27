@@ -10,7 +10,7 @@ async function createNote(event){
 
     const data = {
         op: "create_note",
-        content: document.getElementById("create-note-content").value
+        content: document.getElementById("create-note-content").innerHTML
     }
     const url = `controllers/notes.controller.php`
     try {
@@ -23,6 +23,7 @@ async function createNote(event){
         toggleButton(parentId, false);
         if (result) {
             if (result.id) {
+                document.getElementById("create-note-content").innerHTML = "";
                 message("Nota creada", "success");
 
                 syncNotes();

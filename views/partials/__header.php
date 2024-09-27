@@ -25,6 +25,7 @@ checkSession($cookie_uid);
 
     <!-- style and themes -->
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/editor.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=15">
 
     <!-- Material Web Components -->

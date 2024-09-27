@@ -22,6 +22,7 @@ include_once '../../config/utilities.php';
 </main>
 
 <script src="js/notes-functions.js"></script>
+<script src="js/rich-text.js"></script>
 
 <script>
   

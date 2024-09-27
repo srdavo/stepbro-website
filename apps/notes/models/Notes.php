@@ -22,8 +22,22 @@ class Notes extends ActiveRecord{
 
     public static function getTotalrowsByUserId($id){
         $query = "SELECT COUNT(*) as total_rows FROM " .static::$table ." WHERE user_id = ${id} ";
-        $resultado = self::querySQL($query);
-        return array_shift( $resultado );
+        $result = self::querySQL($query);
+        return array_shift( $result );
+    }
+
+    public function createNote(){
+        $this->content = $this->sanitizeContent();
+
+        $query = "INSERT INTO notes ( user_id, title, content, created_at) VALUES 
+        ('$this->user_id', '$this->title', '$this->content', '$this->created_at')";
+
+        $result = self::$db->query($query);
+        
+        return [
+           'ok' =>  $result,
+           'id' => self::$db->insert_id
+        ];
     }
 
     public static function getRowstoPaginator($userid, $data_array){
@@ -32,6 +46,16 @@ class Notes extends ActiveRecord{
         ";
         $result = self::querySQL($query);
         return $result;
+    }
+
+    public function sanitizeContent() {
+        // Permitir etiquetas específicas
+        $allowed_tags = '<b><i><u><strong><em><h1><h2><ul><ol><li><div>';
+        
+        // Usar strip_tags para eliminar etiquetas no permitidas
+        $sanitized_content = strip_tags($this->content, $allowed_tags);
+        return $sanitized_content;
+        // return htmlentities($sanitized_content, ENT_QUOTES, 'UTF-8');
     }
 
 }
