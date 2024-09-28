@@ -39,9 +39,9 @@ section[active]{display:flex;}
 
 section::-webkit-scrollbar{display: none;}
 
-section#section-home{
+/* section#section-home{
   padding:0;
-}
+} */
 
 
 /* div.toolbar{
@@ -85,12 +85,12 @@ section#section-home{
   section{
     padding-top: calc(env(safe-area-inset-top) + 24px) !important;
   }
-  section#section-home{
+  /* section#section-home{
     padding:8px;
     padding-top: calc(env(safe-area-inset-top) + 8px) !important;
-  }
+  } */
 
   /* not frame rules */
   .special-container{border-radius:32px !important }
-  #section-home{padding:16px; padding-top: calc(env(safe-area-inset-top) + 24px) !important;}
+  /* #section-home{padding:16px; padding-top: calc(env(safe-area-inset-top) + 24px) !important;} */
 }

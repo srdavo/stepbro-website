@@ -10,6 +10,7 @@
 @import url(ui-elements/md-elements.css?v=4); /* Brings the styles for some things of material web components */
 @import url(ui-elements/window-navigation.css?v=1); 
 @import url(ui-elements/theme-selector.css?v=1);
+@import url(ui-elements/editor.css?v=1);
 
 
 :root {
@@ -100,3 +101,12 @@ md-outlined-icon-button.big:hover, md-filled-tonal-icon-button.big:hover{
   width:64px;
 }
 
+h1{
+  font-size:var(--md-sys-typescale-headline-large-font-size);
+}
+h2{
+  font-size:var(--md-sys-typescale-headline-medium-font-size);
+}
+h3{
+  font-size:var(--md-sys-typescale-headline-small-font-size);
+}

@@ -525,3 +525,9 @@ function toggleWSection(wSectionId, originButton){
 
 }
 
+function changeWindow(windowId){
+  toggleWindow();
+  setTimeout(function() {
+    toggleWindow(windowId);
+  },250);
+}

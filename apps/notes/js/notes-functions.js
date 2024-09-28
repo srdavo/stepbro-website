@@ -2,7 +2,7 @@ function syncNotes(){
     displayNotes();
 }
 
-async function createNote(event){
+async function createNote(event, form){
     event.preventDefault();
     const parentId = "#window-create-note";
     if(!checkEmpty(parentId, "input")){return;}
@@ -23,11 +23,12 @@ async function createNote(event){
         toggleButton(parentId, false);
         if (result) {
             if (result.id) {
-                document.getElementById("create-note-content").innerHTML = "";
+                form.querySelector(".editor").innerHTML = "";
+                form.closest(".editor-parent").removeAttribute("active");
                 message("Nota creada", "success");
-
                 syncNotes();
-                toggleWindow();
+                
+                // toggleWindow();
             } else {
                 message(`Hubo un error: ${result.message}`, "error");
             }
@@ -110,4 +111,12 @@ function displayNotesPagination(totalRows, limit, currentPage = 0){
     }
     paginationHTML += `</span>`;
     container.innerHTML = paginationHTML;
+}
+
+function resizeEditor(editor){
+    const editorParent = editor.closest(".editor-parent");
+    editorParent.setAttribute("active", "");
+
+    // editorParent.style.maxWidth = "1000px";
+    // editorParent.style.maxHeight = "100%";
 }

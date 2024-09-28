@@ -34,13 +34,13 @@
             class="simple-container direction-column gap-16 v-margin grow-1"
             >
 
-            <div 
+            <!-- <div 
                 id="create-note-content" 
                 class="editor" 
                 contenteditable="true" 
                 placeholder="Escribe tu nota aquí..." 
                 label = "Nota"
-            ></div>
+            ></div> -->
 <!-- 
             <md-outlined-text-field 
                 id="create-note-content"

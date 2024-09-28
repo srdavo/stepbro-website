@@ -1,8 +1,33 @@
 .editor {
-    border: 1px solid #ccc; /* Borde similar a md-outlined-text-field */
-    border-radius: 8px; /* Esquinas redondeadas */
-    padding: 10px;
-    min-height: 200px; /* Altura mínima */
-    overflow-y: auto; /* Habilitar scroll si es necesario */
-    font-family: Arial, sans-serif; /* Fuente del texto */
-  }
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  box-shadow: 0 1px 0 0 var(--md-sys-color-outline-variant) inset;
+  padding-top: 16px;
+  margin-top: 16px;
+  min-height: 200px;
+  overflow-y: auto;
+  outline: 0px solid transparent;
+  position: relative;
+  cursor: text;
+  font-size:var(--md-sys-typescale-body-large-font-size);
+  color:var(--md-sys-color-on-background);
+}
+
+/* Pseudoelemento para el placeholder */
+.editor:empty::before {
+  content: attr(aria-placeholder);
+ 
+  color: var(--md-sys-color-outline);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.editor-parent[active]{
+  max-width:1000px !important ;
+  max-height:100% !important;
+}
+
+.editor-parent{
+  transition:max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1), max-height 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+}

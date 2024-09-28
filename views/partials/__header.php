@@ -21,12 +21,11 @@ checkSession($cookie_uid);
 <html lang="en">
   <head>
     <title><?php echo $_ENV['APP_NAME'] ?></title>
-    <script> const BASE_URL = "/cocounut-sb/"</script>
+    <script> const BASE_URL = "<?= BASE_URL ?>"</script>
     
 
     <!-- style and themes -->
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
-    <link rel="stylesheet" href="/css/ui-elements/editor.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=15">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">
     <script src="<?= BASE_URL ?>js/theme.js"></script>
