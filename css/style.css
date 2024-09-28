@@ -102,11 +102,14 @@ md-outlined-icon-button.big:hover, md-filled-tonal-icon-button.big:hover{
 }
 
 h1{
-  font-size:var(--md-sys-typescale-headline-large-font-size);
+  font-size:var(--md-sys-typescale-headline-large-font-size) !important;
+  line-height:48px !important;
 }
 h2{
-  font-size:var(--md-sys-typescale-headline-medium-font-size);
+  font-size:var(--md-sys-typescale-headline-medium-font-size) !important;
+  line-height:40px !important;
 }
 h3{
-  font-size:var(--md-sys-typescale-headline-small-font-size);
+  font-size:var(--md-sys-typescale-headline-small-font-size) !important;
+  line-height:32px !important;
 }
