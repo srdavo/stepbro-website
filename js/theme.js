@@ -31,3 +31,39 @@ function loadTheme(){
 }
 
 loadTheme();
+
+
+function changeNav(originButton){
+    if(originButton === undefined){return;}
+    newNav = originButton.getAttribute('data-nav-option');
+    
+    const navParent = document.getElementById("nav-parent")
+    if(navParent){
+        navParent.className = `nav-style-${newNav}`;
+    }
+
+    const navSelectorParent = document.getElementById("nav-selector-parent");
+    navSelectorParent.querySelector("div[active]").removeAttribute("active");
+    originButton.setAttribute("active", "");
+
+    localStorage.setItem('sb-selected-nav', newNav);
+}
+function loadNav(){
+    newNav = localStorage.getItem('sb-selected-nav') || "1";
+    
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const navParent = document.getElementById("nav-parent")
+        if(navParent){
+            navParent.className = `nav-style-${newNav}`;
+        }
+
+        const navSelectorParent = document.getElementById("nav-selector-parent");
+        navSelectorParent.querySelector("div[active]").removeAttribute("active");
+
+        const activeButton = navSelectorParent.querySelector(`div[data-nav-option="${newNav}"]`);
+        activeButton.setAttribute("active", "");
+
+    }, {once:true });
+}
+
+loadNav();

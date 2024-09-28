@@ -169,6 +169,44 @@
                             <span class="body-medium">Restablecer tema</span>
                         </div>
                     </div>
+                    <div class="simple-container direction-column gap-16">
+                        <div class="simple-container gpa-8 direction-column">
+                            <span class="headline-small">Navegación</span>
+                            <span class="body-large on-surface-variant-text">Elige el estilo de navegación que más te guste </span>
+                        </div>
+                        <div class="simple-container nav-selector-parent" id="nav-selector-parent">
+                            <div 
+                                class="nav-option" 
+                                data-nav-option="1"
+                                onclick="changeNav(this)"
+                                >
+                                <md-ripple></md-ripple>
+                                Clásica
+                            </div>
+                            <div 
+                                class="nav-option"
+                                data-nav-option="2"
+                                onclick="changeNav(this)" 
+                                active
+                                >
+                                <md-ripple></md-ripple>
+                                Moderna
+                            </div>
+                            <div 
+                                class="nav-option"
+                                data-nav-option="3"
+                                onclick="changeNav(this)"
+                                >
+                                <md-ripple></md-ripple>
+                                Dock
+                            </div>
+                        </div>
+                        <div class="simple-container">
+                            <span class="label-large outline-text">
+                                Los cambios solo se verán reflejados dentro de una Stepbro App
+                            </span>
+                        </div>
+                    </div>
                     
                 </div>
             </div>
