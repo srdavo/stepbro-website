@@ -32,7 +32,7 @@
   >
   <md-ripple></md-ripple>
   <span class="icon-holder" >
-    <span class="material-symbols-rounded">folder</span>
+    <span class="material-symbols-rounded">folder_open</span>
   </span>
   <span>Mis notas</span>
 </button>

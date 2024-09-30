@@ -87,7 +87,7 @@ async function displayNotes(page = 0){
 
     container.innerHTML = `
         ${result.data.map(note => `
-            
+            ${console.log(note.content)}
             <div class="content-box">
                 ${note.content.replace(/\n/g, '<br>')}
             </div>
