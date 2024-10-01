@@ -1,11 +1,17 @@
+#main-folders-parents-container::-webkit-scrollbar {display:none !important;}
+
 .folders-parent{
     display:flex;
+    flex-direction: column;
     justify-content:space-between; 
-    flex-wrap: wrap;
-    gap:0;
+    gap:24px;
     max-width: 276px;
     transition: max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+    overflow: hidden;
 }
+/* .folders-parent:not([reduced]):not([openning]):not([closing]){
+        min-width: 228px;
+} */
 /* .folders-parent:not([reduced]){
     animation: foldersParentAnimationIn 0.7s cubic-bezier(0.1, 0.8, 0, 1);
 } */
@@ -14,6 +20,9 @@
 }
 .folders-parent[closing]{
     animation: foldersParentAnimationOut 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+}
+.folders-parent[reduced][closing]{
+    animation: foldersParentReducedAnimationOut 0.7s cubic-bezier(0.1, 0.8, 0, 1);
 }
 @keyframes foldersParentAnimationIn {
     0% {
@@ -36,12 +45,53 @@
         opacity:0;
     }
 }
-
-.folders-list{
-    display:flex;
-    flex-direction:column;
+@keyframes foldersParentReducedAnimationOut {
+    0% {
+        max-width: 88px;
+        opacity:1;
+    }
+    100% {
+        max-width: 0px;
+        padding:0;
+        margin:-4px;
+        overflow:hidden;
+        opacity:0;
+    }
 }
 
+.folders-list{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    overflow: auto;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+.folders-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.folders-list::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.folders-list::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-surface-container-high);
+    border-radius: 10px;
+}
+.folders-list::-webkit-scrollbar-thumb:hover{
+    background: var(--md-sys-color-surface-container-highest)
+}
+
+/* .folders-list::after {
+    content: '';
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 16px; 
+    background: linear-gradient(to top, #0000000D, #00000000)
+} */
 
 .folder{
     position:relative;
@@ -53,6 +103,7 @@
 
     max-width:180px;
     padding:8px 24px;
+    min-height: 24px;
     
     color:var(--md-sys-color-on-background);
     border-radius:16px;
@@ -63,6 +114,7 @@
         padding 0.7s cubic-bezier(0.1, 0.8, 0, 1),
         background 0.3s cubic-bezier(0.4, 0, 0.2, 1)
     ;
+    transform-origin:top;
 }
 .folder span:last-child{
     overflow: hidden;
@@ -78,14 +130,19 @@
 .folders-parent[reduced]{
     max-width:88px;
 }
+.folders-parent[reduced]:not(:hover) .folders-list::-webkit-scrollbar {display:none !important;}
 
 .folders-parent[reduced] .folder {
     max-width: 24px;
     padding:8px; 
     border-radius:24px;
 }
+.folders-parent[reduced] .folder span:last-child{
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 .folders-parent[reduced] .folder span:last-child{ 
-    visibility: hidden;
+    /* visibility: hidden; */
+    opacity: 0;
 }
 
 .folders-parent[reduced]:hover{
@@ -98,7 +155,24 @@
     padding:8px 24px;
 }
 .folders-parent[reduced]:hover .folder span:last-child{
-    visibility: visible;
+    /* visibility: visible; */
+    opacity: 1;
 }
 
 
+@keyframes folderAnimationIn {
+    0% {
+        opacity: 0;
+        transform:translateY(300%) scaleY(0) scaleX(0);
+        /* background:var(--md-sys-color-primary); */
+        /* color:var(--md-sys-color-on-primary); */
+    }
+    100% {
+        opacity: 1;
+        transform:translateX(0) scaleY(1) scaleX(1);
+        background:transparent;
+    }
+}
+.folder[openning]{
+    animation: folderAnimationIn 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+}

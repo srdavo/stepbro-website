@@ -17,7 +17,10 @@ include_once '../../config/utilities.php';
         <md-icon slot="icon">content_cut</md-icon>
       </md-fab>
     </div> -->
-    <?php include_once 'views/sections.php'; include_once 'views/modals/dialogs.php'; ?>  
+    <?php 
+      include_once 'views/sections.php'; 
+      include_once 'views/modals/dialogs.php'; 
+      ?>  
   </holder>
 </main>
 

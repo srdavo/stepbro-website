@@ -7,7 +7,7 @@
         </md-outlined-button>
     </div>
 
-    <div class="simple-container gap-8 grow-1" id="main-folders-parents-container">
+    <div class="simple-container gap-8 grow-1 overflow-auto" id="main-folders-parents-container">
         <div
             id="main-folders-container" 
             class="content-box light-color folders-parent"
@@ -58,3 +58,30 @@
     </div> -->
 
 </section>
+
+<template id="template-folders-parent">
+    <div class="content-box light-color folders-parent">    
+        <div class="folders-list grow-1"></div>
+        <div class="folders-list height-max-content">
+            <div class="folder" onclick="removeSingleFolderParent(this)">
+                <md-ripple></md-ripple>
+                <md-icon>close</md-icon>
+                <span>Cerrar carpeta</span>
+            </div>
+            <div 
+                class="folder" 
+                onclick="createFolderFromFolder(this)"
+                data-flip-id="animate"
+                >
+                <md-ripple></md-ripple>
+                <md-icon>create_new_folder</md-icon>
+                <span>Crear carpeta</span>
+            </div>
+            <div class="folder">
+                <md-ripple></md-ripple>
+                <md-icon>edit_square</md-icon>
+                <span>Crear nota</span>
+            </div>
+        </div>
+    </div>
+</template>

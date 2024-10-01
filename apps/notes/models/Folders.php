@@ -28,8 +28,11 @@ class Folders extends ActiveRecord{
     }
 
     public function getFolders($data_array){
-        $query = "SELECT * FROM folders
-            WHERE user_id = $data_array[user_id] ORDER BY id DESC LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}
+        $query = "SELECT f.* FROM folders f
+            LEFT JOIN folder_relations fr
+                ON f.id = fr.item_id AND fr.item_type = 'folder'
+            WHERE fr.item_id IS NULL AND
+            f.user_id = $data_array[user_id] ORDER BY id DESC LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}
         ";
         $result = self::querySQL($query);
         return $result;

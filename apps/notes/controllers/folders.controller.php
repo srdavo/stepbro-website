@@ -17,8 +17,40 @@ switch ($data["op"]){
         ];
         $folder = new Folders($data_array);
         $result =  $folder->createFolder();
-        echo json_encode($result);
+        if(!$result["success"]){
+            $response = [
+                'success' => false,
+                'message' => "Error creating folder"
+            ];
+            echo json_encode($response);
+            exit;
+        }
 
+        if($data["parent_folder_id"] && $data["parent_folder_id"] != 0){
+            require_once("../models/Relations.php");
+            $Relations = new Relations();
+            $relation_data = [
+                "folder_id" => $data["parent_folder_id"],
+                "item_id" => $result["id"],
+                "item_type" => "folder",
+                "user_id" => $userid
+            ];
+            $create_relation = $Relations->createRelation($relation_data);
+            if(!$create_relation){
+                $response = [
+                    'success' => false,
+                    'message' => "Error creating relation"
+                ];
+            }else{
+                $response = [
+                    'success' => true,
+                    'message' => "Folder created successfully",
+                    'id' => $result["id"]
+                ];
+            }
+            echo json_encode($response);
+            exit;
+        }
         break;
     case "get_folders":
         $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);

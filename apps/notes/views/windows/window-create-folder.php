@@ -17,7 +17,7 @@
 
         <form 
             id="create-folder-form" 
-            onsubmit="createFolder(event, this)"
+            onsubmit="createFolder(event)"
             class="simple-container direction-column gap-16 v-margin grow-1"
             >
             <md-outlined-text-field 
@@ -25,7 +25,13 @@
                 label = "Nombre de la carpeta"
             ></md-outlined-text-field>
             <div class="simple-container justify-right">
-                <md-filled-button type="submit">Crear</md-filled-button>
+                <md-filled-button 
+                    type="submit"
+                    id="button-create-folder"
+                    data-parent-folder-id=""
+                    >
+                    Crear
+                </md-filled-button>
             </div>
         </form>
 

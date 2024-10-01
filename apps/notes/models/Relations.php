@@ -23,7 +23,6 @@ class Relations extends ActiveRecord{
         $this->created_at = $args["created_at"] ?? date('Y-m-d H:i:s');
     }
 
-    // Método para obtener el contenido de una carpeta
     public function getFolderContent($data_array) {
         // Escapar las variables para prevenir inyecciones SQL
         $folder_id = self::escape($data_array['folder_id']);
@@ -81,5 +80,16 @@ class Relations extends ActiveRecord{
     private static function escape($value) {
         // Aquí puedes utilizar la función de escape de tu framework o base de datos (ej. mysqli_real_escape_string)
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+
+    public function createRelation($data_array){
+        $query = "INSERT INTO folder_relations ( user_id, folder_id, item_id, item_type, created_at) VALUES 
+        ('$data_array[user_id]', '$data_array[folder_id]', '$data_array[item_id]', '$data_array[item_type]', '$this->created_at')";
+        $result = self::$db->query($query);
+
+        return [
+            'success' =>  $result,
+            'id' => self::$db->insert_id
+        ];
     }
 }
