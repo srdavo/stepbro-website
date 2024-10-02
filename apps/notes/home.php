@@ -17,17 +17,22 @@ include_once '../../config/utilities.php';
         <md-icon slot="icon">content_cut</md-icon>
       </md-fab>
     </div> -->
-    <?php include_once 'views/sections.php'; include_once 'views/modals/dialogs.php'; ?>  
+    <?php 
+      include_once 'views/sections.php'; 
+      include_once 'views/modals/dialogs.php'; 
+      ?>  
   </holder>
 </main>
 
 <script src="js/notes-functions.js"></script>
+<script src="js/folders-functions.js"></script>
 <script src="js/rich-text.js"></script>
 
 <script>
   
   document.addEventListener("DOMContentLoaded", function(event) {
-    syncNotes();
+    // syncNotes();
+      syncFolders();
   });
 </script>
 

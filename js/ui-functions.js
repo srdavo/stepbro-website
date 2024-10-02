@@ -397,12 +397,13 @@ function toggleTab(windowId, tabId, workHidden){
 //   const template = document.getElementById(templateId);
 
 // }
-function applyAnimation(state, target){
+function applyAnimation(state, target, scale = true){
   let timeline = Flip.from(state, {
     ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
     targets: target,
+    duration: 0.7,
     absolute:false,
-    scale:true,
+    scale:scale,
     simple:true,
   })
   timeline.play();

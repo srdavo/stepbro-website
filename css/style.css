@@ -11,6 +11,7 @@
 @import url(ui-elements/window-navigation.css?v=1); 
 @import url(ui-elements/theme-selector.css?v=1);
 @import url(ui-elements/editor.css?v=1);
+@import url(ui-elements/folder-files.css?v=1);
 
 
 :root {
