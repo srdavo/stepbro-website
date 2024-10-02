@@ -7,7 +7,6 @@ async function createFolder(event, originFolderId = 0){
     const parentId = "#window-create-folder";
     if(!checkEmpty(parentId, "input")){return;}
     toggleButton(parentId, true);
-    console.log(originFolderId);
 
     const data = {
         op: "create_folder",
@@ -39,6 +38,10 @@ async function createFolder(event, originFolderId = 0){
         message("Error: " + error.message, "error");
     }
 }
+function toggleCreateFolderWindow(){
+    toggleWindow("#window-create-folder");
+    document.getElementById("create-folder-form").onsubmit = function(event){ createFolder(event); }
+}
 function createFolderFromFolder(originButton){
     // this function is for creating a folder but inside another folder, this means that the button that triggers this function is inside a folder
     if(!originButton){return;}
@@ -49,9 +52,13 @@ function createFolderFromFolder(originButton){
     toggleWindow("#window-create-folder");
     document.getElementById("create-folder-form").onsubmit = function(event){ createFolder(event, originFolderId); }
 }
-function createUiFolder(data, originFolderId){
-    const activeFolder = document.querySelector(`#main-folders-parents-container .folder[data-folder-id="${originFolderId}"]`);
-    var newFolderParent = activeFolder.closest(".folders-parent").nextElementSibling;
+function createUiFolder(data, originFolderId = 0){
+    if(originFolderId == 0){
+        newFolderParent = document.getElementById("main-folders-container");
+    }else{
+        const activeFolder = document.querySelector(`#main-folders-parents-container .folder[data-folder-id="${originFolderId}"]`);
+        var newFolderParent = activeFolder.closest(".folders-parent").nextElementSibling;
+    }
     if(!newFolderParent || !newFolderParent.classList.contains("folders-parent")){return false;}
 
     const newFolder = document.createElement("div");
@@ -59,7 +66,7 @@ function createUiFolder(data, originFolderId){
     newFolder.setAttribute("data-folder-id", data.id);
     newFolder.innerHTML = `
         <md-ripple></md-ripple>
-        <md-icon>folder</md-icon>
+        <md-icon class="primary-text">folder</md-icon>
         <span>${data.folder_name}</span>
     `;
     newFolder.onclick  = function() {displayFolderContent(data.id, this)};
@@ -96,8 +103,15 @@ function createUiFolder(data, originFolderId){
         </div>
     `;
     }else{
-        newFolderParent.querySelector(".folders-list").appendChild(newFolder);
-        newFolderParent.querySelector(".folders-list").scrollTop = newFolderParent.querySelector(".folders-list").scrollHeight;
+        const foldersList = newFolderParent.querySelector(".folders-list");
+        const folders = foldersList.querySelectorAll('.folder[data-folder-id]');
+        const lastFolder = folders[folders.length - 1];
+        if (lastFolder) {
+            lastFolder.insertAdjacentElement('afterend', newFolder);
+        } else {
+            foldersList.appendChild(newFolder);
+        }
+        newFolder.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
 }
@@ -138,17 +152,25 @@ async function displayFolderList(page = 0){
 
     const container = document.getElementById("main-folders-container").querySelector(".folders-list");
     container.innerHTML = `
-        ${result.data.map(folder => `
-            <div
-                onclick="displayFolderContent(${folder.id}, this)" 
-                data-folder-id="${folder.id}"
-                class="folder"
-                >
-                <md-ripple></md-ripple>
-                <md-icon>folder</md-icon>
-                <span>${folder.folder_name}</span>
-            </div>
-        `).join("")}
+        ${result.data.map(item => {
+            itemName = item.item_type == "folder" ? item.item_name.replace(/<\/?[^>]+(>|$)/g, "") : item.item_content.replace(/<\/?[^>]+(>|$)/g, "");
+            icon = item.item_type === "folder" ? "folder" : "notes";
+            iconClass = item.item_type === "folder" ? "primary-text" : "";
+            functionToCall = item.item_type === "folder" ? "displayFolderContent" : "displayNoteContent";
+
+            return `
+                <div
+                    onclick="${functionToCall}(${item.id}, this)" 
+                    data-${item.item_type}-id="${item.id}"
+                    data-item-type = "${item.item_type}"
+                    class="folder"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon class="${iconClass}">${icon}</md-icon>
+                    <span>${itemName}</span>
+                </div>
+            `
+        }).join("")}
     `;
 
 }
@@ -213,7 +235,7 @@ function displayFolderContentList(data, originButton){
                     class="folder"
                     >
                     <md-ripple></md-ripple>
-                    <md-icon>${folder.item_type === "folder" ? "folder" : "article"}</md-icon>
+                    <md-icon class="primary-text">${folder.item_type === "folder" ? "folder" : "article"}</md-icon>
                     <span>${sanitizedTitle}</span>
                 </div>
             `;

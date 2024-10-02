@@ -6,8 +6,11 @@ class Folders extends ActiveRecord{
 
     public $id;
     public $user_id;
-    public $folder_name;
+    public $item_name;
     public $created_at;
+
+    public $item_type;
+    public $item_content;
 
     public function __construct($args = []) {
         $this->id = $args["id"] ?? NULL;
@@ -28,11 +31,35 @@ class Folders extends ActiveRecord{
     }
 
     public function getFolders($data_array){
-        $query = "SELECT f.* FROM folders f
-            LEFT JOIN folder_relations fr
-                ON f.id = fr.item_id AND fr.item_type = 'folder'
-            WHERE fr.item_id IS NULL AND
-            f.user_id = $data_array[user_id] ORDER BY id DESC LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}
+        $query = "SELECT 
+                f.id AS id,
+                'folder' AS item_type,
+                f.folder_name AS item_name,
+                NULL AS item_content, 
+                f.created_at AS created_at
+            FROM 
+                folders f
+            LEFT JOIN 
+                folder_relations fr ON fr.item_id = f.id AND fr.item_type = 'folder'
+            WHERE 
+                fr.id IS NULL 
+                AND f.user_id = '$data_array[user_id]'
+
+            UNION
+            SELECT 
+                n.id AS id,
+                'note' AS item_type,
+                n.title AS item_name,
+                n.content AS item_content,
+                n.created_at AS created_at
+            FROM 
+                notes n
+            LEFT JOIN 
+                folder_relations fr ON fr.item_id = n.id AND fr.item_type = 'note'
+            WHERE 
+                fr.id IS NULL 
+                AND n.user_id = '$data_array[user_id]'
+
         ";
         $result = self::querySQL($query);
         return $result;

@@ -1,7 +1,7 @@
 <section id="section-notes">
     <div class="simple-container justify-between">
         <span class="headline-large">Notas</span>
-        <md-outlined-button onclick="toggleWindow('#window-create-folder')" data-flip-id="animate">
+        <md-outlined-button onclick="toggleCreateFolderWindow()" data-flip-id="animate">
             <md-icon slot="icon">add</md-icon>
             <span>Crear carpeta</span>
         </md-outlined-button>
@@ -12,7 +12,7 @@
             id="main-folders-container" 
             class="content-box light-color folders-parent"
             >
-            <div class="folders-list">
+            <div class="folders-list grow-1">
                 <div class="folder" active>
                     <md-ripple></md-ripple>
                     <md-icon>folder</md-icon>
@@ -34,8 +34,12 @@
                     <span>Luis David Elizarraraz Mondaca</span>
                 </div>
             </div>
-            <div class="simple-container direction-column">
-                <div class="folder">
+            <div class="simple-container direction-column folders-list height-max-content">
+                <div 
+                    class="folder" 
+                    data-flip-id="animate"
+                    onclick="toggleCreateFolderWindow()"
+                    >
                     <md-ripple></md-ripple>
                     <md-icon>create_new_folder</md-icon>
                     <span>Crear carpeta</span>

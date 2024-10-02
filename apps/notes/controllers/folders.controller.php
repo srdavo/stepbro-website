@@ -50,6 +50,14 @@ switch ($data["op"]){
             }
             echo json_encode($response);
             exit;
+        }else{
+            $response = [
+                'success' => true,
+                'message' => "Folder created successfully",
+                'id' => $result["id"]
+            ];
+            echo json_encode($response);
+            exit;
         }
         break;
     case "get_folders":
