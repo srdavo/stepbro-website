@@ -26,7 +26,6 @@ checkSession($cookie_uid);
 
     <!-- style and themes -->
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
-    <link rel="stylesheet" href="/css/ui-elements/editor.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=15">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>

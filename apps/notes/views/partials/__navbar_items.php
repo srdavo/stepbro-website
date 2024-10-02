@@ -32,9 +32,45 @@
   >
   <md-ripple></md-ripple>
   <span class="icon-holder" >
-    <span class="material-symbols-rounded">edit_square</span>
+    <span class="material-symbols-rounded">folder_open</span>
   </span>
-  <span>Notas</span>
+  <span>Mis notas</span>
+</button>
+
+<button 
+  class="nav-button"  
+  data-section="section-notes" 
+  onclick="toggleSection('section-notes')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">local_library</span>
+  </span>
+  <span>Lecturas</span>
+</button>
+
+<button 
+  class="nav-button"  
+  data-section="section-notes" 
+  onclick="toggleSection('section-notes')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">playlist_add_check</span>
+  </span>
+  <span>To do</span>
+</button>
+
+<button 
+  class="nav-button"  
+  data-section="section-notes" 
+  onclick="toggleSection('section-notes')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">book_4</span>
+  </span>
+  <span>Diario</span>
 </button>
 
 
