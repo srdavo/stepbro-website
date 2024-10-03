@@ -136,7 +136,6 @@ async function getNoteContent(noteId){
         if (response.ok) {
             const result = await response.json();
             if(result.success){ 
-                console.log(result);
                 return result;
             } else { 
                 message(`Hubo un error: ${result.message}`, "error"); 
@@ -148,3 +147,62 @@ async function getNoteContent(noteId){
         message("Error: " + error.message, "error");
     }
 }
+
+
+async function displayNoteContent(noteId, originButton){
+
+    // 1. Manage the visually active button from the folders list
+    if(!manageActiveFolderSelector(originButton)){return;}
+
+    // 2. Get the note content from DB
+    const note = await getNoteContent(noteId);
+    if(!note){return;}
+
+    // 3. 
+    setNoteEditorContent(note);
+
+    const currentFoldersParent = originButton.closest(".folders-parent");
+    removeFoldersParent(currentFoldersParent);
+    manageReducedFoldersParent(currentFoldersParent);
+
+    reduceAllFoldersParent();
+}
+function setNoteEditorContent(note){
+    const container = document.getElementById("folders-note-parent");
+    container.innerHTML = "";
+    const noteEditor = document.getElementById("template-note-editor").content.cloneNode(true);  
+    noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;    
+    container.appendChild(noteEditor);
+}
+
+
+
+function setNoteDefaultView(){
+    const container = document.getElementById("folders-note-parent");
+    if(container.querySelector("[data-default-view]") && !(container.querySelector("[data-default-view]").nextElementSibling)){ return; }
+    const noteDefaultView = document.getElementById("template-note-default-view").content.cloneNode(true);
+    container.innerHTML = "";
+    container.appendChild(noteDefaultView);
+}
+function checkNoteEditorContent(){
+    const container = document.getElementById("folders-note-parent");
+    if(container.querySelector("[data-default-view]")){ return false; }else{ return true; }
+}
+function closeNoteEditor(originButton){
+    removeActiveFolderSelector(originButton)
+    const container = document.getElementById("folders-note-parent");
+    container.innerHTML = "";
+    setNoteDefaultView();
+
+    const currentFoldersParent = document.getElementById("folders-note-parent");
+    removeFoldersParent(currentFoldersParent);
+    manageReducedFoldersParent(currentFoldersParent);
+}
+
+// function manageNoteParentContent(){
+//     const container = document.getElementById("folders-note-parent");
+
+//     // const noteDefaultView = document.getElementById("template-note-default-view").content.cloneNode(true);
+//     // container.innerHTML = "";
+//     // container.appendChild(noteDefaultView);
+// }

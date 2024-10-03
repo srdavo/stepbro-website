@@ -75,7 +75,6 @@ function createUiFolder(data, originFolderId = 0){
 
 
     if(newFolderParent.querySelectorAll(".folders-list").length < 2){
-        console.log("Carpeta previamente vacía");
         newFolderParent.innerHTML = `
         <div class="folders-list grow-1">
             ${newFolder.outerHTML}
@@ -132,7 +131,6 @@ async function getFolders(page = 0){
         if (response.ok) {
             const result = await response.json();
             if(result.success){ 
-                console.log(result);
                 return result;
             } else { 
                 message(`Hubo un error: ${result.message}`, "error"); 
@@ -214,8 +212,11 @@ async function displayFolderContent(folderId, originButton){
     const result = await getFolderContent(folderId);
     if(!result.success){return;}
 
-    manageFoldersParent((result.data.length), originButton);
+    manageFoldersParent(originButton);
     displayFolderContentList(result.data, originButton);
+
+    // if there vas a note opened, when you open a folder it will close the note
+    setNoteDefaultView();
 }
 
 function displayFolderContentList(data, originButton){
@@ -225,17 +226,20 @@ function displayFolderContentList(data, originButton){
     newFoldersList.innerHTML = `
         ${data.map(folder => {
             const itemTitle = folder.item_type === "folder" ? folder.item_title : folder.item_content;
-            const sanitizedTitle = itemTitle;
+            const sanitizedTitle = itemTitle.replace(/<\/?[^>]+(>|$)/g, "");
             functionToCall = folder.item_type === "folder" ? "displayFolderContent" : "displayNoteContent";
+            iconClass = folder.item_type === "folder" ? "primary-text" : "";
+
 
             return `
                 <div
                     onclick="${functionToCall}(${folder.item_id}, this)" 
-                    data-folder-id="${folder.item_id}"
+                    
+                    data-${folder.item_type}-id="${folder.item_id}"
                     class="folder"
                     >
                     <md-ripple></md-ripple>
-                    <md-icon class="primary-text">${folder.item_type === "folder" ? "folder" : "article"}</md-icon>
+                    <md-icon class="${iconClass}">${folder.item_type === "folder" ? "folder" : "article"}</md-icon>
                     <span>${sanitizedTitle}</span>
                 </div>
             `;
@@ -243,23 +247,13 @@ function displayFolderContentList(data, originButton){
     `;
 }
 
-function manageFoldersParent(dataLength = 0, originButton){ // this column will manage the amount of "columns" to display folders exists
+function manageFoldersParent(originButton){ // this column will manage the amount of "columns" to display folders exists
     const currentFoldersParent = originButton.closest(".folders-parent");
-
-    // this removes the current column if there are no folders to display
-    // if (dataLength <= 0) {
-    //     totalFoldersParent = countTotalFoldersParent(currentFoldersParent);
-    //     removeFoldersParent(currentFoldersParent);
-    //     createFoldersParent(currentFoldersParent, totalFoldersParent);
-    // }
-
-        var totalFoldersParent = countTotalFoldersParent(currentFoldersParent);
-        var isNextSiblingReduced =  (currentFoldersParent.nextElementSibling.hasAttribute("reduced")) ? true : false;
-        removeFoldersParent(currentFoldersParent);
-        createFoldersParent(currentFoldersParent, totalFoldersParent ,isNextSiblingReduced);
-    // }
-
-    manageReducedFoldersParent(currentFoldersParent);
+    var totalFoldersParent = countTotalFoldersParent(currentFoldersParent);
+    var isNextSiblingReduced =  (currentFoldersParent.nextElementSibling.hasAttribute("reduced")) ? true : false;
+    removeFoldersParent(currentFoldersParent);
+    createFoldersParent(currentFoldersParent, totalFoldersParent ,isNextSiblingReduced);
+    manageReducedFoldersParent();
 }
 function removeFoldersParent(currentFoldersParent) {
     let currentFoldersParentNextSibling = currentFoldersParent.nextSibling;
@@ -275,10 +269,17 @@ function removeFoldersParent(currentFoldersParent) {
 
         if (folderToRemove.classList && folderToRemove.classList.contains("folders-parent")) {
             if (isFirstIteration) {
-                // En la primera iteración eliminamos directamente
-                folderToRemove.remove();
-                count++;
-                isFirstIteration = false; // A partir de ahora ya no es la primera iteración
+                if(!currentFoldersParent.querySelector(".folder[active]").hasAttribute("data-note-id")){
+                    folderToRemove.remove();                    
+                }else{
+                    folderToRemove.setAttribute("closing", "");
+                    folderToRemove.addEventListener("animationend", () => { 
+                        folderToRemove.remove(); 
+                        count++; 
+                    }, {once: true});
+                }
+                count ++;
+                isFirstIteration = false;
             } else {
                 // En las siguientes iteraciones, añadimos el atributo "closing" y esperamos la animación
                 folderToRemove.setAttribute("closing", "");
@@ -299,7 +300,7 @@ function removeFoldersParent(currentFoldersParent) {
     //     applyAnimation(state, `.note-parent`);
     // }
 
-    console.log(`Deleted ${count} folders-parent elements.`);
+    // console.log(`Deleted ${count} folders-parent elements.`);
     return count;
 }
 
@@ -310,7 +311,7 @@ function createFoldersParent(currentFoldersParent, totalFoldersParent = 1, isNex
     insertNewFoldersParent = () => { currentFoldersParent.parentNode.insertBefore(newFoldersParent, currentFoldersParent.nextSibling); }
     
     if(totalFoldersParent < 1 || isNextSiblingReduced){
-        console.log("Cumple los requisitos para usar animacion")
+        // console.log("Cumple los requisitos para usar animacion")
         newFoldersParent.setAttribute("openning", "");
         newFoldersParent.addEventListener("animationend", () =>{newFoldersParent.removeAttribute("openning")}, {once: true})
     }else{
@@ -320,7 +321,7 @@ function createFoldersParent(currentFoldersParent, totalFoldersParent = 1, isNex
     
     if((countTotalFoldersParent())+1 > 3){
         // only use flip if theres gonna be a reduction in one of the columns
-        console.log("Cumple con requisitos para usar flip")
+        // console.log("Cumple con requisitos para usar flip")
         state = Flip.getState(`.note-parent`);
         insertNewFoldersParent();
         applyAnimation(state, `.note-parent`);
@@ -330,7 +331,7 @@ function createFoldersParent(currentFoldersParent, totalFoldersParent = 1, isNex
 
     insertNewFoldersParent();
 }
-function manageReducedFoldersParent(currentFoldersParent){  
+function manageReducedFoldersParent(reduceAll = false){  
     // const mainParent = currentFoldersParent.parentElement;
     const mainParent = document.getElementById("main-folders-parents-container");
     const foldersParents = mainParent.querySelectorAll('.folders-parent:not([closing])');
@@ -368,6 +369,16 @@ function countTotalFoldersParent(currentFoldersParent = false){
 
     return foldersParentCount;
 }
+function reduceAllFoldersParent(){
+    const mainParent = document.getElementById("main-folders-parents-container");
+    const foldersParents = mainParent.querySelectorAll('.folders-parent:not([closing])');
+    const foldersParentCount = foldersParents.length;
+
+    for (let i = 0; i < foldersParentCount - 1; i++) {
+        foldersParents[i].setAttribute('reduced', '');
+    }
+    foldersParents[foldersParentCount - 1].removeAttribute('reduced');
+}
 
 function removeSingleFolderParent(originButton){
     const currentFoldersParent = originButton.closest(".folders-parent");
@@ -390,8 +401,8 @@ function removeSingleFolderParent(originButton){
     currentFoldersParent.setAttribute("closing", "");
     currentFoldersParent.addEventListener("animationend", () => {currentFoldersParent.remove(); }, {once: true});
     
-    manageReducedFoldersParent(currentFoldersParent);
-    
+    manageReducedFoldersParent();
+    setNoteDefaultView();
 }
 
 function manageActiveFolderSelector(originButton){
@@ -404,7 +415,37 @@ function manageActiveFolderSelector(originButton){
     originButton.setAttribute("active", "");
     return true;
 }
+function removeActiveFolderSelector(originButton){
 
-function displayNoteContent(){
-    message("Esto debería abir una nota")
+    const activeButton = originButton.closest(".note-parent").previousElementSibling.querySelector(".folder[active]")
+    if(activeButton){
+        activeButton.removeAttribute("active");
+    }
+    return true;
+
 }
+
+function changeFoldersView(originButton = false){
+    if(!originButton){return};
+    const viewSelectorParent = originButton.parentElement;
+    viewSelectorParent.querySelector("[active]").removeAttribute("active");
+    originButton.setAttribute("active", "");
+
+    viewType = originButton.getAttribute("data-folders-view-type");
+    const mainFoldersParent = document.getElementById("main-folders-parents-container");
+    viewClass = (viewType === "grid") ? "view-grid" : "";
+    mainFoldersParent.classList.remove("view-grid");
+    if(viewClass){ mainFoldersParent.classList.add(viewClass); }
+
+    localStorage.setItem('sb-notes-selected-folders-view', viewType);
+}
+function loadFoldersView(){
+    newView = localStorage.getItem('sb-notes-selected-folders-view') || "grid";
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const activeButton = document.querySelector(`#folders-view-selector-parent [data-folders-view-type="${newView}"]`);
+        changeFoldersView(activeButton);
+    }, {once:true });
+   
+}
+loadFoldersView();

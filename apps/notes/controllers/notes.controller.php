@@ -41,6 +41,17 @@ switch ($data["op"]){
         echo json_encode($response);
         
         break;
+    case "get_note_content":
+        $data_array = [
+            "note_id" => $data["note_id"],
+            "user_id" => $userid
+        ];
+
+        $note = $Notes->getNoteContent($data_array);
+        echo json_encode($note);
+
+
+        break;
     default:
         $response = [
             "success" => false,

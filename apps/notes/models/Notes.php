@@ -58,4 +58,13 @@ class Notes extends ActiveRecord{
         // return htmlentities($sanitized_content, ENT_QUOTES, 'UTF-8');
     }
 
+    public function getNoteContent($data_array){
+        $query = "SELECT * FROM notes WHERE id = {$data_array["note_id"]} AND user_id = {$data_array["user_id"]}";
+        $result = self::querySQL($query);
+        return [
+            "success" => true,
+            "data" => $result
+        ];
+    }
+
 }

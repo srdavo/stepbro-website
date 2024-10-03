@@ -1,10 +1,35 @@
 <section id="section-notes">
     <div class="simple-container justify-between">
-        <span class="headline-large">Notas</span>
-        <md-outlined-button onclick="toggleCreateFolderWindow()" data-flip-id="animate">
-            <md-icon slot="icon">add</md-icon>
-            <span>Crear carpeta</span>
-        </md-outlined-button>
+        <div class="simple-container">
+            <span class="headline-large">Notas</span>
+        </div>
+        <div class="simple-container gap-16">
+            <div class="simple-container hide-on-mobile" id="folders-view-selector-parent">
+                <span 
+                    class="view-selector" 
+                    data-folders-view-type="column" 
+                    onclick="changeFoldersView(this)"
+                    active
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>view_column</md-icon>
+                </span>
+                <span 
+                    class="view-selector" 
+                    data-folders-view-type="grid" 
+                    onclick="changeFoldersView(this)"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>grid_view</md-icon>
+                </span>
+            </div>
+
+            <md-outlined-button onclick="toggleCreateFolderWindow()" data-flip-id="animate">
+                <md-icon slot="icon">add</md-icon>
+                <span>Crear carpeta</span>
+            </md-outlined-button>
+        </div>
+        
     </div>
 
     <div class="simple-container gap-8 grow-1 overflow-auto" id="main-folders-parents-container">
@@ -47,8 +72,11 @@
             </div>
         </div>
         
-        <div class="content-box grow-1 align-center justify-center note-parent">
-            <div class="simple-container align-center direction-column gap-8">
+        <div
+            id="folders-note-parent" 
+            class="content-box grow-1 note-parent"
+            >
+            <div class="simple-container justify-center align-center grow-1 direction-column gap-8" data-default-view>
                 <md-icon class="pretty">folder_open</md-icon>
                 <span class="body-large bricolage weight-500">Selecciona una nota para comenzar a editarla</span>
             </div>
@@ -88,4 +116,38 @@
             </div>
         </div>
     </div>
+</template>
+
+<template id="template-note-default-view">
+    <div class="simple-container justify-center align-center grow-1 direction-column gap-8" data-default-view>
+        <md-icon class="pretty">folder_open</md-icon>
+        <span class="body-large bricolage weight-500 on-background-text">Selecciona una nota para comenzar a editarla</span>
+    </div>
+</template>
+
+<template id="template-note-editor">
+    <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1">
+        <div class="simple-container bottom-margin-8">
+            <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
+        </div>
+        <div class="content-box light-color padding-8 direction-row gap-0 flex-wrap">
+            <md-icon-button type="button" onclick="execCmd('undo')" role="presentation" value=""><md-icon aria-hidden="true">undo</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('redo')" role="presentation" value=""><md-icon aria-hidden="true">redo</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('bold')" role="presentation" value=""><md-icon aria-hidden="true">format_bold</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('italic')" role="presentation" value=""><md-icon aria-hidden="true">format_italic</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('underline')" role="presentation" value=""><md-icon aria-hidden="true">format_underlined</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('justifyLeft')" role="presentation" value=""><md-icon aria-hidden="true">format_align_left</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('justifyCenter')" role="presentation" value=""><md-icon aria-hidden="true">format_align_center</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('justifyRight')" role="presentation" value=""><md-icon aria-hidden="true">format_align_right</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('insertOrderedList')" role="presentation" value=""><md-icon aria-hidden="true">format_list_numbered</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('insertUnorderedList')" role="presentation" value=""><md-icon aria-hidden="true">format_list_bulleted</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h1>')" role="presentation" value=""><md-icon aria-hidden="true">format_h1</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h2>')" role="presentation" value=""><md-icon aria-hidden="true">format_h2</md-icon></md-icon-button>
+            <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h3>')" role="presentation" value=""><md-icon aria-hidden="true">format_h3</md-icon></md-icon-button>
+        </div>
+        <div class="editor" contenteditable="true" aria-placeholder="Escribe tu nota aquí..." ></div>
+        <div class="simple-container justify-right top-margin-16">
+            <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button>
+        </div>
+    </form>
 </template>

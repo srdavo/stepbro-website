@@ -6,9 +6,12 @@
     justify-content:space-between; 
     gap:24px;
     max-width: 276px;
-    transition: max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+    transition: max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1), min-width 0.7s cubic-bezier(0.1, 0.8, 0, 1);;
     overflow: hidden;
 }
+/* .folders-parent:not([openning]):not([closing]){
+    min-width: 88px;
+} */
 /* .folders-parent:not([reduced]):not([openning]):not([closing]){
         min-width: 228px;
 } */
@@ -145,6 +148,9 @@
     opacity: 0;
 }
 
+/* .folders-parent:hover{
+    min-width: 276px;
+} */
 .folders-parent[reduced]:hover{
     max-width: 276px;
 }
@@ -175,4 +181,110 @@
 }
 .folder[openning]{
     animation: folderAnimationIn 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+}
+
+
+
+
+@media only screen and (max-width: 680px){
+    #main-folders-parents-container{
+        position:relative;
+        flex-direction:column;
+        overflow: unset;
+    }
+
+    /* folders-parent */
+    .folders-parent{
+        max-width: 100%; 
+        box-sizing: border-box;
+        position: absolute;
+        height: 100%;
+    }
+    .folders-parent[reduced]{max-width: unset;}
+    .folders-parent[reduced] .folder{
+        max-width: unset;
+        padding:8px 24px;
+        border-radius:16px;
+    }
+    .folders-parent[reduced] .folder span:last-child{opacity: 1;}
+    .folders-parent[reduced]:hover{max-width: unset;}
+    .folders-parent[reduced]:hover .folder { max-width:unset;}
+    .folders-parent[reduced]:hover .folder span:last-child{opacity: 1;}
+    
+    /* animations */
+    .folders-parent[openning]{animation: generalFoldersParentInAnimation 200ms;}
+    .folders-parent[closing], .folders-parent[reduced][closing]{animation: generalFoldersParentExitAnimation 200ms;}
+    @keyframes emptyAnimation { }
+    @keyframes generalFoldersParentExitAnimation {0% {opacity:1;}100% {opacity:0;}}
+    @keyframes generalFoldersParentInAnimation {0% {opacity:0;}100% {opacity:1;}}
+
+    /* folder */
+    .folder{max-width:unset;}
+
+    /* note-editor */
+    #folders-note-parent:has(> [data-default-view]){display:none;}
+    #folders-note-parent{ animation: generalFoldersParentInAnimation 200ms; }
+
+}
+
+/* this difference will only be applied if the main-folders-parent-container has the view-grid class */
+#main-folders-parents-container.view-grid{
+    position:relative;
+    flex-direction:column;
+    overflow: unset;
+}
+
+/* folders-parent */
+#main-folders-parents-container.view-grid .folders-parent{
+    max-width: 100%; 
+    box-sizing: border-box;
+    position: absolute;
+    height: 100%;
+}
+#main-folders-parents-container.view-grid .folders-parent[reduced]{max-width: unset;}
+#main-folders-parents-container.view-grid .folders-parent[reduced] .folder{
+    max-width: unset;
+    padding:8px 24px;
+    border-radius:16px;
+}
+#main-folders-parents-container.view-grid .folders-parent[reduced] .folder span:last-child{opacity: 1;}
+#main-folders-parents-container.view-grid .folders-parent[reduced]:hover{max-width: unset;}
+#main-folders-parents-container.view-grid .folders-parent[reduced]:hover .folder { max-width:unset;}
+#main-folders-parents-container.view-grid .folders-parent[reduced]:hover .folder span:last-child{opacity: 1;}
+
+/* animations */
+#main-folders-parents-container.view-grid .folders-parent[openning]{animation: generalFoldersParentInAnimation 200ms;}
+#main-folders-parents-container.view-grid .folders-parent[closing], .folders-parent[reduced][closing]{animation: generalFoldersParentExitAnimation 200ms;}
+@keyframes emptyAnimation { }
+@keyframes generalFoldersParentExitAnimation {0% {opacity:1;}100% {opacity:0;}}
+@keyframes generalFoldersParentInAnimation {0% {opacity:0;}100% {opacity:1;}}
+
+/* folder */
+#main-folders-parents-container.view-grid .folder{max-width:unset;}
+
+/* note-editor */
+#main-folders-parents-container.view-grid #folders-note-parent:has(> [data-default-view]){display:none;}
+#main-folders-parents-container.view-grid #folders-note-parent{ animation: generalFoldersParentInAnimation 200ms; }
+
+
+
+
+/* view type selector */
+.view-selector {
+    position:relative;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 16px;
+
+    background:var(--md-sys-color-surface-container);
+    color:var(--md-sys-color-on-surface-variant);
+    cursor:pointer;
+}
+.view-selector:first-child{border-radius: 24px 0 0 24px; padding-right: 8px;}
+.view-selector:last-child{border-radius: 0 24px 24px 0; padding-left: 8px;}
+.view-selector[active]{
+    font-variation-settings: 'FILL' 1;
+    color:var(--md-sys-color-primary);
 }

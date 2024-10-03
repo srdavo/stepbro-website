@@ -5,6 +5,7 @@
   box-shadow: 0 1px 0 0 var(--md-sys-color-outline-variant) inset;
   padding-top: 16px;
   margin-top: 16px;
+  min-width: 272px;
   min-height: 200px;
   overflow-y: auto;
   outline: 0px solid transparent;
