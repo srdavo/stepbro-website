@@ -1,5 +1,5 @@
 <?php 
-define('BASE_URL', '/cocounut-sb/');
+define('BASE_URL', '/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
@@ -21,13 +21,14 @@ checkSession($cookie_uid);
 <html lang="en">
   <head>
     <title><?php echo $_ENV['APP_NAME'] ?></title>
-    <script> const BASE_URL = "<?= BASE_URL ?>"</script>
+    <script> const BASE_URL = "/"</script>
     
 
     <!-- style and themes -->
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=15">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="<?= BASE_URL ?>js/theme.js"></script>
     
     <!-- Material Web Components -->
