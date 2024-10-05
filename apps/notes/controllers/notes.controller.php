@@ -10,13 +10,14 @@ $json_data = file_get_contents('php://input');
 $data = json_decode($json_data, true);
 
 switch ($data["op"]){
-    case "create_note":
+    case "save_note":
         $data_array = [
             "content" => $data["content"], // filter_var($data["content"], FILTER_SANITIZE_STRING)
-            "user_id" => $userid
+            "user_id" => $userid,
+            "id" => $data["id"]
         ];
         $note = new Notes($data_array);
-        $result =  $note->createNote();
+        $result =  $note->save();
         echo json_encode($result);
         break;
     case "get_notes":

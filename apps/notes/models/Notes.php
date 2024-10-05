@@ -26,6 +26,19 @@ class Notes extends ActiveRecord{
         return array_shift( $result );
     }
 
+
+    public function save() {
+        $result = '';
+        if(!is_null($this->id)) {
+            // actualizar
+            $result = $this->UpdateNote();
+        } else {
+            // Creando un nuevo registro
+            $result = $this->createNote();
+        }
+        return $result;
+    }
+
     public function createNote(){
         $this->content = $this->sanitizeContent();
 
@@ -38,6 +51,24 @@ class Notes extends ActiveRecord{
            'ok' =>  $result,
            'id' => self::$db->insert_id
         ];
+    }
+
+    public function UpdateNote() {
+        $this->content = $this->sanitizeContent();
+        $query = "UPDATE notes 
+          SET user_id = '$this->user_id', 
+              title = '$this->title', 
+              content = '$this->content', 
+              created_at = '$this->created_at'
+          WHERE id = '$this->id'";
+
+        $result = self::$db->query($query);
+
+        return [
+            'ok' =>  $result,
+            'id' => $this->id
+        ];
+
     }
 
     public static function getRowstoPaginator($userid, $data_array){

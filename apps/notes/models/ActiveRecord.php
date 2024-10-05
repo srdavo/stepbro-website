@@ -29,15 +29,15 @@ class ActiveRecord{
 
     // Registros - CRUD
     public function save() {
-        $resultado = '';
+        $result = '';
         if(!is_null($this->id)) {
             // actualizar
-            $resultado = $this->update();
+            $result = $this->update();
         } else {
             // Creando un nuevo registro
-            $resultado = $this->make();
+            $result = $this->make();
         }
-        return $resultado;
+        return $result;
     }
 
     public static function all() {

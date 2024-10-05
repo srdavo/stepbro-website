@@ -3,7 +3,7 @@ class Connect {
     protected function Conection(){
         $serverName = "localhost";
         $dbUsername = "root";
-        $dbPassword = "";
+        $dbPassword = "root";
         $bNamed = "cocounut_sb";
         try {
             $connect = new PDO("mysql:host=$serverName;dbname=$bNamed", $dbUsername, $dbPassword);

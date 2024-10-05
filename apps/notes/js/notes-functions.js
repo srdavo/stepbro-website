@@ -1,7 +1,61 @@
 function syncNotes(){
     displayNotes();
 }
+// global variables 
+let timeOut;
+let idNote = null;
+note = document.getElementById("create-note-content");
 
+note.addEventListener("input", () => {
+    clearTimeout(timeOut);
+    timeOut = setTimeout(() => {
+        noteContent = note.innerHTML;
+        saveNote(noteContent);
+    },950);
+});
+
+async function saveNote(content){
+    const parentId = "#window-create-note";
+    if(!checkEmpty(parentId, "input")){return;}
+        const data = {
+        op: "save_note",
+        content: content,
+        id: idNote
+    }
+
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        console.log(result);
+        toggleButton(parentId, false);
+        if (result) {
+            if (result.id) {
+                idNote = result.id;
+                //form.querySelector(".editor").innerHTML = "";
+                //form.closest(".editor-parent").removeAttribute("active");
+                message("Nota creada", "success");
+                syncNotes();
+                
+                // toggleWindow();
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+
+
+}
+
+// Boton Code
+/*
 async function createNote(event, form){
     event.preventDefault();
     const parentId = "#window-create-note";
@@ -39,7 +93,7 @@ async function createNote(event, form){
         message("Error: " + error.message, "error");
     }
 }
-
+*/
 async function getNotes(page = 0){
     const data = {
         op: "get_notes",
@@ -171,8 +225,21 @@ function setNoteEditorContent(note){
     const container = document.getElementById("folders-note-parent");
     container.innerHTML = "";
     const noteEditor = document.getElementById("template-note-editor").content.cloneNode(true);  
-    noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;    
+    noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;   
+    console.log(note)
+    console.log(noteEditor.querySelector("form > .editor"))
     container.appendChild(noteEditor);
+
+    // code to save notes
+    editor = container.querySelector("form > .editor");
+    idNote = note.data[0].id
+    editor.addEventListener("input", () => {
+        clearTimeout(timeOut);
+        timeOut = setTimeout(() => {
+            noteContent = editor.innerHTML;
+            saveNote(noteContent);
+        },950);
+    })
 }
 
 
