@@ -25,6 +25,7 @@ include_once '../../config/utilities.php';
 </main>
 
 <script src="js/notes-functions.js"></script>
+<script src="js/diary-functions.js"></script>
 <script src="js/folders-functions.js"></script>
 <script src="js/rich-text.js"></script>
 

@@ -64,7 +64,7 @@
 <button 
   class="nav-button"  
   data-section="section-notes" 
-  onclick="toggleSection('section-notes')"
+  onclick="toggleSection('section-diary')"
   >
   <md-ripple></md-ripple>
   <span class="icon-holder" >

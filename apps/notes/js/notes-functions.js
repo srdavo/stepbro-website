@@ -4,6 +4,7 @@ function syncNotes(){
 // global variables 
 let timeOut;
 let idNote = null;
+let timeoutPromise = null; 
 note = document.getElementById("create-note-content");
 
 note.addEventListener("input", () => {
@@ -37,7 +38,7 @@ async function saveNote(content){
                 idNote = result.id;
                 //form.querySelector(".editor").innerHTML = "";
                 //form.closest(".editor-parent").removeAttribute("active");
-                message("Nota creada", "success");
+                message("Nota guardada", "success");
                 syncNotes();
                 
                 // toggleWindow();
@@ -212,6 +213,10 @@ async function displayNoteContent(noteId, originButton){
     const note = await getNoteContent(noteId);
     if(!note){return;}
 
+    if (timeoutPromise) {
+        await timeoutPromise; 
+    }
+
     // 3. 
     setNoteEditorContent(note);
 
@@ -231,15 +236,22 @@ function setNoteEditorContent(note){
     container.appendChild(noteEditor);
 
     // code to save notes
-    editor = container.querySelector("form > .editor");
+    let editor = container.querySelector("form > .editor");
     idNote = note.data[0].id
     editor.addEventListener("input", () => {
-        clearTimeout(timeOut);
-        timeOut = setTimeout(() => {
-            noteContent = editor.innerHTML;
-            saveNote(noteContent);
-        },950);
-    })
+        clearTimeout(timeOut); // Limpiar cualquier timeout anterior
+
+        // Crear una nueva promesa para el timeout
+        timeoutPromise = new Promise((resolve) => {
+            timeOut = setTimeout( () => {
+
+                let noteContent = editor.innerHTML;
+
+                saveNote(noteContent);                   
+                resolve();
+            }, 500);
+        });
+    });
 }
 
 
