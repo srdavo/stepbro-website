@@ -3,7 +3,7 @@
         <div class="simple-container">
             <span class="headline-large">Notas</span>
         </div>
-        <div class="simple-container gap-16">
+        <div class="simple-container gap-8">
             <div class="simple-container hide-on-mobile" id="folders-view-selector-parent">
                 <span 
                     class="view-selector" 
@@ -23,6 +23,28 @@
                     <md-icon>grid_view</md-icon>
                 </span>
             </div>
+
+            <span class="position-relative">
+                <md-filled-tonal-icon-button 
+                    onclick="toggleMenu('menu-notes-options')" 
+                    class="solid"
+                    id="toggler-menu-notes-options"
+                    >
+                    <md-icon>more_vert</md-icon>
+                </md-filled-tonal-icon-button>
+                <md-menu id="menu-notes-options" style="min-width:264px;" anchor="toggler-menu-notes-options">
+                    <md-menu-item onclick="openDeletedNotesWindow()" data-flip-id="animate">
+                        <md-icon slot="start" aria-hidden="true">restore_from_trash</md-icon>
+                        <div slot="headline">Notas eliminadas</div>
+                    </md-menu-item>
+                    <md-menu-item onclick="openDeletedFoldersWindow()" data-flip-id="animate">
+                        <md-icon slot="start" aria-hidden="true">folder_delete</md-icon>
+                        <div slot="headline">Carpetas eliminadas</div>
+                    </md-menu-item>
+                    
+                </md-menu>
+            </span>
+            
 
             <md-outlined-button onclick="toggleCreateFolderWindow()" data-flip-id="animate">
                 <md-icon slot="icon">add</md-icon>
@@ -69,6 +91,14 @@
                     <md-icon>create_new_folder</md-icon>
                     <span>Crear carpeta</span>
                 </div>
+                <div
+                    class="folder"
+                    onclick="createNoteInsideFolder(this)"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>edit_square</md-icon>
+                    <span>Crear nota</span>
+                </div>
             </div>
         </div>
         
@@ -109,10 +139,22 @@
                 <md-icon>create_new_folder</md-icon>
                 <span>Crear carpeta</span>
             </div>
-            <div class="folder">
+            <div
+                class="folder"
+                onclick="createNoteInsideFolder(this)"
+                >
                 <md-ripple></md-ripple>
                 <md-icon>edit_square</md-icon>
                 <span>Crear nota</span>
+            </div>
+            <div
+                class="folder"
+                data-flip-id="animate"
+                onclick="toggleWindow('#window-folder-info', 'absolute', 1)"
+                >
+                <md-ripple></md-ripple>
+                <md-icon>info</md-icon>
+                <span>Información</span>
             </div>
         </div>
     </div>
@@ -127,8 +169,27 @@
 
 <template id="template-note-editor">
     <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1">
-        <div class="simple-container bottom-margin-8">
-            <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
+        <div class="simple-container bottom-margin-8 justify-between">
+            <div class="simple-container">
+                <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
+            </div>
+            <div class="simple-container gap-8">
+                <md-icon-button 
+                    type="button" 
+                    onclick="message('Esto dará la opción demover de carpeta la nota')"
+                    data-tooltip="Mover"
+                    >
+                    <md-icon>drive_file_move</md-icon>
+                </md-icon-button>
+                <md-icon-button 
+                    type="button" 
+                    onclick="message('Esto abrira una ventana para pregunatar confirmación de eliminación')"
+                    data-tooltip="Eliminar"
+                    button-delete-note
+                    >
+                    <md-icon>delete</md-icon>
+                </md-icon-button>
+            </div>
         </div>
         <div class="content-box light-color padding-8 direction-row gap-0 flex-wrap">
             <md-icon-button type="button" onclick="execCmd('undo')" role="presentation" value=""><md-icon aria-hidden="true">undo</md-icon></md-icon-button>
@@ -151,3 +212,4 @@
         </div>
     </form>
 </template>
+

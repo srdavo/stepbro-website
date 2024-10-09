@@ -1,14 +1,14 @@
 <?php
-
 class Notes extends ActiveRecord{
     protected static $table = 'notes';
-    protected static $columns = ["id","user_id","title","content","created_at"];
+    protected static $columns = ["id","user_id","title","content","created_at","status"];
 
     public $id;
     public $user_id;
     public $title;
     public $content;
     public $created_at;
+    public $status = 1;
 
 
     public function __construct($args = []) {
@@ -17,7 +17,7 @@ class Notes extends ActiveRecord{
         $this->title = $args["title"] ?? "";
         $this->content = $args["content"] ?? "";
         $this->created_at = $args["created_at"] ?? date('Y-m-d H:i:s');
-       
+        $this->status = $args["status"] ?? 1;
     }
 
     public static function getTotalrowsByUserId($id){
@@ -97,5 +97,76 @@ class Notes extends ActiveRecord{
             "data" => $result
         ];
     }
+
+    public function deleteNote(){
+        $query = "UPDATE notes SET status = 0 WHERE id = $this->id";
+        $result = self::$db->query($query);
+        return $result;
+    }
+    
+    public function getDeletedNotes($data_array){
+        try {
+            $query = "SELECT * FROM notes 
+                WHERE user_id = {$data_array["user_id"]} 
+                AND status = 0
+                LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}    
+            ";
+            $result = self::querySQL($query);
+            return $result;
+        } catch (Exception $e) {
+            // Handle exception
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+    public static function getTotalDeletedNotes($userid) {
+        $query = "SELECT COUNT(*) as total_rows FROM " . static::$table . " WHERE user_id = ? AND status = 0";    
+        $stmt = self::$db->prepare($query);    
+        $stmt->bind_param("i", $userid); // "i" indica que es un entero
+    
+        try {
+            $stmt->execute();    
+            $result = $stmt->get_result();
+            $data = $result->fetch_assoc();
+    
+            // Devolver el total de filas
+            return $data["total_rows"] ?? 0;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function restoreDeletedNote(){
+        $query = "UPDATE notes SET status = 1 WHERE id = $this->id";
+        $result = self::$db->query($query);
+        return $result;
+    }
+
+    public function getNoteFolderParent($note_id){
+        $query = "SELECT folder_id, item_id FROM folder_relations WHERE item_id = ? AND item_type = 'note'";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("i", $note_id);
+
+        try {
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_assoc();
+            return $data;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function deleteNoteForever(){
+        $query = "DELETE FROM notes WHERE id = $this->id";
+        $result = self::$db->query($query);
+        return $result;
+    }
+    
+    
+    
+    
 
 }

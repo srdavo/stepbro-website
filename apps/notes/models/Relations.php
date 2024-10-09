@@ -47,6 +47,7 @@ class Relations extends ActiveRecord{
                     AND fr.user_id = '$user_id'
                     AND n.user_id = '$user_id'
                     AND fr.item_type = 'note'
+                    AND n.status != 0
 
                 UNION
 

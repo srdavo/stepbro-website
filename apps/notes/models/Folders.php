@@ -59,6 +59,7 @@ class Folders extends ActiveRecord{
             WHERE 
                 fr.id IS NULL 
                 AND n.user_id = '$data_array[user_id]'
+                AND n.status = 1
 
         ";
         $result = self::querySQL($query);

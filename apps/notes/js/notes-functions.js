@@ -1,5 +1,5 @@
 function syncNotes(){
-    displayNotes();
+    // displayNotes();
 }
 // global variables 
 let timeOut;
@@ -17,7 +17,8 @@ note.addEventListener("input", () => {
 async function saveNote(content){
     const parentId = "#window-create-note";
     if(!checkEmpty(parentId, "input")){return;}
-        const data = {
+    
+    const data = {
         op: "save_note",
         content: content,
         id: idNote
@@ -226,9 +227,13 @@ function setNoteEditorContent(note){
     container.innerHTML = "";
     const noteEditor = document.getElementById("template-note-editor").content.cloneNode(true);  
     noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;   
-    console.log(note)
-    console.log(noteEditor.querySelector("form > .editor"))
     container.appendChild(noteEditor);
+
+    const deleteButton = container.querySelector("[button-delete-note]");
+    deleteButton.onclick = function(){ toggleDeleteNoteDialog(note.data[0].id) };
+
+    // console.log(note)
+    // console.log(noteEditor.querySelector("form > .editor"))
 
     // code to save notes
     editor = container.querySelector("form > .editor");
@@ -273,3 +278,346 @@ function closeNoteEditor(originButton){
 //     // container.innerHTML = "";
 //     // container.appendChild(noteDefaultView);
 // }
+
+
+// Aunque se puede repetir código, estas funciones serán para mantener la creación de notas separado de el autoguardado y otras cosas.
+async function createNote(originFolderId = 0){
+    // Lo único que hará esta función es crear la nota, sin contenido ni nada, solo crear su existencia en la base de datos.
+    const data = {
+        op: "create_note_inside_folder",
+        parent_folder_id: originFolderId,
+    }
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if (result.success) {
+                return result.id
+                message("Nota creada", "success");
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+function createUiNote(noteId = 0, originFolderId = 0, noteTitle = '<i class="outline-text">Nota sin nombre</i>'){
+    if(originFolderId == 0 ){
+        newNoteParent = document.getElementById("main-folders-container");
+    }else{
+        const activeItem = document.querySelector(`#main-folders-parents-container .folder[data-folder-id="${originFolderId}"]`);
+        newNoteParent =  activeItem.closest(".folders-parent").nextElementSibling;
+    }
+    if(!newNoteParent || !newNoteParent.classList.contains("folders-parent")){return false;}
+
+    const newNote = document.createElement("div");
+    newNote.classList.add("folder");
+    newNote.setAttribute("data-note-id", noteId);
+    newNote.innerHTML = `
+        <md-ripple></md-ripple>
+        <md-icon>notes</md-icon>
+        <span>${noteTitle}</span>
+    `;
+    newNote.onclick = function() { displayNoteContent(noteId, this); };
+    newNote.setAttribute("openning", "");
+    newNote.addEventListener("animationend", () =>{newNote.removeAttribute("openning")}, {once: true})
+    newNoteParent.querySelector(".folders-list").appendChild(newNote);
+
+    return newNote;
+}
+
+async function createNoteInsideFolder(originButton){
+    if(!originButton){return}
+
+    const currentFoldersParent = originButton.closest(".folders-parent");
+    const previousFoldersParent = currentFoldersParent.previousElementSibling;
+    if(previousFoldersParent && previousFoldersParent.classList.contains("folders-parent")){
+        originFolderId = previousFoldersParent.querySelector(".folder[active]").getAttribute("data-folder-id");
+    }else{
+        originFolderId = 0;
+    }
+
+    noteId = await createNote(originFolderId);
+    newNote = createUiNote(noteId, originFolderId);
+    displayNoteContent(noteId, newNote)
+}
+function cleanHTMLContent(content) {
+    // Caso 1: Si comienza con una etiqueta HTML
+    if (content.startsWith("<")) {
+      // Encuentra el cierre de la primera etiqueta
+      const firstClosingTagIndex = content.indexOf(">");
+      if (firstClosingTagIndex !== -1) {
+        // Extrae todo el contenido después del cierre de la primera etiqueta
+        const afterFirstTag = content.slice(firstClosingTagIndex + 1);
+        
+        // Encuentra dónde comienza la siguiente etiqueta para mantener solo el contenido dentro de la primera etiqueta
+        const secondTagIndex = afterFirstTag.indexOf("<");
+        if (secondTagIndex !== -1) {
+          // Mantén solo el contenido de la primera etiqueta, antes de que comience la segunda etiqueta
+          const firstTagContent = afterFirstTag.slice(0, secondTagIndex).trim();
+          return firstTagContent;
+        } else {
+          // Si no hay más etiquetas, solo devuelve el contenido dentro de la primera etiqueta
+          return afterFirstTag.trim();
+        }
+      }
+    }
+  
+    // Caso 2: Si comienza con texto plano
+    const firstTagIndex = content.indexOf("<");
+    if (firstTagIndex !== -1) {
+      // Retorna solo el texto que aparece antes de la primera etiqueta HTML
+      return content.slice(0, firstTagIndex).trim();
+    }
+  
+    // Si no hay etiquetas HTML, devuelve el contenido tal como está
+    return content.trim();
+}
+
+
+// Las siguientes funciones son para la eliminación de notas
+function toggleDeleteNoteDialog(noteId){
+    document.getElementById("button-confirm-delete-note").onclick = function(){ deleteNote(noteId) };
+    toggleDialog("dialog-delete-note-confirmation");
+}
+
+async function deleteNote(noteId){
+    const data = {
+        op: "delete_note",
+        note_id: noteId,
+    }
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if (result.success) {
+                message("Nota eliminada", "success");
+                setNoteDefaultView();
+                removeUiNote(noteId);
+                toggleDialog();
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+
+function removeUiNote(noteId = 0){
+    if(noteId == 0){return false;}
+    const note = document.querySelector(`.folder[data-note-id="${noteId}"]`);
+    const noteParent = note.closest(".folders-parent");
+    note.setAttribute("removing", "");
+    note.addEventListener("animationend", () => {note.remove();}, {once: true})
+    manageReducedFoldersParent(noteParent);
+}
+
+
+// Las siguientes funciones son para la muestra de notas eliminadas
+function openDeletedNotesWindow(){
+    toggleWindow("#window-deleted-items");
+    toggleWSection('w-section-deleted-notes');4
+    displayDeletedNotes();
+}
+function toggleDeletedNoteContentView(originButton){
+    // esta función es la que permite al usuario abrir el contenido de las notas eliminadas
+    // state = Flip.getState(".deleted-item:not([active])");
+    originButton.closest(".deleted-item").toggleAttribute("active");
+    // applyAnimation(state, `.deleted-item:not([active])`);
+
+}
+async function getDeletedNotes(page = 0){
+    const data = {
+        op: "get_deleted_notes",
+        page:page,
+    }
+    const url = `controllers/notes.controller.php`
+    try{
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json'}
+        });
+        if (response.ok) {
+            const result = await response.json();
+            if(result.success){ 
+                return result;
+            } else { 
+                message(`Hubo un error: ${result.message}`, "error"); 
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+async function displayDeletedNotes(page = 0){
+    const result = await getDeletedNotes(page);
+    if(!result){return;}
+    
+
+    const container = document.getElementById("response-deleted-notes-container");
+    container.nextElementSibling.innerHTML = ``;
+
+    if(!result.data || result.data.length === 0){
+        container.nextElementSibling.innerHTML = `
+            <div class="content-box on-background-text align-center info-table-empty">
+                <md-icon class="pretty medium" aria-hidden="true">sentiment_content</md-icon>
+                <span class="headline-small">No hay notas eliminadas</span>
+            </div>
+        `;
+        return;
+    }
+
+    
+    container.innerHTML = `
+        ${result.data.map(note => {
+            noteName = (cleanHTMLContent(note.content) == "") ? "<i class='outline-text'>Nota sin nombre</i>" : cleanHTMLContent(note.content);
+
+            return `
+                <div class="deleted-item">
+                    
+                    <div class="simple-container grow-1 justify-between">
+                        <div class="simple-container gap-8">    
+                            <md-icon-button toggle onclick="toggleDeletedNoteContentView(this)">
+                                <md-icon >arrow_drop_down</md-icon>
+                                <md-icon slot="selected">arrow_drop_up</md-icon>
+                            </md-icon-button>
+
+                                
+                            <span style="padding-top:12px;">${noteName}</span>
+                        </div>
+                        <div>
+                            <md-icon-button 
+                                onclick="toggleDeleteNoteForeverDialog(${note.id}, this)" 
+                                data-tooltip="Eliminar permanentemente"
+                                class="tooltip-left"
+                                >
+                                <md-icon>delete_forever</md-icon>
+                            </md-icon-button>
+                            <md-icon-button 
+                                onclick="toggleRestoreNoteDialog(${note.id}, this)" 
+                                data-tooltip="Recuperar"
+                                class="tooltip-left"
+                                >
+                                <md-icon>restore</md-icon>
+                            </md-icon-button>
+                        </div>
+                    </div>
+                    <div class="deleted-note-content-container">
+                        <div class="deleted-note-content">
+                            ${note.content}
+                        </div>
+                    </div>
+                    
+                </div>
+            `;
+        }).join("")}
+    `;
+
+    displayDeletedNotesPagination(result.total_rows, result.limit, page);
+}
+function displayDeletedNotesPagination(totalRows, limit, currentPage = 0){
+    const container = document.getElementById("pagination-deleted-notes-container");
+    const pageCount = Math.ceil(totalRows / limit);
+    if(pageCount <= 1){container.innerHTML = "";return;}
+
+    let paginationHTML = `<span class='simple-container width-100 flex-wrap members-table-rows' style='min-height:48px;max-height:80px;overflow:auto'>`;
+    for (let i = 0; i < pageCount; i++) {
+        if (i === currentPage) {
+            paginationHTML += `<md-filled-tonal-icon-button onclick='displayDeletedNotes(${i})'><md-icon class="filled">counter_${i+1}</md-icon></md-filled-tonal-icon-button>`;
+        } else {
+            paginationHTML += `<md-icon-button onclick='displayDeletedNotes(${i})'>${i + 1}</md-icon-button>`;
+        }
+    }
+    paginationHTML += `</span>`;
+    container.innerHTML = paginationHTML;
+}
+
+// Las siguientes funciones son para la recuperación de notas eliminadas
+function toggleRestoreNoteDialog(noteId, originButton){
+    document.getElementById("button-confirm-restore-note").onclick = function(){ restoreDeletedNote(noteId, originButton) };
+    toggleDialog("dialog-restore-note-confirmation");
+}
+async function restoreDeletedNote(noteId, originButton){
+    const data = {
+        op: "restore_deleted_note",
+        note_id: noteId,
+    }
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if (result.success) {
+                message("Nota restaurada", "success");
+                removeDeletedNoteFromUi(originButton);
+                createUiNote(result.item_id, result.folder_id, originButton.closest(".deleted-item").querySelector("span").textContent);
+                toggleDialog();
+                toggleWindow();
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+function removeDeletedNoteFromUi(originButton){
+    state = Flip.getState(".deleted-item:not([active])");
+    originButton.closest(".deleted-item").remove();
+    applyAnimation(state, ".deleted-item:not([active])");
+}
+
+// Las siguientes funciones son para la eliminación permanente de notas
+function toggleDeleteNoteForeverDialog(noteId, originButton){
+    document.getElementById("button-confirm-delete-note-forever").onclick = function(){ deleteNoteForever(noteId, originButton) };
+    toggleDialog("dialog-delete-note-forever-confirmation");
+}
+async function deleteNoteForever(noteId, originButton){
+    const data = {
+        op: "delete_note_forever",
+        note_id: noteId,
+    }
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if (result.success) {
+                message("Nota eliminada permanentemente", "success");
+                removeDeletedNoteFromUi(originButton);
+                toggleDialog();
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
