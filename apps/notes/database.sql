@@ -29,7 +29,6 @@ CREATE TABLE folder_relations(
 CREATE TABLE `diary` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` bigint NOT NULL,
-  `pwd` VARCHAR(10) DEFAULT NULL,
   `content` text NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -38,3 +37,13 @@ CREATE TABLE `diary` (
 
 -- Modificaciones que agregar
 ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
+
+
+CREATE TABLE to_do_list (
+  id INT NOT NULL AUTO_INCREMENT,
+  task VARCHAR(255) NOT NULL,
+  status ENUM('Pendiente', 'Activo', 'Terminado') DEFAULT 'Pendiente',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+)
