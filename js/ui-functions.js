@@ -397,12 +397,12 @@ function toggleTab(windowId, tabId, workHidden){
 //   const template = document.getElementById(templateId);
 
 // }
-function applyAnimation(state, target, scale = true){
+function applyAnimation(state, target, scale = true, absolute = false){
   let timeline = Flip.from(state, {
     ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
     targets: target,
     duration: 0.7,
-    absolute:false,
+    absolute:absolute,
     scale:scale,
     simple:true,
   })
@@ -483,8 +483,11 @@ function getTime(){
 }
 
 function toggleWSection(wSectionId, originButton){
-  const holder = originButton.closest("HOLDER");
-
+  if(originButton === undefined){
+    holder = document.getElementById(wSectionId).closest("HOLDER");
+  }else{
+    holder = originButton.closest("HOLDER");
+  }
   const activeWSection = holder.querySelector('.w-section[active]');
   const activeWSectionButton = holder.querySelector('button[active]');
   if(wSectionId === activeWSection.id){console.log("seccion repetida"); return;}

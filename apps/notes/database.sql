@@ -6,7 +6,8 @@ CREATE TABLE notes (
     user_id BIGINT(20) NOT NULL,
     title VARCHAR(255),
     content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TINYINT(1) DEFAULT 1
 );
 
 CREATE TABLE folders (
@@ -34,3 +35,6 @@ CREATE TABLE `diary` (
   PRIMARY KEY (`id`)
 );
 
+
+-- Modificaciones que agregar
+ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;

@@ -79,7 +79,7 @@ window{
   
   flex-grow: 1;
   flex-basis: 0;
-  border-radius: 32px;
+  border-radius: 24px;
   background: var(--md-sys-color-background);
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.24), 0px 8px 40px 0px rgba(0, 0, 0, 0.16);
   /* box-shadow: 0px 0px 3px 0px rgba(var(--normalInverted), 0.55), 0px 8px 40px 0px rgba(var(--normalInverted), 0.25); */
@@ -115,7 +115,7 @@ window toolbar{position:relative}
 window toolbar.invisible{position: relative;}
 window.dialog{max-width: 320px;}
 window.small{max-width: 300px;}
-window:not(.dialog) h2:first-child, window:not(.dialog) h1:first-child{margin-bottom:12px;}
+/* window:not(.dialog) h2:first-child, window:not(.dialog) h1:first-child{margin-bottom:12px;} */
 window section button:last-of-type{margin-left:auto;}
 window section button:last-of-type{margin-left:unset;}
 window section > button:first-of-type{margin-left: auto;}
@@ -141,6 +141,8 @@ window holder::-webkit-scrollbar {
   display: none;
 }
 
+window.integrated holder{padding:24px;}
+
 
 @media only screen and (max-width: 680px){
   window{
@@ -161,6 +163,7 @@ window holder::-webkit-scrollbar {
   
   window.absolute{position:relative; inset: 0 !important;}
   
+  window.integrated .window-title{display:none;}
 }
 @keyframes window-border-radius{from{border-radius: 48px;}to{border-radius: 0;}}
 window.not-animated {

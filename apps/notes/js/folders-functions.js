@@ -48,6 +48,7 @@ function createFolderFromFolder(originButton){
     const currentFoldersParent = originButton.closest(".folders-parent");
     const previousFoldersParent = currentFoldersParent.previousElementSibling;
     const originFolderId = previousFoldersParent.querySelector(".folder[active]").getAttribute("data-folder-id");
+    console.log(`Creating folder inside folder ${originFolderId}`);
 
     toggleWindow("#window-create-folder");
     document.getElementById("create-folder-form").onsubmit = function(event){ createFolder(event, originFolderId); }
@@ -151,7 +152,8 @@ async function displayFolderList(page = 0){
     const container = document.getElementById("main-folders-container").querySelector(".folders-list");
     container.innerHTML = `
         ${result.data.map(item => {
-            itemName = item.item_type == "folder" ? item.item_name.replace(/<\/?[^>]+(>|$)/g, "") : item.item_content.replace(/<\/?[^>]+(>|$)/g, "");
+            itemName = item.item_type == "folder" ? cleanHTMLContent(item.item_name) : cleanHTMLContent(item.item_content);
+            if(itemName == ""){itemName = `<i class="outline-text">Nota sin nombre</i>`;}
             icon = item.item_type === "folder" ? "folder" : "notes";
             iconClass = item.item_type === "folder" ? "primary-text" : "";
             functionToCall = item.item_type === "folder" ? "displayFolderContent" : "displayNoteContent";
@@ -205,13 +207,17 @@ async function getFolderContent(folderId){
 
 
 async function displayFolderContent(folderId, originButton){
+
+    // 1. Manejar el botón activo
     if(!manageActiveFolderSelector(originButton)){
         return;
     }
 
+    // 2. Obtener el contenido de la carpeta desde la base de datos
     const result = await getFolderContent(folderId);
     if(!result.success){return;}
 
+    // 3. Manjear las columnas
     manageFoldersParent(originButton);
     displayFolderContentList(result.data, originButton);
 
@@ -225,8 +231,8 @@ function displayFolderContentList(data, originButton){
     const newFoldersList = newFoldersParent.querySelector(".folders-list");
     newFoldersList.innerHTML = `
         ${data.map(folder => {
-            const itemTitle = folder.item_type === "folder" ? folder.item_title : folder.item_content;
-            const sanitizedTitle = itemTitle.replace(/<\/?[^>]+(>|$)/g, "");
+            itemName = folder.item_type == "folder" ? cleanHTMLContent(folder.item_title) : cleanHTMLContent(folder.item_content);
+            if(itemName == ""){itemName = `<i class="outline-text">Nota sin nombre</i>`;}
             functionToCall = folder.item_type === "folder" ? "displayFolderContent" : "displayNoteContent";
             iconClass = folder.item_type === "folder" ? "primary-text" : "";
 
@@ -239,8 +245,8 @@ function displayFolderContentList(data, originButton){
                     class="folder"
                     >
                     <md-ripple></md-ripple>
-                    <md-icon class="${iconClass}">${folder.item_type === "folder" ? "folder" : "article"}</md-icon>
-                    <span>${sanitizedTitle}</span>
+                    <md-icon class="${iconClass}">${folder.item_type === "folder" ? "folder" : "notes"}</md-icon>
+                    <span>${itemName}</span>
                 </div>
             `;
         }).join("")}
@@ -331,7 +337,7 @@ function createFoldersParent(currentFoldersParent, totalFoldersParent = 1, isNex
 
     insertNewFoldersParent();
 }
-function manageReducedFoldersParent(reduceAll = false){  
+function manageReducedFoldersParent(){  
     // const mainParent = currentFoldersParent.parentElement;
     const mainParent = document.getElementById("main-folders-parents-container");
     const foldersParents = mainParent.querySelectorAll('.folders-parent:not([closing])');
@@ -449,3 +455,9 @@ function loadFoldersView(){
    
 }
 loadFoldersView();
+
+
+function openDeletedFoldersWindow(){
+    toggleWindow("#window-deleted-items");
+    toggleWSection('w-section-deleted-folders');
+}

@@ -48,3 +48,22 @@ md-linear-progress{
 md-outlined-text-field{
   --md-outlined-text-field-container-shape: 8px;
 }
+
+md-filled-tonal-button.delete{
+  --md-sys-color-secondary-container: var(--md-sys-color-error);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-error);
+}
+md-filled-tonal-button.delete-light{
+  --md-sys-color-secondary-container: var(--md-sys-color-error-container);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-error-container);
+}
+md-filled-tonal-button.delete-text{
+  --md-sys-color-secondary-container: var(--md-sys-color-surface-container);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-error);
+}
+
+md-filled-tonal-icon-button.solid{
+  --md-sys-color-secondary-container: var(--md-sys-color-surface-container);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-surface-variant);
+
+}

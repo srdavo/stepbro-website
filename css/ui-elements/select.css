@@ -5,6 +5,7 @@ select{
   border:none;
   border-right: solid 8px transparent;
   outline:none;
+  height:40px;
   border-radius:24px;
   font-size: 16px;
   font-weight: 500;

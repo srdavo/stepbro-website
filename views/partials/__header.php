@@ -1,5 +1,5 @@
 <?php 
-define('BASE_URL', '/');
+define('BASE_URL', '/cocounut-sb/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
@@ -21,7 +21,7 @@ checkSession($cookie_uid);
 <html lang="en">
   <head>
     <title><?php echo $_ENV['APP_NAME'] ?></title>
-    <script> const BASE_URL = "/"</script>
+    <script> const BASE_URL = "<?= BASE_URL ?>"</script>
     
 
     <!-- style and themes -->

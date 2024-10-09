@@ -56,17 +56,48 @@
   </div>
 </md-dialog> -->
 
-<md-dialog id="dialog-delete-calorie-log-confirmation">
+<md-dialog id="dialog-delete-note-confirmation">
   <div slot="headline">Eliminar</div>
   <md-icon slot="icon" aria-hidden="true">delete</md-icon>
-  <form id="form-dialog-delete-calorie-log-confirmation" slot="content" method="dialog">
-    ¿Estás seguro de que quierer eliminar este registro?<br>
+  <form id="form-dialog-delete-note-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres eliminar esta nota?<br>
+    Esto moverá la nota a la papelera.
   </form>
   <div slot="actions">
-    <md-text-button form="form-dialog-delete-calorie-log-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
-    <md-filled-tonal-button id="button-confirm-delete-calorie-log" value="confirm">
+    <md-text-button form="form-dialog-delete-note-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-tonal-button id="button-confirm-delete-note" class="delete" value="confirm">
       <md-icon slot="icon" aria-hidden="true">delete</md-icon>
       Confirmar
     </md-filled-tonal-button>
+  </div>
+</md-dialog>
+
+<md-dialog id="dialog-delete-note-forever-confirmation">
+  <div slot="headline">Eliminar permanentemente</div>
+  <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
+  <form id="form-dialog-delete-note-forever-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres eliminar <span class="weight-600">permanentemente</span> esta nota?<br>
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-delete-note-forever-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-tonal-button id="button-confirm-delete-note-forever" class="delete" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
+      Eliminar
+    </md-filled-tonal-button>
+  </div>
+</md-dialog>
+
+<md-dialog id="dialog-restore-note-confirmation">
+  <div slot="headline">Recuperar nota</div>
+  <md-icon slot="icon" aria-hidden="true">restore</md-icon>
+  <form id="form-dialog-restore-note-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres recuperar esta nota?<br>
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-restore-note-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-button id="button-confirm-restore-note" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">restore</md-icon>
+      Recuperar
+    </md-filled-button>
   </div>
 </md-dialog>

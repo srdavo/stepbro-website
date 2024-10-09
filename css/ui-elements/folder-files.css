@@ -6,7 +6,7 @@
     justify-content:space-between; 
     gap:24px;
     max-width: 276px;
-    transition: max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1), min-width 0.7s cubic-bezier(0.1, 0.8, 0, 1);;
+    transition: max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1);
     overflow: hidden;
 }
 /* .folders-parent:not([openning]):not([closing]){
@@ -170,17 +170,30 @@
     0% {
         opacity: 0;
         transform:translateY(300%) scaleY(0) scaleX(0);
-        /* background:var(--md-sys-color-primary); */
-        /* color:var(--md-sys-color-on-primary); */
     }
     100% {
         opacity: 1;
         transform:translateX(0) scaleY(1) scaleX(1);
-        background:transparent;
     }
 }
 .folder[openning]{
     animation: folderAnimationIn 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+}
+@keyframes folderAnimationOut {
+    0% {
+        min-height: unset;
+        max-height: 40px;
+        opacity: 1;
+    }
+    100% {
+        min-height: unset;
+        max-height: 0px;
+        padding:0 24px;
+        opacity:0;
+    }
+}
+.folder[removing]{
+    animation: folderAnimationOut 0.7s cubic-bezier(0.1, 0.8, 0, 1);
 }
 
 
@@ -254,7 +267,7 @@
 
 /* animations */
 #main-folders-parents-container.view-grid .folders-parent[openning]{animation: generalFoldersParentInAnimation 200ms;}
-#main-folders-parents-container.view-grid .folders-parent[closing], .folders-parent[reduced][closing]{animation: generalFoldersParentExitAnimation 200ms;}
+#main-folders-parents-container.view-grid .folders-parent[closing], #main-folders-parents-container.view-grid .folders-parent[reduced][closing]{animation: generalFoldersParentExitAnimation 200ms;}
 @keyframes emptyAnimation { }
 @keyframes generalFoldersParentExitAnimation {0% {opacity:1;}100% {opacity:0;}}
 @keyframes generalFoldersParentInAnimation {0% {opacity:0;}100% {opacity:1;}}
@@ -287,4 +300,35 @@
 .view-selector[active]{
     font-variation-settings: 'FILL' 1;
     color:var(--md-sys-color-primary);
+}
+
+
+
+.deleted-item{
+    position:relative;
+    display:flex;
+    flex-direction: column;
+    background:var(--md-sys-color-surface-container);
+    border-radius:16px;
+    padding:8px;
+    transition:background 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.deleted-item .deleted-note-content{display:none}
+.deleted-item .deleted-note-content{
+    box-sizing: border-box;
+    width:100%;
+    flex-direction: column;
+    user-select: none;
+    border-radius:16px;
+    padding:0px;
+    transition: padding 500ms;
+}
+/* .deleted-item:hover{background:var(--md-sys-color-surface-container)} */
+.deleted-item[active] .deleted-note-content-container{
+    height:auto;
+}
+.deleted-item[active] .deleted-note-content{
+    display:flex;
+    user-select: text;
+    padding:8px;
 }
