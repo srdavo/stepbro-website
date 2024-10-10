@@ -49,7 +49,7 @@ function changeNav(originButton){
     localStorage.setItem('sb-selected-nav', newNav);
 }
 function loadNav(){
-    newNav = localStorage.getItem('sb-selected-nav') || "1";
+    newNav = localStorage.getItem('sb-selected-nav') || "2";
     
     document.addEventListener("DOMContentLoaded", function(event) {
         const navParent = document.getElementById("nav-parent")

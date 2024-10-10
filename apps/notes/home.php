@@ -8,7 +8,7 @@ include_once '../../config/utilities.php';
 </transparent>
 
 <main>
-  <nav class="nav-style-3" id="nav-parent">
+  <nav class="nav-style-2" id="nav-parent">
     <?php include_once 'views/partials/__navbar_items.php'; ?>
   </nav>
   <holder>

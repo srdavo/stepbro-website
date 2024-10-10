@@ -45,7 +45,13 @@ function toggleDialog(dialogId) {
 }
 
 // Menus
-function toggleMenu(menuId) {
+function toggleMenu(menuId, originButton = false) {
+  if(originButton){
+    const menu = originButton.nextElementSibling;
+    menu.open = !menu.open;
+    return;
+  }
+
   const menu = document.getElementById(menuId);
   menu.open = !menu.open;
 }
@@ -490,7 +496,7 @@ function toggleWSection(wSectionId, originButton){
   }
   const activeWSection = holder.querySelector('.w-section[active]');
   const activeWSectionButton = holder.querySelector('button[active]');
-  if(wSectionId === activeWSection.id){console.log("seccion repetida"); return;}
+  if(wSectionId === activeWSection.id){console.log("seccion repetida"); return false;}
 
   const objetiveWSection = holder.querySelector(`#${wSectionId}`);
   const objetiveWSectionButton = holder.querySelector(`button[data-w-section="${wSectionId}"]`);
@@ -516,7 +522,7 @@ function toggleWSection(wSectionId, originButton){
 
     objetiveWSection.setAttribute('active', '');
     objetiveWSectionButton.setAttribute('active', '');
-    return;
+    return true;
   }
 
 
@@ -526,7 +532,7 @@ function toggleWSection(wSectionId, originButton){
     objetiveWSection.setAttribute('active', '');
     objetiveWSectionButton.setAttribute('active', '');
   }
-
+  return true;
 }
 
 function changeWindow(windowId){

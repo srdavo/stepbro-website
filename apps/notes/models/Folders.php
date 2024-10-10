@@ -44,6 +44,7 @@ class Folders extends ActiveRecord{
             WHERE 
                 fr.id IS NULL 
                 AND f.user_id = '$data_array[user_id]'
+                AND f.status = 1
 
             UNION
             SELECT 
@@ -70,5 +71,67 @@ class Folders extends ActiveRecord{
         $query = "SELECT COUNT(*) as total_rows FROM " .static::$table ." WHERE user_id = ${userid} ";
         $result = self::querySQL($query);
         return array_shift( $result );
+    }
+
+    public function deleteFolder(){
+        $query = "UPDATE folders SET status = 0 WHERE id = '$this->id'";
+        $result = self::$db->query($query);
+        return $result;
+    }
+
+    public function getDeletedFolders($data_array){
+        try {
+            $query = "SELECT * FROM folders 
+                WHERE user_id = {$data_array["user_id"]} 
+                AND status = 0
+                LIMIT {$data_array["limit"]} OFFSET {$data_array["offset"]}    
+            ";
+            $result = self::querySQL($query);
+            return $result;
+        } catch (Exception $e) {
+            // Handle exception
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    public static function getTotalDeletedFolders($userid) {
+        $query = "SELECT COUNT(*) as total_rows FROM " . static::$table . " WHERE user_id = ? AND status = 0";    
+        $stmt = self::$db->prepare($query);    
+        $stmt->bind_param("i", $userid); // "i" indica que es un entero
+    
+        try {
+            $stmt->execute();    
+            $result = $stmt->get_result();
+            $data = $result->fetch_assoc();
+    
+            // Devolver el total de filas
+            return $data["total_rows"] ?? 0;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function restoreFolder(){
+        $query = "UPDATE folders SET status = 1 WHERE id = $this->id";
+        $result = self::$db->query($query);
+        return $result;
+    }
+
+    public function getFolderFolderParent($folder_id){
+        $query = "SELECT folder_id, item_id FROM folder_relations WHERE item_id = ? AND item_type = 'folder'";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("i", $folder_id);
+
+        try {
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_assoc();
+            return $data;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

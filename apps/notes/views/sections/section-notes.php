@@ -124,7 +124,7 @@
 <template id="template-folders-parent">
     <div class="content-box light-color folders-parent">    
         <div class="folders-list grow-1"></div>
-        <div class="folders-list height-max-content">
+        <div class="folders-list height-max-content overflow-visible">
             <div class="folder" onclick="removeSingleFolderParent(this)">
                 <md-ripple></md-ripple>
                 <md-icon>close</md-icon>
@@ -147,15 +147,36 @@
                 <md-icon>edit_square</md-icon>
                 <span>Crear nota</span>
             </div>
-            <div
-                class="folder"
-                data-flip-id="animate"
-                onclick="toggleWindow('#window-folder-info', 'absolute', 1)"
-                >
-                <md-ripple></md-ripple>
-                <md-icon>info</md-icon>
-                <span>Información</span>
-            </div>
+            <span class="position-relative">
+                <div
+                    class="folder more-options-button"
+                    data-flip-id="animate"
+                    onclick="toggleMenu(undefined, this)"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>more_vert</md-icon>
+                    <span>Más opciones</span>
+                </div>
+                <md-menu class="md-menu" style="min-width:264px;" anchor="closest('div.folder')">
+                    <md-menu-item onclick="toggleFolderInfoWindow(this)" data-flip-id="animate">
+                        <md-icon slot="start" aria-hidden="true">info</md-icon>
+                        <div slot="headline">Información</div>
+                    </md-menu-item>
+                    <md-menu-item onclick="" data-flip-id="animate">
+                        <md-icon slot="start" aria-hidden="true">bookmark_manager</md-icon>
+                        <div slot="headline">Cambiar nombre</div>
+                    </md-menu-item>
+                    <md-menu-item onclick="" data-flip-id="animate">
+                        <md-icon slot="start" aria-hidden="true">drive_file_move</md-icon>
+                        <div slot="headline">Mover carpeta</div>
+                    </md-menu-item>
+                    <md-menu-item onclick="toggleDeleteFolderDialog(this)" data-flip-id="animate">
+                        <md-icon slot="start" aria-hidden="true">folder_delete</md-icon>
+                        <div slot="headline">Eliminar carpeta</div>
+                    </md-menu-item>
+                </md-menu>
+            </span>
+            
         </div>
     </div>
 </template>

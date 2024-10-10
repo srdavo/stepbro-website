@@ -57,7 +57,7 @@
 </md-dialog> -->
 
 <md-dialog id="dialog-delete-note-confirmation">
-  <div slot="headline">Eliminar</div>
+  <div slot="headline">Eliminar nota</div>
   <md-icon slot="icon" aria-hidden="true">delete</md-icon>
   <form id="form-dialog-delete-note-confirmation" slot="content" method="dialog">
     ¿Estás seguro de que quieres eliminar esta nota?<br>
@@ -67,7 +67,7 @@
     <md-text-button form="form-dialog-delete-note-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
     <md-filled-tonal-button id="button-confirm-delete-note" class="delete" value="confirm">
       <md-icon slot="icon" aria-hidden="true">delete</md-icon>
-      Confirmar
+      Eliminar
     </md-filled-tonal-button>
   </div>
 </md-dialog>
@@ -89,13 +89,45 @@
 
 <md-dialog id="dialog-restore-note-confirmation">
   <div slot="headline">Recuperar nota</div>
-  <md-icon slot="icon" aria-hidden="true">restore</md-icon>
+  <md-icon slot="icon" aria-hidden="true">notes</md-icon>
   <form id="form-dialog-restore-note-confirmation" slot="content" method="dialog">
     ¿Estás seguro de que quieres recuperar esta nota?<br>
   </form>
   <div slot="actions">
     <md-text-button form="form-dialog-restore-note-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
     <md-filled-button id="button-confirm-restore-note" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">restore</md-icon>
+      Recuperar
+    </md-filled-button>
+  </div>
+</md-dialog>
+
+
+<md-dialog id="dialog-delete-folder-confirmation">
+  <div slot="headline">Eliminar carpeta</div>
+  <md-icon slot="icon" aria-hidden="true">folder_delete</md-icon>
+  <form id="form-dialog-delete-folder-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres eliminar esta carpeta?<br>
+    Esto moverá la nota a la papelera.
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-delete-folder-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-tonal-button id="button-confirm-delete-folder" class="delete" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">delete</md-icon>
+      Eliminar
+    </md-filled-tonal-button>
+  </div>
+</md-dialog>
+
+<md-dialog id="dialog-restore-folder-confirmation">
+  <div slot="headline">Recuperar carpeta</div>
+  <md-icon slot="icon" aria-hidden="true">folder</md-icon>
+  <form id="form-dialog-restore-folder-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres recuperar esta carpeta?<br>
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-restore-folder-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-button id="button-confirm-restore-folder" value="confirm">
       <md-icon slot="icon" aria-hidden="true">restore</md-icon>
       Recuperar
     </md-filled-button>

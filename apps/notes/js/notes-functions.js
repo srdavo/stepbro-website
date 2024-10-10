@@ -399,7 +399,6 @@ function toggleDeleteNoteDialog(noteId){
     document.getElementById("button-confirm-delete-note").onclick = function(){ deleteNote(noteId) };
     toggleDialog("dialog-delete-note-confirmation");
 }
-
 async function deleteNote(noteId){
     const data = {
         op: "delete_note",
@@ -428,7 +427,6 @@ async function deleteNote(noteId){
         message("Error: " + error.message, "error");
     }
 }
-
 function removeUiNote(noteId = 0){
     if(noteId == 0){return false;}
     const note = document.querySelector(`.folder[data-note-id="${noteId}"]`);
@@ -448,7 +446,8 @@ function openDeletedNotesWindow(){
 function toggleDeletedNoteContentView(originButton){
     // esta función es la que permite al usuario abrir el contenido de las notas eliminadas
     // state = Flip.getState(".deleted-item:not([active])");
-    originButton.closest(".deleted-item").toggleAttribute("active");
+    originButton.closest("[main-deleted-item-container]").nextElementSibling.toggleAttribute("active");
+    // originButton.closest(".deleted-item").toggleAttribute("active");
     // applyAnimation(state, `.deleted-item:not([active])`);
 
 }
@@ -484,8 +483,8 @@ async function displayDeletedNotes(page = 0){
     
 
     const container = document.getElementById("response-deleted-notes-container");
+    
     container.nextElementSibling.innerHTML = ``;
-
     if(!result.data || result.data.length === 0){
         container.nextElementSibling.innerHTML = `
             <div class="content-box on-background-text align-center info-table-empty">
@@ -504,7 +503,7 @@ async function displayDeletedNotes(page = 0){
             return `
                 <div class="deleted-item">
                     
-                    <div class="simple-container grow-1 justify-between">
+                    <div class="simple-container grow-1 justify-between" main-deleted-item-container>
                         <div class="simple-container gap-8">    
                             <md-icon-button toggle onclick="toggleDeletedNoteContentView(this)">
                                 <md-icon >arrow_drop_down</md-icon>
@@ -531,8 +530,8 @@ async function displayDeletedNotes(page = 0){
                             </md-icon-button>
                         </div>
                     </div>
-                    <div class="deleted-note-content-container">
-                        <div class="deleted-note-content">
+                    <div class="deleted-item-content-container">
+                        <div class="deleted-item-content">
                             ${note.content}
                         </div>
                     </div>

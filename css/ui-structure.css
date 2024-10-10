@@ -7,7 +7,7 @@ main{
   /* max-height: calc(100% - 40px); */
 
   /* border-radius:24px; */
-  background:var(--md-sys-color-surface-container-low);
+  /* background:var(--md-sys-color-surface-container-low); */
   overflow:hidden;
   
 }
