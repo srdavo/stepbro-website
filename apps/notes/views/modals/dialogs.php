@@ -133,3 +133,18 @@
     </md-filled-button>
   </div>
 </md-dialog>
+
+<md-dialog id="dialog-delete-folder-forever-confirmation">
+  <div slot="headline">Eliminar permanentemente</div>
+  <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
+  <form id="form-dialog-delete-folder-forever-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres eliminar <span class="weight-600">permanentemente</span> esta carpeta?<br>
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-delete-folder-forever-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-tonal-button id="button-confirm-delete-folder-forever" class="delete" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
+      Eliminar
+    </md-filled-tonal-button>
+  </div>
+</md-dialog>

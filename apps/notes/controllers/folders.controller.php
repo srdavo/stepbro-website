@@ -170,6 +170,28 @@ switch ($data["op"]){
         echo json_encode($response);
         
         break;
+    case "delete_folder_forever":
+        // Asegúrate de recibir el `folder_id` desde el request
+        $folder_id = $data["folder_id"];
+    
+        // Verifica que el folder existe y pertenece al usuario actual
+        $folder = new Folders(["id" => $folder_id, "user_id" => $userid]);
+        
+        if ($folder->deleteFolderWithContents()) {
+            $response = [
+                'success' => true,
+                'message' => "Folder and its contents deleted successfully"
+            ];
+        } else {
+            $response = [
+                'success' => false,
+                'message' => "Error deleting folder and its contents"
+            ];
+        }
+    
+        echo json_encode($response);
+        exit;
+        
     default:
         $response = [
             "success" => false,

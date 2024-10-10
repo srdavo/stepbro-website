@@ -1,5 +1,5 @@
 <?php 
-define('BASE_URL', '/cocounut-sb/');
+define('BASE_URL', '/stepbro-website/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";

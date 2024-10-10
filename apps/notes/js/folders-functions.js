@@ -617,7 +617,7 @@ async function displayDeletedFolders(page = 0){
                         </div>
                         <div>
                             <md-icon-button 
-                                onclick="toggleDeleteNoteForeverDialog(${item.id}, this)" 
+                                onclick="toggleDeleteFolderForeverDialog(${item.id}, this)" 
                                 data-tooltip="Eliminar permanentemente"
                                 class="tooltip-left"
                                 >
@@ -763,10 +763,45 @@ async function restoreDeletedFolder(folderId, originButton){
         message("Error: " + error.message, "error");
     }
 }
-
 function removeDeletedFolderFromUi(originButton){
     state = Flip.getState(`.deleted-item`);
     originButton.closest(".deleted-item").remove();
     applyAnimation(state, `.deleted-item`);
     return true;
+}
+
+// Las siguientes funciones son para eliminar permanentemente una carpeta
+function toggleDeleteFolderForeverDialog(folderId, originButton){
+    document.getElementById("button-confirm-delete-folder-forever").onclick = function() { deleteFolderForever(folderId, originButton); }
+    toggleDialog("dialog-delete-folder-forever-confirmation")
+}
+
+async function deleteFolderForever(folderId, originButton) {
+    const url = `controllers/folders.controller.php`;
+    const data = {
+        op: "delete_folder_forever",
+        folder_id: folderId
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+                message("Folder and its contents deleted", "success");
+                removeDeletedFolderFromUi(originButton);
+                toggleDialog();
+            } else {
+                message(`Error: ${result.message}`, "error");
+            }
+        } else {
+            message("Error in request", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
 }
