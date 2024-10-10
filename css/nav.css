@@ -52,7 +52,8 @@ nav button.nav-button[active] span.icon-holder span.material-symbols-rounded{
   font-variation-settings: 'FILL' 1;
   padding:4px 16px;
   
-  background:var(--md-sys-color-primary);
+  background:var(--md-sys-color-primary-container);
+  color:var(--md-sys-color-on-primary-container);
 }
 
 /* ripple */
@@ -98,7 +99,7 @@ nav button.nav-button md-ripple{
 
 @media only screen and (min-width: 680px){
   nav.nav-style-2{
-    min-width:200px;
+    min-width:224px;
     gap:0px;
   }
   nav.nav-style-2 button.nav-button{
@@ -109,18 +110,22 @@ nav button.nav-button md-ripple{
   nav.nav-style-2 button.nav-button span.icon-holder{
     position:absolute;
     width: 100%;
-    border-radius:64px;
+    border-radius:16px;
+    color:var(--md-sys-color-outline);
   }
   nav.nav-style-2 button.nav-button > span:not(.icon-holder){
     position:absolute;
     font-size:16px;
+    font-family: 'inter', sans-serif;
+    font-weight: 500;
+    color:var(--md-sys-color-outline);
     line-height: 16px;
     left:56px;
     top:12px;
     transition:color 200ms cubic-bezier(0,1,0,1);
   }
   nav.nav-style-2 button.nav-button[active] > span:not(.icon-holder){
-    color : var(--md-sys-color-on-primary);
+    color : var(--md-sys-color-on-primary-container);
   }
   nav.nav-style-2 button.nav-button span.icon-holder{
     box-sizing: border-box;
@@ -140,14 +145,17 @@ nav button.nav-button md-ripple{
     border-radius: 16px;
   }
   nav.nav-style-2 button.nav-button[active] span.icon-holder span.material-symbols-rounded{
-    padding: 8px 128px 8px 24px;
+    padding: 8px 152px 8px 24px;
     box-shadow: 0px 0px 32px -10px var(--md-sys-color-primary-container);
   }
   nav.nav-style-2 button.nav-button:not([active]) span.icon-holder span.material-symbols-rounded, nav.nav-style-2 button.nav-button:not([active]){
     /* transition: color 200ms; */
   }
   nav.nav-style-2 button.nav-button:not([active]):hover span.icon-holder span.material-symbols-rounded, nav.nav-style-2 button.nav-button:not([active]):hover{
-    color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-primary) !important;
+  }
+  nav.nav-style-2 button.nav-button:not([active]):hover > span:not(.icon-holder){
+    color: var(--md-sys-color-primary) !important;
   }
 }
 
