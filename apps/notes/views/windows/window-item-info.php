@@ -1,5 +1,5 @@
 <window 
-    id="window-folder-info"
+    id="window-item-info"
     class=""
     data-flip-id="animate"
     >
@@ -12,15 +12,15 @@
     <holder>
         <div class="content-box direction-row light-color h-gap-24 padding-16 border-radius-16 justify-between">
             <div class="simple-container"><span class="label-large">Tipo</span></div>
-            <div class="simple-container"><span class="body-large" ><i class="outline-text">Próximamente</i></span></div>
+            <div class="simple-container"><span class="body-large" id="response-info-item-type"><i class="outline-text">Próximamente</i></span></div>
+        </div>
+        <div class="content-box direction-row light-color h-gap-24 padding-16 border-radius-16 justify-between">
+            <div class="simple-container"><span class="label-large">Nombre</span></div>
+            <div class="simple-container"><span class="body-large" id="response-info-item-name">...</span></div>
         </div>
         <div class="content-box direction-row light-color h-gap-24 padding-16 border-radius-16 justify-between">
             <div class="simple-container"><span class="label-large">Ubicación</span></div>
             <div class="simple-container"><span class="body-large" ><i class="outline-text">Próximamente</i></span></div>
-        </div>
-        <div class="content-box direction-row light-color h-gap-24 padding-16 border-radius-16 justify-between">
-            <div class="simple-container"><span class="label-large">Nombre de la carpeta</span></div>
-            <div class="simple-container"><span class="body-large" id="response-info-folder-name">...</span></div>
         </div>
         <div class="content-box direction-row light-color h-gap-24 padding-16 border-radius-16 justify-between">
             <div class="simple-container"><span class="label-large">Fecha de creación</span></div>

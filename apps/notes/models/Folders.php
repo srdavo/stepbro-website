@@ -223,4 +223,10 @@ class Folders extends ActiveRecord{
         return $stmt->execute();
     }
     
+    public function editFolderName(){
+        $query = "UPDATE folders SET folder_name = ? WHERE id = ?";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("si", $this->folder_name, $this->id);
+        return $stmt->execute();
+    }
 }

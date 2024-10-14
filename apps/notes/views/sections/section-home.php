@@ -42,6 +42,7 @@
         <md-icon slot="icon">edit_square</md-icon>
         Crear nota
     </md-filled-button> -->
+    <!-- <md-outlined-button onclick="toggleWindow('#window-move-item'); loadFileSystem('file-system-1');" data-flip-id="animate">Navegador de archivos</md-outlined-button> -->
     <div 
         class="content-box light-color direction-column grow-1 on-background-text editor-parent" 
         style="width:100%; max-width:600px; max-height:500px;"
@@ -52,9 +53,9 @@
             onsubmit="createNote(event, this)"
             class="simple-container direction-column grow-1"
             >
-
+  
         
-            <div class="content-box top-margin-16 padding-8 direction-row gap-0 border-radius-64 flex-wrap">
+            <div class="content-box top-margin-16 padding-8 direction-row gap-0 border-radius-24 flex-wrap">
                 <md-icon-button type="button" onclick="execCmd('undo')"><md-icon>undo</md-icon></md-icon-button>
                 <md-icon-button type="button" onclick="execCmd('redo')"><md-icon>redo</md-icon></md-icon-button>
                 <md-icon-button type="button" onclick="execCmd('bold')"><md-icon>format_bold</md-icon></md-icon-button>
@@ -77,7 +78,8 @@
                 onclick="resizeEditor(this)"
             ></div>
             <div class="simple-container justify-right top-margin-16">
-                <md-filled-button type="submit">Guardar</md-filled-button>
+                <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
+                <!-- <md-filled-button type="submit">Guardar</md-filled-button> -->
             </div>
 
         </form>

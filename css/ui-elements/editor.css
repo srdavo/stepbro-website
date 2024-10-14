@@ -7,12 +7,13 @@
   margin-top: 16px;
   min-width: 272px;
   min-height: 200px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   outline: 0px solid transparent;
   position: relative;
   cursor: text;
   font-size:var(--md-sys-typescale-body-large-font-size);
   color:var(--md-sys-color-on-background);
+  overflow: auto;
 }
 
 /* Pseudoelemento para el placeholder */
@@ -31,4 +32,46 @@
 
 .editor-parent{
   transition:max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1), max-height 0.7s cubic-bezier(0.1, 0.8, 0, 1);
+}
+
+.note-parent{overflow:auto}
+.note-parent form{
+  max-height:100%;
+}
+
+
+.editor::-webkit-scrollbar {
+  width: 8px;
+}
+
+.editor::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.editor::-webkit-scrollbar-thumb {
+  background: var(--md-sys-color-surface-container-high);
+  border-radius: 10px;
+}
+.editor::-webkit-scrollbar-thumb:hover{
+  background: var(--md-sys-color-surface-container-highest);
+  cursor: default;
+}
+
+/* Los siguientes estios son para mostrar la confirmación de cambios guardados */
+.ui-confirm-note-changes[active]{
+  animation: uiConfirmChanges 1s;
+  font-variation-settings: 'FILL' 1;
+}
+@keyframes uiConfirmChanges {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    color:var(--md-sys-color-primary);
+    transform: scale(1.1);
+    
+  }
+  100% {
+    transform: scale(1);
+  }
 }

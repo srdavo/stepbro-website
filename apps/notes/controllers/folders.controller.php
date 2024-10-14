@@ -191,7 +191,27 @@ switch ($data["op"]){
     
         echo json_encode($response);
         exit;
+    case "edit_folder_name":
+        $data_array = [
+            "id" => filter_var($data["folder_id"], FILTER_SANITIZE_NUMBER_INT),
+            "folder_name" => filter_var($data["folder_name"], FILTER_SANITIZE_STRING)
+        ];
+        $folder = new Folders($data_array);
+        $result =  $folder->editFolderName();
+        if($result){
+            $response = [
+                'success' => true,
+                'message' => "Folder name updated successfully"
+            ];
+        }else{
+            $response = [
+                'success' => false,
+                'message' => "Error updating folder name"
+            ];
+        }
+        echo json_encode($response);
         
+        break;
     default:
         $response = [
             "success" => false,

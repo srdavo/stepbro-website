@@ -119,6 +119,7 @@
     ;
     transform-origin:top;
     content-visibility: auto;
+    user-select:none;
 }
 .folder span:last-child{
     overflow: hidden;
@@ -352,3 +353,106 @@
     background:var(--md-sys-color-secondary);
     color:var(--md-sys-color-on-secondary);
 } */
+
+
+/* El siguiente código es para los estilos de el File System (Secundario) */
+.file-system-item{
+    display:flex;
+    flex-direction:column;
+
+    /* background: var(--md-sys-color-surface-container); */
+    border-radius:16px;
+    cursor:pointer;
+    user-select:none;
+    overflow:hidden;
+}
+.file-system-item[disabled]{
+    pointer-events:none;
+    opacity:0.5;
+}
+
+.file-data{
+    position:relative;
+    display:flex;
+    justify-content: space-between;
+    overflow:hidden;
+
+}
+.file-name-container{
+    display:flex;
+    flex-grow:1; 
+    gap: 8px; 
+    align-items: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.file-name-container > .file-name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-content{
+    position:relative;
+    display:none;
+    flex-direction:column;
+    padding:8px 16px;
+    padding-right:8px;
+    color:var(--md-sys-color-on-background);
+    border-bottom: solid 1px var(--md-sys-color-outline-variant);
+    
+    margin-bottom:16px;
+    /* border-radius:0 0 0 16px; */
+    overflow:hidden;
+}
+.file-content[active]{display:flex;}
+/* .file-content::after{
+    content: '';
+    border-left: solid 1px var(--md-sys-color-outline-variant);
+    border-image: linear-gradient(to bottom, transparent, var(--md-sys-color-outline-variant)) 1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+} */
+
+.loader-container{
+    display:none;
+    position:absolute;
+    background:var(--md-sys-color-background);
+    background: linear-gradient(to right, var(--md-sys-color-background) 70%, transparent);
+    animation : progress-indicator-in  500ms cubic-bezier(1,0,.82,-0.09)
+}
+.loader-container[active]{ display:flex; }
+.loader-container > *{
+    transform:scale(0.4)
+}
+
+
+.dynamic-options{
+    display:none;
+    align-items: center;
+}
+.file-system-item:hover .dynamic-options{display:flex;}
+
+/* .dynamic-options > *{
+    display:none;
+}
+
+.dynamic-option-enable-selection [enable-selection]{display:flex;}
+.dynamic-option-enable-selection-as-button [enable-selection-as-button]{display:flex;} */
+
+@media only screen and (max-width: 680px){
+    .file-content{
+        padding:4px;
+        padding-right:0;
+    }
+    .dynamic-options{
+        display:flex;
+    }
+}

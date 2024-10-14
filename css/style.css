@@ -52,12 +52,17 @@ input::-webkit-date-and-time-value{ text-align:left; }
 md-dialog form::-webkit-scrollbar{display:none !important}
 md-icon.dynamic{--md-icon-size: ;}
 md-icon.filled{font-variation-settings: 'FILL' 1;}
-md-icon.pretty{
+.pretty{
   --md-icon-size: 64px;
   padding:24px;
   background:var(--md-sys-color-surface-container-highest); 
   color: var(--md-sys-color-on-background);
   border-radius:88px;
+  font-variation-settings: 'FILL' 0;
+  transition: font-variation-settings 500ms;
+}
+md-icon.transparent{
+  background:transparent !important;
 }
 md-icon.pretty.small{
   --md-icon-size: 24px;

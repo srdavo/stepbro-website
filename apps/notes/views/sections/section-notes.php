@@ -9,6 +9,7 @@
                     class="view-selector" 
                     data-folders-view-type="column" 
                     onclick="changeFoldersView(this)"
+                    data-tooltip="Vista de columnas"
                     active
                     >
                     <md-ripple></md-ripple>
@@ -18,6 +19,7 @@
                     class="view-selector" 
                     data-folders-view-type="grid" 
                     onclick="changeFoldersView(this)"
+                    data-tooltip="Vista de lista"
                     >
                     <md-ripple></md-ripple>
                     <md-icon>grid_view</md-icon>
@@ -29,6 +31,7 @@
                     onclick="toggleMenu('menu-notes-options')" 
                     class="solid"
                     id="toggler-menu-notes-options"
+                    data-tooltip="Papelera"
                     >
                     <md-icon>more_vert</md-icon>
                 </md-filled-tonal-icon-button>
@@ -162,11 +165,11 @@
                         <md-icon slot="start" aria-hidden="true">info</md-icon>
                         <div slot="headline">Información</div>
                     </md-menu-item>
-                    <md-menu-item onclick="" data-flip-id="animate">
+                    <md-menu-item onclick="toggleEditFolderNameWindow(this)" data-flip-id="animate">
                         <md-icon slot="start" aria-hidden="true">bookmark_manager</md-icon>
                         <div slot="headline">Cambiar nombre</div>
                     </md-menu-item>
-                    <md-menu-item onclick="" data-flip-id="animate">
+                    <md-menu-item onclick="toggleMoveItemWindow(this)" data-flip-id="animate">
                         <md-icon slot="start" aria-hidden="true">drive_file_move</md-icon>
                         <div slot="headline">Mover carpeta</div>
                     </md-menu-item>
@@ -197,7 +200,8 @@
             <div class="simple-container gap-8">
                 <md-icon-button 
                     type="button" 
-                    onclick="message('Esto dará la opción demover de carpeta la nota')"
+                    data-flip-id="animate"
+                    onclick="toggleMoveItemWindow(this, 'note')"
                     data-tooltip="Mover"
                     >
                     <md-icon>drive_file_move</md-icon>
@@ -229,7 +233,8 @@
         </div>
         <div class="editor" contenteditable="true" aria-placeholder="Escribe tu nota aquí..." ></div>
         <div class="simple-container justify-right top-margin-16">
-            <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button>
+            <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
+            <!-- <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button> -->
         </div>
     </form>
 </template>

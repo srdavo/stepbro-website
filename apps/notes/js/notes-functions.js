@@ -39,7 +39,8 @@ async function saveNote(content){
                 idNote = result.id;
                 //form.querySelector(".editor").innerHTML = "";
                 //form.closest(".editor-parent").removeAttribute("active");
-                message("Nota guardada", "success");
+                // message("Nota guardada", "success");
+                uiConfirmNoteChanges();
                 syncNotes();
                 
                 // toggleWindow();
@@ -54,6 +55,11 @@ async function saveNote(content){
     }
 
 
+}
+function uiConfirmNoteChanges(){
+    const uiIndicator = document.querySelector("section[active] .ui-confirm-note-changes");
+    uiIndicator.setAttribute("active", "");
+    uiIndicator.addEventListener("animationend", () => {uiIndicator.removeAttribute("active")}, {once: true})
 }
 
 // Boton Code

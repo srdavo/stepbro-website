@@ -487,15 +487,15 @@ function toggleFolderInfoWindow(originButton){
     const previousFoldersParent = currentFoldersParent.previousElementSibling;
     const activeFolderElement = previousFoldersParent.querySelector(".folder[active]")
 
-    document.getElementById("response-info-folder-name").textContent = activeFolderElement.getAttribute("data-folder-name");
+    document.getElementById("response-info-item-name").textContent = activeFolderElement.getAttribute("data-folder-name");
     document.getElementById("response-info-created-at").textContent = activeFolderElement.getAttribute("data-folder-created-at");
 
-    toggleWindow('#window-folder-info', 'absolute', 2)
+    toggleWindow('#window-item-info', 'absolute', 2)
 }
 
 
 
-// Las siguientes funciones son para la eliminación de carpetas
+// Las siguientes funciones son para la eliminación de carpetas soft delete
 function toggleDeleteFolderDialog(originButton){
     if(!originButton){return;}
     const currentFoldersParent = originButton.closest(".folders-parent");
@@ -671,9 +671,9 @@ async function toggleDeletedFolderContentView(originButton){
 
     const folderId = originButton.getAttribute("data-item-id");
     
-    const folderContent = await getFolderContent(folderId);
     const folderContentContainer = originButton.closest("[main-deleted-item-container]").nextElementSibling.querySelector(".deleted-item-content");
-
+    folderContentContainer.innerHTML = ``;
+    const folderContent = await getFolderContent(folderId);
     
     folderContentContainer.innerHTML = `
         ${folderContent.data.map(item => {
@@ -775,7 +775,6 @@ function toggleDeleteFolderForeverDialog(folderId, originButton){
     document.getElementById("button-confirm-delete-folder-forever").onclick = function() { deleteFolderForever(folderId, originButton); }
     toggleDialog("dialog-delete-folder-forever-confirmation")
 }
-
 async function deleteFolderForever(folderId, originButton) {
     const url = `controllers/folders.controller.php`;
     const data = {
@@ -805,3 +804,291 @@ async function deleteFolderForever(folderId, originButton) {
         message("Error: " + error.message, "error");
     }
 }
+
+// Las siguientes funciones son para cambiar el nombre de una carpeta
+function toggleEditFolderNameWindow(originButton){
+    // const activeFolder = document.querySelector(".folder[active]");
+    const activeFolder = originButton.closest(".folders-parent").previousElementSibling.querySelector(".folder[active]");
+
+    const folderName = activeFolder.getAttribute("data-folder-name");
+    const folderId = activeFolder.getAttribute("data-folder-id");
+    document.getElementById("edit-folder-name").value = folderName;
+    toggleWindow("#window-edit-folder-name");
+    document.getElementById("edit-folder-name-form").onsubmit = function(event){ editFolderName(event, folderId); }
+}
+async function editFolderName(event, folderId){
+    event.preventDefault();
+    const parentId = "#window-edit-folder-name";
+    if(!checkEmpty(parentId, "input")){return;}
+    toggleButton(parentId, true);
+
+    const data = {
+        op: "edit_folder_name",
+        folder_name: document.getElementById("edit-folder-name").value,
+        folder_id: folderId
+    }
+    const url = `controllers/folders.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        toggleButton(parentId, false);
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+                message("Nombre actualizado", "success");
+                updateUiFolderName(folderId, data.folder_name);
+                toggleWindow();
+                return true;
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+function updateUiFolderName(folderId, folderName){
+    const folder = document.querySelector(`.folder[data-folder-id="${folderId}"]`);
+    folder.setAttribute("data-folder-name", folderName);
+    if(folder){folder.querySelector("span").textContent = folderName;}
+}
+
+
+// Las siguientes funciones son para el File System Secundario
+
+async function loadFileSystem(parentId = 0, propeties = {}){
+    // parentId es el id del elemento contenedor de los archivos
+    if(parentId == 0){console.log("sin padre"); return;}
+
+    const container = document.getElementById(parentId);
+    if(!container){console.log("sin contenedor"); return;}
+    
+    const files = await getFolders();
+    if(!files.success){return;}
+
+    // propeties = {
+    //     enableSelection: false,
+    //     enableMoveFileButton: true
+    // }
+    localStorage.setItem('sb-file-system-propeties', JSON.stringify(propeties));
+
+    displayFileSystemData(container, files)
+
+
+}
+async function toggleFileSystemContent(originButton){
+    const filesContainer = originButton.closest(".file-system-item").querySelector(".file-content");
+    if(!filesContainer){return;}
+    filesContainer.toggleAttribute("active");
+    if(!filesContainer.hasAttribute("active")){return;}
+   
+    const loaderContainer = originButton.closest(".file-system-item").querySelector(".loader-container");
+    toggleLoaderIndicator(loaderContainer);
+
+    filesContainer.innerHTML = ``;
+    const folderId = originButton.getAttribute("data-file-id");
+    const fileContent = await getFolderContent(folderId);
+    displayFileSystemData(filesContainer, fileContent); // display folder content
+    toggleLoaderIndicator(loaderContainer); // remove loader
+
+    // this is for the move file system, no me encanta cómo lo hice pero funciona
+    validateItemVisibility('move-item-file-system-container', localStorage.getItem('sb-move-item-id'), true)
+}   
+function toggleLoaderIndicator(container, type = "circular"){
+    container.toggleAttribute("active");
+    if(type == "linear"){
+        if(container.hasAttribute("active")){
+            container.innerHTML = `<md-linear-progress indeterminate four-color></md-linear-progress>`;
+        }else{
+            container.innerHTML = ``;
+        }
+        return;
+    }
+
+    if(container.hasAttribute("active")){
+        container.innerHTML = `<md-circular-progress indeterminate four-color></md-circular-progress>`;
+    }else{
+        container.innerHTML = ``;
+    }
+}
+function toggleFileSystemNoteContent(originButton){
+    const filesContainer = originButton.closest(".file-system-item").querySelector(".file-content");
+    if(!filesContainer){return;}
+    filesContainer.toggleAttribute("active");
+    if(!filesContainer.hasAttribute("active")){return;}
+   
+    filesContainer.innerHTML = ``;
+    const noteContent = originButton.getAttribute("data-content");
+    filesContainer.innerHTML = noteContent;
+}
+function displayFileSystemData(container, fileContent){
+    if(!container || !fileContent){return;}
+    const propeties = JSON.parse(localStorage.getItem('sb-file-system-propeties')) || {};
+
+    if(!fileContent.data || fileContent.data.length === 0){
+        container.innerHTML = `
+            <span class="outline-text"><i>Carpeta vacía</i></span>
+        `;
+        return;
+    }
+
+    container.innerHTML = `
+        ${fileContent.data.map(item => {
+            var itemId = 0;
+            if(!item.item_name){
+                itemName = item.item_type == "folder" ? cleanHTMLContent(item.item_title) : cleanHTMLContent(item.item_content);
+                itemId = item.item_id;
+            }else{
+                itemName = item.item_type == "folder" ? cleanHTMLContent(item.item_name) : cleanHTMLContent(item.item_content);
+                itemId = item.id;
+            }
+
+            if(itemName == ""){itemNameFormated = `<i class="outline-text">Nota sin nombre</i>`;}else{itemNameFormated = itemName;}
+            icon = item.item_type === "folder" ? "folder" : "notes";
+            iconOpen = item.item_type === "folder" ? "folder_open" : "notes";
+            iconClass = item.item_type === "folder" ? "primary-text" : "";
+            noteContent = item.item_type === "folder" ? "" : escapeHTML(item.item_content);
+            functionToCall = item.item_type === "folder" ? "toggleFileSystemContent" : "toggleFileSystemNoteContent"; 
+
+            var dynamicContent = ``;
+            if(propeties.enableSelection && item.item_type === "folder"){
+                dynamicContent += `
+                    <div>
+                        <md-radio value="${itemId}" name="file-system-selected-file"></md-radio>
+                    </div>
+                `;
+            }
+            if(propeties.enableMoveFileButton && item.item_type === "folder"){
+                dynamicContent += `
+                    <md-text-button onclick="moveSelectedItem(${itemId})">
+                        <md-icon slot="icon">arrow_forward</md-icon>
+                        Mover
+                    </md-text-button>
+                `;
+            }
+
+            return `
+                <div class="file-system-item">
+                    
+                    <div class="file-data">
+                        
+                        <div 
+                            class="file-name-container"
+                            data-file-id="${itemId}"
+                            data-file-type="${item.item_type}"
+                            data-content="${noteContent}"
+
+                            onclick="${functionToCall}(this);"
+                            >
+                            <md-ripple></md-ripple>
+                            <div class="loader-container">
+                                
+                            </div>
+                            <md-icon class="pretty small transparent ${iconClass}">${icon}</md-icon>
+                            <span class="file-name">${itemNameFormated}</span>
+                        </div>
+                        <div class="dynamic-options">
+                            ${dynamicContent}
+                
+                        </div>
+                    </div>
+                    <div class="file-content">
+                        
+                    </div>
+                </div>
+            `;
+        }).join("")}
+    `;
+}
+
+// Las siguientes funciones son para mover archivos a otra carpeta
+async function toggleMoveItemWindow(originButton, type = "folder"){
+    if(type == "note"){
+        activeFolder = document.querySelectorAll(".folder[active]")[document.querySelectorAll(".folder[active]").length - 1];
+    }else{
+        var activeFolder = originButton.closest(".folders-parent").previousElementSibling.querySelector(".folder[active]");
+    }
+    const loaderContainer = document.getElementById("progress-indicator-move-file");
+    const fileSystemContainer = document.getElementById("move-item-file-system-container");
+    if(type === "folder"){
+        itemId = activeFolder.getAttribute("data-folder-id");
+        itemName = activeFolder.getAttribute("data-folder-name");
+    }
+    if(type === "note"){
+        itemId = activeFolder.getAttribute("data-note-id");
+        itemName = cleanHTMLContent(activeFolder.getAttribute("data-note-name"));
+    }
+
+    localStorage.setItem('sb-move-item-id', itemId);
+    // localStorage.getItem('sb-move-item-id');
+
+    document.getElementById("modify-move-item-name").textContent = itemName;
+    document.getElementById("modify-move-item-id").setAttribute("data-item-id", itemId);
+    document.getElementById("modify-move-item-id").setAttribute("data-item-type", type);
+    document.getElementById("modify-move-item-id").textContent = itemId;
+
+    toggleWindow("#window-move-item", undefined, 1);
+    toggleLoaderIndicator(loaderContainer, "linear");
+    await loadFileSystem("move-item-file-system-container", {enableMoveFileButton:true});
+    validateItemVisibility(fileSystemContainer, itemId);    
+    // document.getElementById("move-item-file-system-container").querySelector(`.file-name-container[data-file-id="${itemId}"]`).closest(".file-system-item").setAttribute("disabled", "");
+
+    toggleLoaderIndicator(loaderContainer, "linear");
+
+}
+function validateItemVisibility(container, itemId, useId = false){
+    // !important this function will check if the selected item to move is visible in the file system, so, if it is, it will be disabled to avoid moving it to itself
+    // const container = document.getElementById(containerId);
+    if(useId){container = document.getElementById(container);}
+    if(!container){return;}
+    const item = container.querySelector(`.file-name-container[data-file-id="${itemId}"]`);
+    if(item){
+        item.closest(".file-system-item").setAttribute("disabled", "");
+    }
+
+}
+
+
+async function moveSelectedItem(newFolderId = 0){
+    const itemId = document.getElementById("modify-move-item-id").getAttribute("data-item-id");
+    if(!itemId){return;}
+    const itemType = document.getElementById("modify-move-item-id").getAttribute("data-item-type");
+    if(!itemType){return;}
+    if(newFolderId == itemId){message("No puedes moverlo a esta ubicación", "error"); return;}
+
+    const data = {
+        op: "move_item",
+        item_id: itemId,
+        item_type: itemType,
+        folder_id: newFolderId,
+    }
+    const url = `controllers/relations.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+                message("Movido con éxito", "success");
+                toggleWindow();
+                syncFolders();
+                removeFoldersParent(document.querySelector(".folders-parent"));
+                return true;
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+
+}
+
