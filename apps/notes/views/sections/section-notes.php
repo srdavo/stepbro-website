@@ -161,20 +161,26 @@
                     <span>Más opciones</span>
                 </div>
                 <md-menu class="md-menu" style="min-width:264px;" anchor="closest('div.folder')">
-                    <md-menu-item onclick="toggleFolderInfoWindow(this)" data-flip-id="animate">
-                        <md-icon slot="start" aria-hidden="true">info</md-icon>
+                    <md-menu-item 
+                        data-button-folder-info 
+                        data-flip-id="animate"
+                        >
+                        <md-icon slot="start">info</md-icon>
                         <div slot="headline">Información</div>
                     </md-menu-item>
-                    <md-menu-item onclick="toggleEditFolderNameWindow(this)" data-flip-id="animate">
-                        <md-icon slot="start" aria-hidden="true">bookmark_manager</md-icon>
+                    <md-menu-item 
+                        onclick="toggleEditFolderNameWindow(this)" 
+                        data-flip-id="animate"
+                        >
+                        <md-icon slot="start">bookmark_manager</md-icon>
                         <div slot="headline">Cambiar nombre</div>
                     </md-menu-item>
                     <md-menu-item onclick="toggleMoveItemWindow(this)" data-flip-id="animate">
-                        <md-icon slot="start" aria-hidden="true">drive_file_move</md-icon>
+                        <md-icon slot="start">drive_file_move</md-icon>
                         <div slot="headline">Mover carpeta</div>
                     </md-menu-item>
                     <md-menu-item onclick="toggleDeleteFolderDialog(this)" data-flip-id="animate">
-                        <md-icon slot="start" aria-hidden="true">folder_delete</md-icon>
+                        <md-icon slot="start">folder_delete</md-icon>
                         <div slot="headline">Eliminar carpeta</div>
                     </md-menu-item>
                 </md-menu>
