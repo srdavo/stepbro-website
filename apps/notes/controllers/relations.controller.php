@@ -50,14 +50,14 @@ switch ($data["op"]){
         }
 
         // Check if item is being moved to the same folder
-        // if($data_array["folder_id"] == $data["item_id"]){
-        //     $response = [
-        //         'success' => false,
-        //         'message' => "Cannot move item to the same folder"
-        //     ];
-        //     echo json_encode($response);
-        //     exit;
-        // }
+        if($data_array["folder_id"] == $data["item_id"] && $data["item_type"] == "folder"){
+            $response = [
+                'success' => false,
+                'message' => "Cannot move item to the same folder"
+            ];
+            echo json_encode($response);
+            exit;
+        }
 
         // check if item is being moved to a folder that is inside the item
         $folder_content = $Relations->getFolderContent(["folder_id" => $data_array["item_id"], "user_id" => $userid]);

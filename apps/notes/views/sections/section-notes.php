@@ -33,7 +33,7 @@
                     id="toggler-menu-notes-options"
                     data-tooltip="Papelera"
                     >
-                    <md-icon>more_vert</md-icon>
+                    <md-icon>delete_sweep</md-icon>
                 </md-filled-tonal-icon-button>
                 <md-menu id="menu-notes-options" style="min-width:264px;" anchor="toggler-menu-notes-options">
                     <md-menu-item onclick="openDeletedNotesWindow()" data-flip-id="animate">
@@ -198,6 +198,14 @@
                 <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
             </div>
             <div class="simple-container gap-8">
+                <md-icon-button 
+                    type="button" 
+                    data-flip-id="animate"
+                    onclick="toggleWindow('#window-item-info', 'absolute', 1)"
+                    data-tooltip="Información"
+                    >
+                    <md-icon>info</md-icon>
+                </md-icon-button>
                 <md-icon-button 
                     type="button" 
                     data-flip-id="animate"

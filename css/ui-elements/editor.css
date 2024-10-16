@@ -14,6 +14,7 @@
   font-size:var(--md-sys-typescale-body-large-font-size);
   color:var(--md-sys-color-on-background);
   overflow: auto;
+
 }
 
 /* Pseudoelemento para el placeholder */

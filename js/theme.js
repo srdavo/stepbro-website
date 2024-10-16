@@ -43,7 +43,13 @@ function changeNav(originButton){
     }
 
     const navSelectorParent = document.getElementById("nav-selector-parent");
-    navSelectorParent.querySelector("div[active]").removeAttribute("active");
+    if(navSelectorParent){
+        const activeButton = navSelectorParent.querySelector("div[active]");
+        if(activeButton){
+            activeButton.removeAttribute("active");
+        }
+    }
+        
     originButton.setAttribute("active", "");
 
     localStorage.setItem('sb-selected-nav', newNav);
@@ -58,11 +64,14 @@ function loadNav(){
         }
 
         const navSelectorParent = document.getElementById("nav-selector-parent");
-        navSelectorParent.querySelector("div[active]").removeAttribute("active");
+        if(navSelectorParent){
+            navSelectorParent.querySelector("div[active]").removeAttribute("active");
+        }
 
         const activeButton = navSelectorParent.querySelector(`div[data-nav-option="${newNav}"]`);
-        activeButton.setAttribute("active", "");
-
+        if(activeButton){
+            activeButton.setAttribute("active", "");
+        }
     }, {once:true });
 }
 

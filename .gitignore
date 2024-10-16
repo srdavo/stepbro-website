@@ -1,3 +1,4 @@
 config/connect.php
 apps/config/connect.php
 apps/notes/config/connect.php
+views/partials/__header.php

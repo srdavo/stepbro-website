@@ -43,9 +43,23 @@
         Crear nota
     </md-filled-button> -->
     <!-- <md-outlined-button onclick="toggleWindow('#window-move-item'); loadFileSystem('file-system-1');" data-flip-id="animate">Navegador de archivos</md-outlined-button> -->
+    <div class="content-box testbar" onclick="testSize(this)" style="width:100px;">
+        <!-- <md-ripple></md-ripple> -->
+    </div>
+    <script>
+        function testSize(originButton){
+            state = Flip.getState('.testbar');
+            originButton.style.width = '500px';
+            applyAnimation(state, '.testbar', true);
+        }
+    </script>
+    
+    
     <div 
-        class="content-box light-color direction-column grow-1 on-background-text editor-parent" 
-        style="width:100%; max-width:600px; max-height:500px;"
+        class="content-box light-color direction-column grow-1 on-background-text border-radius-32 editor-parent" 
+        style="width:100%; max-width:600px; max-height:500px;
+            box-shadow: var(--md-sys-color-surface-container-lowest) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.06) 0px 42px 30px 0px
+        "
         >
         <span class="display-small">Nota rápida</span>
         <form

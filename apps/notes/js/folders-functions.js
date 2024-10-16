@@ -1034,19 +1034,22 @@ async function toggleMoveItemWindow(originButton, type = "folder"){
     toggleWindow("#window-move-item", undefined, 1);
     toggleLoaderIndicator(loaderContainer, "linear");
     await loadFileSystem("move-item-file-system-container", {enableMoveFileButton:true});
-    validateItemVisibility(fileSystemContainer, itemId);    
+    validateItemVisibility(fileSystemContainer, itemId, false, type);    
     // document.getElementById("move-item-file-system-container").querySelector(`.file-name-container[data-file-id="${itemId}"]`).closest(".file-system-item").setAttribute("disabled", "");
 
     toggleLoaderIndicator(loaderContainer, "linear");
 
 }
-function validateItemVisibility(container, itemId, useId = false){
+function validateItemVisibility(container, itemId, useId = false, type = "folder"){
     // !important this function will check if the selected item to move is visible in the file system, so, if it is, it will be disabled to avoid moving it to itself
     // const container = document.getElementById(containerId);
     if(useId){container = document.getElementById(container);}
     if(!container){return;}
     const item = container.querySelector(`.file-name-container[data-file-id="${itemId}"]`);
-    if(item){
+    if(item && type == "folder" && item.getAttribute("data-file-type") === "folder"){
+        item.closest(".file-system-item").setAttribute("disabled", "");
+    }
+    if(item && type == "note" && item.getAttribute("data-file-type") === "note"){
         item.closest(".file-system-item").setAttribute("disabled", "");
     }
 
@@ -1058,7 +1061,7 @@ async function moveSelectedItem(newFolderId = 0){
     if(!itemId){return;}
     const itemType = document.getElementById("modify-move-item-id").getAttribute("data-item-type");
     if(!itemType){return;}
-    if(newFolderId == itemId){message("No puedes moverlo a esta ubicación", "error"); return;}
+    // if(newFolderId == itemId){message("No puedes moverlo a esta ubicación", "error"); return;}
 
     const data = {
         op: "move_item",

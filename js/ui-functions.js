@@ -335,6 +335,8 @@ function animate(element, windowNew, position, scale){
     duration: 0.7,
     scale: scaleValue,
     ease: easeType,
+    // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.165,0.541 0.324,0.861 0.532,1.281 0.524,1 1,1 "),
+    // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.18,0.666 0.35,0.861 0.562,1.106 0.611,1 1,1 "),
     // ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
     // ease: CustomEase.create("easeName", ".47,.29,0,1"),
     // ease: CustomEase.create("easeName", ".58,.18,0,1"),
@@ -406,6 +408,7 @@ function toggleTab(windowId, tabId, workHidden){
 function applyAnimation(state, target, scale = true, absolute = false){
   let timeline = Flip.from(state, {
     ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
+    // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.165,0.541 0.324,0.861 0.532,1.281 0.524,1 1,1 "),
     targets: target,
     duration: 0.7,
     absolute:absolute,
