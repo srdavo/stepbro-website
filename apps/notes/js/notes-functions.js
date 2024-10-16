@@ -220,18 +220,31 @@ async function displayNoteContent(noteId, originButton){
     const note = await getNoteContent(noteId);
     if(!note){return;}
 
-    if (timeoutPromise) {
-        await timeoutPromise; 
-    }
+    if (timeoutPromise) {await timeoutPromise; }
 
-    // 3. 
+    // 3. Load the note editor to its container
     setNoteEditorContent(note);
 
+    // 4. Manage the folders parent (folder columns)
     const currentFoldersParent = originButton.closest(".folders-parent");
     removeFoldersParent(currentFoldersParent);
     manageReducedFoldersParent(currentFoldersParent);
-
     reduceAllFoldersParent();
+
+    // 5. Set the data attributes of the note to the note editor
+    setNoteDataAttributes(originButton);
+}
+function setNoteDataAttributes(originNoteButton){
+    const noteId = originNoteButton.getAttribute("data-note-id");
+    const noteName = originNoteButton.getAttribute("data-note-name");
+    const noteCreatedAt = originNoteButton.getAttribute("data-note-created-at");
+
+    const noteEditor = originNoteButton.closest(".folders-parent").nextElementSibling.querySelector("[data-note-editor-parent]");
+    noteEditor.setAttribute("data-note-id", noteId);
+    noteEditor.setAttribute("data-note-name", noteName);
+    noteEditor.setAttribute("data-note-created-at", noteCreatedAt);
+
+    noteEditor.querySelector("[data-button-move-note]").onclick = function(){ toggleMoveItemWindow(this, 'note') }
 }
 function setNoteEditorContent(note){
     const container = document.getElementById("folders-note-parent");

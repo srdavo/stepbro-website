@@ -435,7 +435,8 @@
 }
 
 .folder .loader-container{
-    padding-left:16px;
+    padding-left:12px;
+    padding-right: 4px;
     background:var(--md-sys-color-secondary-container);
     background: linear-gradient(to right, var(--md-sys-color-secondary-container) 70%, transparent);
 }

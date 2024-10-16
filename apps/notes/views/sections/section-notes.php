@@ -169,13 +169,16 @@
                         <div slot="headline">Información</div>
                     </md-menu-item>
                     <md-menu-item 
-                        onclick="toggleEditFolderNameWindow(this)" 
+                        data-button-edit-folder-name 
                         data-flip-id="animate"
                         >
                         <md-icon slot="start">bookmark_manager</md-icon>
                         <div slot="headline">Cambiar nombre</div>
                     </md-menu-item>
-                    <md-menu-item onclick="toggleMoveItemWindow(this)" data-flip-id="animate">
+                    <md-menu-item 
+                        data-button-move-folder 
+                        data-flip-id="animate"
+                        >
                         <md-icon slot="start">drive_file_move</md-icon>
                         <div slot="headline">Mover carpeta</div>
                     </md-menu-item>
@@ -198,7 +201,7 @@
 </template>
 
 <template id="template-note-editor">
-    <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1">
+    <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1" data-note-editor-parent>
         <div class="simple-container bottom-margin-8 justify-between">
             <div class="simple-container">
                 <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
@@ -214,8 +217,8 @@
                 </md-icon-button>
                 <md-icon-button 
                     type="button" 
+                    data-button-move-note
                     data-flip-id="animate"
-                    onclick="toggleMoveItemWindow(this, 'note')"
                     data-tooltip="Mover"
                     >
                     <md-icon>drive_file_move</md-icon>

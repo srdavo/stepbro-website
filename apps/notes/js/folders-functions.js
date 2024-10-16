@@ -246,6 +246,8 @@ function setFolderDataAttributes(originFolderButton){
     folderColumn.setAttribute("data-folder-created-at", folderCreatedAt);
 
     folderColumn.querySelector("[data-button-folder-info]").onclick = function() { toggleFolderInfoWindow(this) }
+    folderColumn.querySelector("[data-button-edit-folder-name]").onclick = function() { toggleEditFolderNameWindow(this) }
+    folderColumn.querySelector("[data-button-move-folder]").onclick = function() { toggleMoveItemWindow(this) }
 }
 
 function displayFolderContentList(data, originButton){
@@ -838,16 +840,15 @@ async function deleteFolderForever(folderId, originButton) {
 
 // Las siguientes funciones son para cambiar el nombre de una carpeta
 function toggleEditFolderNameWindow(originButton){
-    // const activeFolder = document.querySelector(".folder[active]");
-    const activeFolder = originButton.closest(".folders-parent").previousElementSibling.querySelector(".folder[active]");
+    const folderColumn = originButton.closest(".folders-parent")
+    const folderName = folderColumn.getAttribute("data-folder-name");
+    const folderId = folderColumn.getAttribute("data-folder-id");
 
-    const folderName = activeFolder.getAttribute("data-folder-name");
-    const folderId = activeFolder.getAttribute("data-folder-id");
     document.getElementById("edit-folder-name").value = folderName;
     toggleWindow("#window-edit-folder-name");
-    document.getElementById("edit-folder-name-form").onsubmit = function(event){ editFolderName(event, folderId); }
+    document.getElementById("edit-folder-name-form").onsubmit = function(event){ editFolderName(event, folderId, folderColumn); }
 }
-async function editFolderName(event, folderId){
+async function editFolderName(event, folderId, folderColumn){
     event.preventDefault();
     const parentId = "#window-edit-folder-name";
     if(!checkEmpty(parentId, "input")){return;}
@@ -869,7 +870,7 @@ async function editFolderName(event, folderId){
             const result = await response.json();
             if (result.success) {
                 message("Nombre actualizado", "success");
-                updateUiFolderName(folderId, data.folder_name);
+                updateUiFolderName(folderId, data.folder_name, folderColumn);
                 toggleWindow();
                 return true;
             } else {
@@ -882,10 +883,14 @@ async function editFolderName(event, folderId){
         message("Error: " + error.message, "error");
     }
 }
-function updateUiFolderName(folderId, folderName){
+function updateUiFolderName(folderId, folderName, folderColumn){
+    if(!folderId || !folderName){return;}
     const folder = document.querySelector(`.folder[data-folder-id="${folderId}"]`);
-    folder.setAttribute("data-folder-name", folderName);
-    if(folder){folder.querySelector("span").textContent = folderName;}
+    if(folder){
+        folder.querySelector("span").textContent = folderName;
+        folder.setAttribute("data-folder-name", folderName);
+    }
+    if(folderColumn){ folderColumn.setAttribute("data-folder-name", folderName); }
 }
 
 
@@ -1038,38 +1043,37 @@ function displayFileSystemData(container, fileContent){
 
 // Las siguientes funciones son para mover archivos a otra carpeta
 async function toggleMoveItemWindow(originButton, type = "folder"){
-    if(type == "note"){
-        activeFolder = document.querySelectorAll(".folder[active]")[document.querySelectorAll(".folder[active]").length - 1];
-    }else{
-        var activeFolder = originButton.closest(".folders-parent").previousElementSibling.querySelector(".folder[active]");
-    }
+    if(!originButton){return;}
     const loaderContainer = document.getElementById("progress-indicator-move-file");
     const fileSystemContainer = document.getElementById("move-item-file-system-container");
-    if(type === "folder"){
-        itemId = activeFolder.getAttribute("data-folder-id");
-        itemName = activeFolder.getAttribute("data-folder-name");
+    
+    var itemId = 0;
+    var itemName = "";
+    
+    if(type == "folder"){
+        const folderColumn = originButton.closest(".folders-parent");
+        itemId = folderColumn.getAttribute("data-folder-id");
+        itemName = folderColumn.getAttribute("data-folder-name");
     }
-    if(type === "note"){
-        itemId = activeFolder.getAttribute("data-note-id");
-        itemName = cleanHTMLContent(activeFolder.getAttribute("data-note-name"));
+    if(type == "note"){
+        const noteContainer = originButton.closest("[data-note-editor-parent]");
+        itemId = noteContainer.getAttribute("data-note-id");
+        itemName = cleanHTMLContent(noteContainer.getAttribute("data-note-name"));
     }
 
     localStorage.setItem('sb-move-item-id', itemId);
-    // localStorage.getItem('sb-move-item-id');
 
     document.getElementById("modify-move-item-name").textContent = itemName;
+    document.getElementById("modify-move-item-id").textContent = itemId;
+    // Definimos los data attributes para obtener de aquí los datos necesarios para mover el archivo
     document.getElementById("modify-move-item-id").setAttribute("data-item-id", itemId);
     document.getElementById("modify-move-item-id").setAttribute("data-item-type", type);
-    document.getElementById("modify-move-item-id").textContent = itemId;
 
     toggleWindow("#window-move-item", undefined, 1);
     toggleLoaderIndicator(loaderContainer, "linear");
     await loadFileSystem("move-item-file-system-container", {enableMoveFileButton:true});
     validateItemVisibility(fileSystemContainer, itemId, false, type);    
-    // document.getElementById("move-item-file-system-container").querySelector(`.file-name-container[data-file-id="${itemId}"]`).closest(".file-system-item").setAttribute("disabled", "");
-
     toggleLoaderIndicator(loaderContainer, "linear");
-
 }
 function validateItemVisibility(container, itemId, useId = false, type = "folder"){
     // !important this function will check if the selected item to move is visible in the file system, so, if it is, it will be disabled to avoid moving it to itself
