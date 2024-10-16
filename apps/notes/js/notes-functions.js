@@ -216,9 +216,12 @@ async function displayNoteContent(noteId, originButton){
     // 1. Manage the visually active button from the folders list
     if(!manageActiveFolderSelector(originButton)){return;}
 
-    // 2. Get the note content from DB
+    // 2. Get the note content from DB with the loader included
+    const loaderContainer = originButton.querySelector(".loader-container");
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
     const note = await getNoteContent(noteId);
     if(!note){return;}
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
 
     if (timeoutPromise) {await timeoutPromise; }
 
@@ -239,12 +242,29 @@ function setNoteDataAttributes(originNoteButton){
     const noteName = originNoteButton.getAttribute("data-note-name");
     const noteCreatedAt = originNoteButton.getAttribute("data-note-created-at");
 
-    const noteEditor = originNoteButton.closest(".folders-parent").nextElementSibling.querySelector("[data-note-editor-parent]");
+    const noteEditor = document.getElementById("folders-note-parent").querySelector("[data-note-editor-parent]");
     noteEditor.setAttribute("data-note-id", noteId);
     noteEditor.setAttribute("data-note-name", noteName);
     noteEditor.setAttribute("data-note-created-at", noteCreatedAt);
+    noteEditor.setAttribute("data-item-type", "note");
 
+    noteEditor.querySelector("[data-button-open-info]").onclick = function(){ 
+        toggleNoteInfoWindow({
+            id: noteId,
+            name: noteName,
+            created_at: noteCreatedAt
+        }) 
+    }
     noteEditor.querySelector("[data-button-move-note]").onclick = function(){ toggleMoveItemWindow(this, 'note') }
+    noteEditor.querySelector("[data-button-delete-note]").onclick = function(){ toggleDeleteNoteDialog(noteId) }
+}
+function toggleNoteInfoWindow(noteData){
+    document.getElementById("response-info-item-name").textContent = noteData.name;
+    document.getElementById("response-info-item-type").textContent = "Nota";
+    document.getElementById("response-info-item-id").textContent = noteData.id;
+    document.getElementById("response-info-item-created-at").textContent = noteData.created_at;
+
+    toggleWindow('#window-item-info', 'absolute', 2)
 }
 function setNoteEditorContent(note){
     const container = document.getElementById("folders-note-parent");
@@ -253,11 +273,8 @@ function setNoteEditorContent(note){
     noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;   
     container.appendChild(noteEditor);
 
-    const deleteButton = container.querySelector("[button-delete-note]");
-    deleteButton.onclick = function(){ toggleDeleteNoteDialog(note.data[0].id) };
-
-    // console.log(note)
-    // console.log(noteEditor.querySelector("form > .editor"))
+    // const deleteButton = container.querySelector("[button-delete-note]");
+    // deleteButton.onclick = function(){ toggleDeleteNoteDialog(note.data[0].id) };
 
     // code to save notes
     let editor = container.querySelector("form > .editor");
@@ -651,3 +668,5 @@ async function deleteNoteForever(noteId, originButton){
         message("Error: " + error.message, "error");
     }
 }
+
+
