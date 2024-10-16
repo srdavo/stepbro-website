@@ -67,6 +67,7 @@ function createUiFolder(data, originFolderId = 0){
     newFolder.setAttribute("data-folder-id", data.id);
     newFolder.innerHTML = `
         <md-ripple></md-ripple>
+        <div class="loader-container"></div>
         <md-icon class="primary-text">folder</md-icon>
         <span>${data.folder_name}</span>
     `;
@@ -168,6 +169,7 @@ async function displayFolderList(page = 0){
                     data-item-type="${item.item_type}"
                     class="folder"
                     >
+                    <div class="loader-container"></div>
                     <md-ripple></md-ripple>
                     <md-icon class="${iconClass}">${icon}</md-icon>
                     <span>${itemNameFormated}</span>
@@ -210,29 +212,48 @@ async function getFolderContent(folderId){
 
 
 async function displayFolderContent(folderId, originButton){
-
     // 1. Manejar el botón activo
-    if(!manageActiveFolderSelector(originButton)){
-        return;
-    }
+    if(!manageActiveFolderSelector(originButton)){return;}
 
     // 2. Obtener el contenido de la carpeta desde la base de datos
+    const loaderContainer = originButton.closest(".folder").querySelector(".loader-container");
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
+
     const result = await getFolderContent(folderId);
     if(!result.success){return;}
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
 
     // 3. Manjear las columnas
     manageFoldersParent(originButton);
+
+    // 4. Colocar las propiedades (data-attributes) de la carpeta en el padre de la columna
+    setFolderDataAttributes(originButton);
+
+    // 5. Mostrar el contenido obtenido de la base de datos en la columna creada
     displayFolderContentList(result.data, originButton);
 
     // if there vas a note opened, when you open a folder it will close the note
     setNoteDefaultView();
 }
+function setFolderDataAttributes(originFolderButton){
+    const folderId = originFolderButton.getAttribute("data-folder-id");
+    const folderName = originFolderButton.getAttribute("data-folder-name");
+    const folderCreatedAt = originFolderButton.getAttribute("data-folder-created-at");
+
+    const folderColumn = originFolderButton.closest(".folders-parent").nextElementSibling;
+    folderColumn.setAttribute("data-folder-id", folderId);
+    folderColumn.setAttribute("data-folder-name", folderName);    
+    folderColumn.setAttribute("data-folder-created-at", folderCreatedAt);
+
+    folderColumn.querySelector("[data-button-folder-info]").onclick = function() { toggleFolderInfoWindow(this) }
+}
 
 function displayFolderContentList(data, originButton){
     if(data.length <= 0){return;}
     
-    const newFoldersParent = (originButton.closest(".folders-parent")).nextElementSibling;   
+    const newFoldersParent = (originButton.closest(".folders-parent")).nextElementSibling; 
     const newFoldersList = newFoldersParent.querySelector(".folders-list");
+    // setFolderDataAttributes(newFoldersParent, data);
     
     newFoldersList.innerHTML = `
         ${data.map(item => {
@@ -254,6 +275,7 @@ function displayFolderContentList(data, originButton){
                     class="folder"
                     >
                     <md-ripple></md-ripple>
+                    <div class="loader-container"></div>
                     <md-icon class="${iconClass}">${icon}</md-icon>
                     <span>${itemNameFormated}</span>
                 </div>
@@ -261,6 +283,8 @@ function displayFolderContentList(data, originButton){
         }).join("")}
     `;
 }
+
+
 
 
 function manageFoldersParent(originButton){ // this column will manage the amount of "columns" to display folders exists
@@ -328,10 +352,12 @@ function createFoldersParent(currentFoldersParent, totalFoldersParent = 1, isNex
     newFoldersParent.querySelector(".more-options-button").setAttribute("id", `toggler-menu-folder-options-${(randomId)}`);
     newFoldersParent.querySelector('md-menu').setAttribute("anchor", `toggler-menu-folder-options-${(randomId)}`);
     
+    newFoldersParent.querySelector("[data-button-folder-info]").onclick = function() { console.log("Abriendo información")}
+
     insertNewFoldersParent = () => { currentFoldersParent.parentNode.insertBefore(newFoldersParent, currentFoldersParent.nextSibling); }
     
     if(totalFoldersParent < 1 || isNextSiblingReduced){
-        // console.log("Cumple los requisitos para usar animacion")
+        // Cumple los requisitos para usar animación
         newFoldersParent.setAttribute("openning", "");
         newFoldersParent.addEventListener("animationend", () =>{newFoldersParent.removeAttribute("openning")}, {once: true})
     }else{
@@ -341,7 +367,7 @@ function createFoldersParent(currentFoldersParent, totalFoldersParent = 1, isNex
     
     if((countTotalFoldersParent())+1 > 3){
         // only use flip if theres gonna be a reduction in one of the columns
-        // console.log("Cumple con requisitos para usar flip")
+        // cumple con los requisitos para usar flip
         state = Flip.getState(`.note-parent`);
         insertNewFoldersParent();
         applyAnimation(state, `.note-parent`);
@@ -483,12 +509,17 @@ loadFoldersView();
 // Las siguientes funciones son para la ventana de info de la carpeta
 function toggleFolderInfoWindow(originButton){
     if(!originButton){return;}
-    const currentFoldersParent = originButton.closest(".folders-parent");
-    const previousFoldersParent = currentFoldersParent.previousElementSibling;
-    const activeFolderElement = previousFoldersParent.querySelector(".folder[active]")
+    const folderColumn = originButton.closest(".folders-parent")
+    
+    const folderId = folderColumn.getAttribute("data-folder-id");
+    const folderName = folderColumn.getAttribute("data-folder-name");
+    const folderCreatedAt = folderColumn.getAttribute("data-folder-created-at");
+    // const currentFoldersParent = originButton.closest(".folders-parent");
+    // const previousFoldersParent = currentFoldersParent.previousElementSibling;
+    // const activeFolderElement = previousFoldersParent.querySelector(".folder[active]")
 
-    document.getElementById("response-info-item-name").textContent = activeFolderElement.getAttribute("data-folder-name");
-    document.getElementById("response-info-created-at").textContent = activeFolderElement.getAttribute("data-folder-created-at");
+    document.getElementById("response-info-item-name").textContent = folderName;
+    document.getElementById("response-info-created-at").textContent = folderCreatedAt;
 
     toggleWindow('#window-item-info', 'absolute', 2)
 }
