@@ -1,4 +1,4 @@
-<section id="section-home" active class="align-center justify-center">
+<section id="section-home" active class="align-center" style="max-width:800px; margin:auto;">
   
     <!-- <div class="content-box border-radius-32 secondary-container on-secondary-container-text overflow-auto grow-1 padding-0">
         
@@ -43,19 +43,61 @@
         Crear nota
     </md-filled-button> -->
     <!-- <md-outlined-button onclick="toggleWindow('#window-move-item'); loadFileSystem('file-system-1');" data-flip-id="animate">Navegador de archivos</md-outlined-button> -->
-    <div class="content-box testbar" onclick="testSize(this)" style="width:100px;">
+    <!-- <div class="content-box testbar" onclick="testSize(this)" style="width:100px;"> -->
         <!-- <md-ripple></md-ripple> -->
-    </div>
+    <!-- </div>
     <script>
         function testSize(originButton){
             state = Flip.getState('.testbar');
             originButton.style.width = '500px';
             applyAnimation(state, '.testbar', true);
         }
-    </script>
+    </script> -->
+    <div class="simple-container direction-column align-center width-100 gap-24">        
+        <div class="quick-note-editor-parent">
+            <div class="editor-toolbar">
+                <md-filled-tonal-icon-button type="button" onclick="toggleHomeEditorSize(this)"><md-icon>close</md-icon></md-filled-tonal-icon-button>
+                <md-icon-button type="button" onclick="execCmd('undo')"><md-icon>undo</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('redo')"><md-icon>redo</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('bold')"><md-icon>format_bold</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('italic')"><md-icon>format_italic</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('underline')"><md-icon>format_underlined</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('justifyLeft')"><md-icon>format_align_left</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('justifyCenter')"><md-icon>format_align_center</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('justifyRight')"><md-icon>format_align_right</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('insertOrderedList')"><md-icon>format_list_numbered</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('insertUnorderedList')"><md-icon>format_list_bulleted</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h1>')"><md-icon>format_h1</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h2>')"><md-icon>format_h2</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h3>')"><md-icon>format_h3</md-icon></md-icon-button>
+            </div>
+            <div 
+                class="editor" 
+                contenteditable="true" 
+                aria-placeholder="Nota rápida"
+                onclick="toggleHomeEditorSize(this)"
+            ></div>
+        </div>
+        <script>
+            function toggleHomeEditorSize(originButton){
+                if(originButton.classList.contains('editor')){
+                    originButton.closest('.quick-note-editor-parent').setAttribute('active', '');
+                }else{
+                    originButton.closest('.quick-note-editor-parent').toggleAttribute('active');
+                }
+            }
+
+        </script>
+    </div>
+
+    <div class="simple-container">
+        <div class="content-box"></div>
+        <div class="content-box"></div>
+        <div class="content-box"></div>
+        <div class="content-box"></div>
+    </div>
     
-    
-    <div 
+    <!-- <div 
         class="content-box light-color direction-column grow-1 on-background-text border-radius-32 editor-parent" 
         style="width:100%; max-width:600px; max-height:500px;
             box-shadow: var(--md-sys-color-surface-container-lowest) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.06) 0px 42px 30px 0px
@@ -93,13 +135,12 @@
             ></div>
             <div class="simple-container justify-right top-margin-16">
                 <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
-                <!-- <md-filled-button type="submit">Guardar</md-filled-button> -->
             </div>
 
         </form>
 
         
 
-    </div>
+    </div> -->
 
 </section>
