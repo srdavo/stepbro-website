@@ -653,6 +653,34 @@ async function deleteNoteForever(noteId, originButton){
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // las siguientes funciones son para manejar la interfaz de las notas rápidas
 function toggleQuickNoteEditor(){
     const quickNoteEditorParent = document.querySelector("#section-home .quick-note-editor-parent");
