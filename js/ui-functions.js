@@ -405,15 +405,17 @@ function toggleTab(windowId, tabId, workHidden){
 //   const template = document.getElementById(templateId);
 
 // }
-function applyAnimation(state, target, scale = true, absolute = false){
+function applyAnimation(state, target, scale = true, absolute = false, customEase = false){
+  easeToUse = CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 ")
+  if(customEase){easeToUse = CustomEase.create("easeName", "0.38,0.49,0,1")}
   let timeline = Flip.from(state, {
-    ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
+    ease: easeToUse,
     // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.165,0.541 0.324,0.861 0.532,1.281 0.524,1 1,1 "),
     targets: target,
     duration: 0.7,
     absolute:absolute,
     scale:scale,
-    simple:true,
+    simple:true
   })
   timeline.play();
 }
