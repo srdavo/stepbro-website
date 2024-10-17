@@ -216,7 +216,7 @@ async function displayFolderContent(folderId, originButton){
     if(!manageActiveFolderSelector(originButton)){return;}
 
     // 2. Obtener el contenido de la carpeta desde la base de datos
-    const loaderContainer = originButton.closest(".folder").querySelector(".loader-container");
+    const loaderContainer = originButton.querySelector(".loader-container");
     if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
 
     const result = await getFolderContent(folderId);
@@ -521,7 +521,9 @@ function toggleFolderInfoWindow(originButton){
     // const activeFolderElement = previousFoldersParent.querySelector(".folder[active]")
 
     document.getElementById("response-info-item-name").textContent = folderName;
-    document.getElementById("response-info-created-at").textContent = folderCreatedAt;
+    document.getElementById("response-info-item-type").textContent = "Carpeta";
+    document.getElementById("response-info-item-id").textContent = folderId;
+    document.getElementById("response-info-item-created-at").textContent = folderCreatedAt;
 
     toggleWindow('#window-item-info', 'absolute', 2)
 }
@@ -894,7 +896,10 @@ function updateUiFolderName(folderId, folderName, folderColumn){
 }
 
 
+
+
 // Las siguientes funciones son para el File System Secundario
+let itemToMove = {}
 
 async function loadFileSystem(parentId = 0, propeties = {}){
     // parentId es el id del elemento contenedor de los archivos
@@ -932,7 +937,7 @@ async function toggleFileSystemContent(originButton){
     toggleLoaderIndicator(loaderContainer); // remove loader
 
     // this is for the move file system, no me encanta cómo lo hice pero funciona
-    validateItemVisibility('move-item-file-system-container', localStorage.getItem('sb-move-item-id'), true)
+    validateItemVisibility('move-item-file-system-container', itemToMove.id, true, itemToMove.type);
 }   
 function toggleLoaderIndicator(container, type = "circular"){
     container.toggleAttribute("active");
@@ -1061,7 +1066,7 @@ async function toggleMoveItemWindow(originButton, type = "folder"){
         itemName = cleanHTMLContent(noteContainer.getAttribute("data-note-name"));
     }
 
-    localStorage.setItem('sb-move-item-id', itemId);
+    itemToMove = {id: itemId, type: type};
 
     document.getElementById("modify-move-item-name").textContent = itemName;
     document.getElementById("modify-move-item-id").textContent = itemId;

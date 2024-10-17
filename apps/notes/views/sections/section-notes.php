@@ -210,6 +210,7 @@
                 <md-icon-button 
                     type="button" 
                     data-flip-id="animate"
+                    data-button-open-info
                     onclick="toggleWindow('#window-item-info', 'absolute', 1)"
                     data-tooltip="Información"
                     >
@@ -224,10 +225,9 @@
                     <md-icon>drive_file_move</md-icon>
                 </md-icon-button>
                 <md-icon-button 
-                    type="button" 
-                    onclick="message('Esto abrira una ventana para pregunatar confirmación de eliminación')"
+                    type="button"
+                    data-button-delete-note
                     data-tooltip="Eliminar"
-                    button-delete-note
                     >
                     <md-icon>delete</md-icon>
                 </md-icon-button>
