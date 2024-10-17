@@ -651,3 +651,23 @@ async function deleteNoteForever(noteId, originButton){
         message("Error: " + error.message, "error");
     }
 }
+
+
+// las siguientes funciones son para manejar la interfaz de las notas rápidas
+function toggleQuickNoteEditor(){
+    const quickNoteEditorParent = document.querySelector("#section-home .quick-note-editor-parent");
+    if(!quickNoteEditorParent){return;}
+
+    state = Flip.getState(".quick-note-editor-parent");
+    quickNoteEditorParent.toggleAttribute("active");
+    applyAnimation(state, ".quick-note-editor-parent", false, true, true);
+
+    if(quickNoteEditorParent.hasAttribute("active")){
+        document.getElementById("create-note-content").focus();
+    }
+
+}
+
+function scrollQuickNotesToView(){
+    document.getElementById("home-quick-notes-container").scrollIntoView({behavior: "smooth"});
+}
