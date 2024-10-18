@@ -5,6 +5,15 @@
         style="width:100%; max-width:600px; max-height:500px;"
         >
         <span class="display-small">¿Como te fue en el Día?</span>
+        <div 
+                    class="folder" 
+                    data-flip-id="animate"
+                    onclick="toggleCheckDiaryNotes()"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>create</md-icon>
+                    <span>Contenido del diario</span>
+                </div>
 
 
         

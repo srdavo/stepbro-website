@@ -28,6 +28,8 @@
 .bottom-margin-24{margin-bottom:24px;}
 .bottom-margin-32{margin-bottom:32px;}
 .bottom-margin-40{margin-bottom:40px;}
+.left-margin-16{margin-left:16px;}
+.left-margin-24{margin-left:24px;}
 
 .gap-0{gap:0px;}
 .gap-4{gap:4px;}
@@ -97,3 +99,4 @@
 
 .cursor-pointer{cursor:pointer;}
 .height-max-content{min-height:max-content;}
+

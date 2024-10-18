@@ -46,6 +46,13 @@ class ActiveRecord{
         return $result;
     }
 
+    public static function allByUserId($id) {
+        $query = "SELECT * FROM " . static::$table . " where user_id = " . $id;
+        $result = self::querySQL($query);
+        return $result;
+    }
+    
+
     // Busca un registro por su id
     public static function find($id) {
         $query = "SELECT * FROM " . static::$table  ." WHERE id = ${id}";

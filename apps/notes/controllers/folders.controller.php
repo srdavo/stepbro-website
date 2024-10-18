@@ -16,8 +16,8 @@ switch ($data["op"]){
             "user_id" => $userid
         ];
         $folder = new Folders($data_array);
-        $result =  $folder->createFolder();
-        if(!$result["success"]){
+        $result =  $folder->save();
+        if(!$result["ok"]){
             $response = [
                 'success' => false,
                 'message' => "Error creating folder"

@@ -39,7 +39,7 @@ CREATE TABLE `diary` (
 ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
 
 
-CREATE TABLE to_do_list (
+CREATE TABLE tasks (
   id INT NOT NULL AUTO_INCREMENT,
   task VARCHAR(255) NOT NULL,
   status ENUM('Pendiente', 'Activo', 'Terminado') DEFAULT 'Pendiente',

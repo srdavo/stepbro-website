@@ -10,6 +10,7 @@ note = document.getElementById("create-note-content");
 note.addEventListener("input", () => {
     clearTimeout(timeOut);
     timeOut = setTimeout(() => {
+        idNote = null
         noteContent = note.innerHTML;
         saveNote(noteContent);
     },950);
@@ -22,9 +23,9 @@ async function saveNote(content){
     const data = {
         op: "save_note",
         content: content,
-        id: idNote
+        id: idNote 
     }
-
+    console.log(data);
     const url = `controllers/notes.controller.php`
     try {
         const response = await fetch(url, {

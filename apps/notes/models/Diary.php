@@ -19,6 +19,11 @@ class Diary extends ActiveRecord{
        
     }
 
-    
+    public static function getJournal($offset, $limit, $id) {
+
+        $query = "SELECT * FROM diary WHERE user_id = " . $id . " ORDER BY created_at DESC LIMIT $limit OFFSET $offset";
+        $result = self::querySQL($query);
+        return $result;
+    }
 
 }
