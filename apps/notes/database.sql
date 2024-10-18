@@ -34,7 +34,12 @@ CREATE TABLE diary (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE to_do_list (
+
+-- Modificaciones que agregar
+ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
+
+
+CREATE TABLE tasks (
   id INT NOT NULL AUTO_INCREMENT,
   task VARCHAR(255) NOT NULL,
   status ENUM('Pendiente', 'Activo', 'Terminado') DEFAULT 'Pendiente',

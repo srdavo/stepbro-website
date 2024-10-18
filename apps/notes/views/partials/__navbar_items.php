@@ -52,7 +52,7 @@
 <button 
   class="nav-button"  
   data-section="section-notes" 
-  onclick="toggleSection('section-notes')"
+  onclick="toggleSection('section-to_do_list')"
   >
   <md-ripple></md-ripple>
   <span class="icon-holder" >

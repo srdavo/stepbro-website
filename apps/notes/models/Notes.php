@@ -81,7 +81,7 @@ class Notes extends ActiveRecord{
 
     public function sanitizeContent() {
         // Permitir etiquetas específicas
-        $allowed_tags = '<b><i><u><strong><em><h1><h2><ul><ol><li><div>';
+        $allowed_tags = '<b><i><u><strong><em><h1><h2><ul><ol><li><div><br>';
         
         // Usar strip_tags para eliminar etiquetas no permitidas
         $sanitized_content = strip_tags($this->content, $allowed_tags);

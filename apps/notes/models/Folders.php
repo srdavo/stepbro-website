@@ -8,6 +8,7 @@ class Folders extends ActiveRecord{
     public $user_id;
     public $item_name;
     public $created_at;
+    public $folder_name;
 
     public $item_type;
     public $item_content;
@@ -18,7 +19,7 @@ class Folders extends ActiveRecord{
         $this->folder_name = $args["folder_name"] ?? "";
         $this->created_at = $args["created_at"] ?? date('Y-m-d H:i:s');
     }
-
+/*
     public function createFolder(){
         $query = "INSERT INTO folders ( user_id, folder_name, created_at) VALUES 
         ('$this->user_id', '$this->folder_name', '$this->created_at')";
@@ -29,7 +30,7 @@ class Folders extends ActiveRecord{
             'id' => self::$db->insert_id
         ];
     }
-
+*/
     public function getFolders($data_array){
         $query = "SELECT 
                 f.id AS id,
