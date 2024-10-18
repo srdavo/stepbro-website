@@ -15,7 +15,7 @@
                 <button 
                     class="w-nav-button"
                     data-w-section="w-section-deleted-notes"
-                    onclick="toggleWSection('w-section-deleted-notes')"
+                    onclick="if(toggleWSection('w-section-deleted-notes')){displayDeletedNotes()}"
                     active
                     >
                     <md-ripple></md-ripple>
@@ -25,7 +25,7 @@
                 <button 
                     class="w-nav-button"
                     data-w-section="w-section-deleted-folders"
-                    onclick="toggleWSection('w-section-deleted-folders')"
+                    onclick="if(toggleWSection('w-section-deleted-folders')){displayDeletedFolders()}"
                     
                     >
                     <md-ripple></md-ripple>
@@ -61,9 +61,13 @@
             </div>
 
             <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-folders">
-                <span class="headline-medium">
-                    Carpetas eliminadas
-                </span>
+                <div 
+                    id="response-deleted-folders-container"
+                    class="simple-container direction-column gap-8"
+                    >
+                </div>
+                <div class="simple-container width-100 container-info-empty-table"></div>
+                <div class="simple-container" id="pagination-deleted-folders-container"></div>
             </div>
         </div>
         

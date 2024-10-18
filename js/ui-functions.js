@@ -45,7 +45,13 @@ function toggleDialog(dialogId) {
 }
 
 // Menus
-function toggleMenu(menuId) {
+function toggleMenu(menuId, originButton = false) {
+  if(originButton){
+    const menu = originButton.nextElementSibling;
+    menu.open = !menu.open;
+    return;
+  }
+
   const menu = document.getElementById(menuId);
   menu.open = !menu.open;
 }
@@ -329,6 +335,8 @@ function animate(element, windowNew, position, scale){
     duration: 0.7,
     scale: scaleValue,
     ease: easeType,
+    // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.165,0.541 0.324,0.861 0.532,1.281 0.524,1 1,1 "),
+    // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.18,0.666 0.35,0.861 0.562,1.106 0.611,1 1,1 "),
     // ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
     // ease: CustomEase.create("easeName", ".47,.29,0,1"),
     // ease: CustomEase.create("easeName", ".58,.18,0,1"),
@@ -397,14 +405,17 @@ function toggleTab(windowId, tabId, workHidden){
 //   const template = document.getElementById(templateId);
 
 // }
-function applyAnimation(state, target, scale = true, absolute = false){
+function applyAnimation(state, target, scale = true, absolute = false, customEase = false){
+  easeToUse = CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 ")
+  if(customEase){easeToUse = CustomEase.create("easeName", "0.38,0.49,0,1")}
   let timeline = Flip.from(state, {
-    ease: CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 "),
+    ease: easeToUse,
+    // ease: CustomEase.create("custom", "M0,0 C0.154,0 0.165,0.541 0.324,0.861 0.532,1.281 0.524,1 1,1 "),
     targets: target,
     duration: 0.7,
     absolute:absolute,
     scale:scale,
-    simple:true,
+    simple:true
   })
   timeline.play();
 }
@@ -490,7 +501,7 @@ function toggleWSection(wSectionId, originButton){
   }
   const activeWSection = holder.querySelector('.w-section[active]');
   const activeWSectionButton = holder.querySelector('button[active]');
-  if(wSectionId === activeWSection.id){console.log("seccion repetida"); return;}
+  if(wSectionId === activeWSection.id){console.log("seccion repetida"); return false;}
 
   const objetiveWSection = holder.querySelector(`#${wSectionId}`);
   const objetiveWSectionButton = holder.querySelector(`button[data-w-section="${wSectionId}"]`);
@@ -516,7 +527,7 @@ function toggleWSection(wSectionId, originButton){
 
     objetiveWSection.setAttribute('active', '');
     objetiveWSectionButton.setAttribute('active', '');
-    return;
+    return true;
   }
 
 
@@ -526,7 +537,7 @@ function toggleWSection(wSectionId, originButton){
     objetiveWSection.setAttribute('active', '');
     objetiveWSectionButton.setAttribute('active', '');
   }
-
+  return true;
 }
 
 function changeWindow(windowId){

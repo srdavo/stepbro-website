@@ -2,9 +2,9 @@
 class Connect {
     protected function Conection(){
         $serverName = "localhost";
-        $dbUsername = "root";
-        $dbPassword = "root";
-        $bNamed = "cocounut_sb";
+        $dbUsername = "u342802217_sb_main";
+        $dbPassword = "F9eXCg;m!c2";
+        $bNamed = "u342802217_sb_main";
         try {
             $connect = new PDO("mysql:host=$serverName;dbname=$bNamed", $dbUsername, $dbPassword);
             $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

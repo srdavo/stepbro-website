@@ -14,7 +14,8 @@ CREATE TABLE folders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT(20) NOT NULL,
     folder_name VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TINYINT(1) DEFAULT 1
 );
 
 CREATE TABLE folder_relations(
@@ -26,12 +27,11 @@ CREATE TABLE folder_relations(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE `diary` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` bigint NOT NULL,
-  `content` text NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+CREATE TABLE diary (
+  id int AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT(20) NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -47,3 +47,12 @@ CREATE TABLE tasks (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 )
+
+
+-- Modiifcacion ya agregadas *IGNORAR*
+ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
+
+-- Modificaciones que agregar *NO IGNORAR*
+ALTER TABLE folders ADD status TINYINT(1) DEFAULT 1;
+
+

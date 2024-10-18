@@ -40,7 +40,8 @@ async function saveNote(content){
                 idNote = result.id;
                 //form.querySelector(".editor").innerHTML = "";
                 //form.closest(".editor-parent").removeAttribute("active");
-                message("Nota guardada", "success");
+                // message("Nota guardada", "success");
+                uiConfirmNoteChanges();
                 syncNotes();
                 
                 // toggleWindow();
@@ -55,6 +56,11 @@ async function saveNote(content){
     }
 
 
+}
+function uiConfirmNoteChanges(){
+    const uiIndicator = document.querySelector("section[active] .ui-confirm-note-changes");
+    uiIndicator.setAttribute("active", "");
+    uiIndicator.addEventListener("animationend", () => {uiIndicator.removeAttribute("active")}, {once: true})
 }
 
 // Boton Code
@@ -211,22 +217,55 @@ async function displayNoteContent(noteId, originButton){
     // 1. Manage the visually active button from the folders list
     if(!manageActiveFolderSelector(originButton)){return;}
 
-    // 2. Get the note content from DB
+    // 2. Get the note content from DB with the loader included
+    const loaderContainer = originButton.querySelector(".loader-container");
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
     const note = await getNoteContent(noteId);
     if(!note){return;}
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
 
-    if (timeoutPromise) {
-        await timeoutPromise; 
-    }
+    if (timeoutPromise) {await timeoutPromise; }
 
-    // 3. 
+    // 3. Load the note editor to its container
     setNoteEditorContent(note);
 
+    // 4. Manage the folders parent (folder columns)
     const currentFoldersParent = originButton.closest(".folders-parent");
     removeFoldersParent(currentFoldersParent);
     manageReducedFoldersParent(currentFoldersParent);
-
     reduceAllFoldersParent();
+
+    // 5. Set the data attributes of the note to the note editor
+    setNoteDataAttributes(originButton);
+}
+function setNoteDataAttributes(originNoteButton){
+    const noteId = originNoteButton.getAttribute("data-note-id");
+    const noteName = originNoteButton.getAttribute("data-note-name");
+    const noteCreatedAt = originNoteButton.getAttribute("data-note-created-at");
+
+    const noteEditor = document.getElementById("folders-note-parent").querySelector("[data-note-editor-parent]");
+    noteEditor.setAttribute("data-note-id", noteId);
+    noteEditor.setAttribute("data-note-name", noteName);
+    noteEditor.setAttribute("data-note-created-at", noteCreatedAt);
+    noteEditor.setAttribute("data-item-type", "note");
+
+    noteEditor.querySelector("[data-button-open-info]").onclick = function(){ 
+        toggleNoteInfoWindow({
+            id: noteId,
+            name: noteName,
+            created_at: noteCreatedAt
+        }) 
+    }
+    noteEditor.querySelector("[data-button-move-note]").onclick = function(){ toggleMoveItemWindow(this, 'note') }
+    noteEditor.querySelector("[data-button-delete-note]").onclick = function(){ toggleDeleteNoteDialog(noteId) }
+}
+function toggleNoteInfoWindow(noteData){
+    document.getElementById("response-info-item-name").textContent = noteData.name;
+    document.getElementById("response-info-item-type").textContent = "Nota";
+    document.getElementById("response-info-item-id").textContent = noteData.id;
+    document.getElementById("response-info-item-created-at").textContent = noteData.created_at;
+
+    toggleWindow('#window-item-info', 'absolute', 2)
 }
 function setNoteEditorContent(note){
     const container = document.getElementById("folders-note-parent");
@@ -235,11 +274,8 @@ function setNoteEditorContent(note){
     noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;   
     container.appendChild(noteEditor);
 
-    const deleteButton = container.querySelector("[button-delete-note]");
-    deleteButton.onclick = function(){ toggleDeleteNoteDialog(note.data[0].id) };
-
-    // console.log(note)
-    // console.log(noteEditor.querySelector("form > .editor"))
+    // const deleteButton = container.querySelector("[button-delete-note]");
+    // deleteButton.onclick = function(){ toggleDeleteNoteDialog(note.data[0].id) };
 
     // code to save notes
     let editor = container.querySelector("form > .editor");
@@ -400,7 +436,6 @@ function toggleDeleteNoteDialog(noteId){
     document.getElementById("button-confirm-delete-note").onclick = function(){ deleteNote(noteId) };
     toggleDialog("dialog-delete-note-confirmation");
 }
-
 async function deleteNote(noteId){
     const data = {
         op: "delete_note",
@@ -429,7 +464,6 @@ async function deleteNote(noteId){
         message("Error: " + error.message, "error");
     }
 }
-
 function removeUiNote(noteId = 0){
     if(noteId == 0){return false;}
     const note = document.querySelector(`.folder[data-note-id="${noteId}"]`);
@@ -449,7 +483,8 @@ function openDeletedNotesWindow(){
 function toggleDeletedNoteContentView(originButton){
     // esta función es la que permite al usuario abrir el contenido de las notas eliminadas
     // state = Flip.getState(".deleted-item:not([active])");
-    originButton.closest(".deleted-item").toggleAttribute("active");
+    originButton.closest("[main-deleted-item-container]").nextElementSibling.toggleAttribute("active");
+    // originButton.closest(".deleted-item").toggleAttribute("active");
     // applyAnimation(state, `.deleted-item:not([active])`);
 
 }
@@ -485,8 +520,8 @@ async function displayDeletedNotes(page = 0){
     
 
     const container = document.getElementById("response-deleted-notes-container");
+    
     container.nextElementSibling.innerHTML = ``;
-
     if(!result.data || result.data.length === 0){
         container.nextElementSibling.innerHTML = `
             <div class="content-box on-background-text align-center info-table-empty">
@@ -505,7 +540,7 @@ async function displayDeletedNotes(page = 0){
             return `
                 <div class="deleted-item">
                     
-                    <div class="simple-container grow-1 justify-between">
+                    <div class="simple-container grow-1 justify-between" main-deleted-item-container>
                         <div class="simple-container gap-8">    
                             <md-icon-button toggle onclick="toggleDeletedNoteContentView(this)">
                                 <md-icon >arrow_drop_down</md-icon>
@@ -532,8 +567,8 @@ async function displayDeletedNotes(page = 0){
                             </md-icon-button>
                         </div>
                     </div>
-                    <div class="deleted-note-content-container">
-                        <div class="deleted-note-content">
+                    <div class="deleted-item-content-container">
+                        <div class="deleted-item-content">
                             ${note.content}
                         </div>
                     </div>
@@ -634,3 +669,24 @@ async function deleteNoteForever(noteId, originButton){
         message("Error: " + error.message, "error");
     }
 }
+
+
+// las siguientes funciones son para manejar la interfaz de las notas rápidas
+function toggleQuickNoteEditor(){
+    const quickNoteEditorParent = document.querySelector("#section-home .quick-note-editor-parent");
+    if(!quickNoteEditorParent){return;}
+
+    state = Flip.getState(".quick-note-editor-parent");
+    quickNoteEditorParent.toggleAttribute("active");
+    applyAnimation(state, ".quick-note-editor-parent", false, true, true);
+
+    if(quickNoteEditorParent.hasAttribute("active")){
+        document.getElementById("create-note-content").focus();
+    }
+
+}
+
+function scrollQuickNotesToView(){
+    document.getElementById("home-quick-notes-container").scrollIntoView({behavior: "smooth"});
+}
+

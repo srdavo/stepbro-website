@@ -18,7 +18,7 @@ transparent{
 @media (prefers-color-scheme: dark) {
   transparent{background: rgba(0, 0, 0, .2);}
   window{
-    box-shadow: 0px 0px 0px 1px var(--md-sys-color-surface-container-low);
+    box-shadow: 0px 0px 0px 1px var(--md-sys-color-surface-container-highest) !important;
   }
 }
 transparent[closing]{

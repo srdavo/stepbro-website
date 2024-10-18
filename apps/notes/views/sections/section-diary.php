@@ -17,7 +17,7 @@
 
 
         
-            <div class="content-box top-margin-16 padding-8 direction-row gap-0 border-radius-64 flex-wrap">
+            <div class="content-box top-margin-16 padding-8 direction-row gap-0 border-radius-24 flex-wrap">
                 <md-icon-button type="button" onclick="execCmd('undo')"><md-icon>undo</md-icon></md-icon-button>
                 <md-icon-button type="button" onclick="execCmd('redo')"><md-icon>redo</md-icon></md-icon-button>
                 <md-icon-button type="button" onclick="execCmd('bold')"><md-icon>format_bold</md-icon></md-icon-button>
@@ -39,6 +39,10 @@
                 aria-placeholder="Escribe como te ha ido en el Día"
                 onclick="resizeEditor(this)"
             ></div>
+            <div class="simple-container justify-right top-margin-16">
+                <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
+                <!-- <md-filled-button type="submit">Guardar</md-filled-button> -->
+            </div>
 
         
 

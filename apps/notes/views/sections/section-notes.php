@@ -9,6 +9,7 @@
                     class="view-selector" 
                     data-folders-view-type="column" 
                     onclick="changeFoldersView(this)"
+                    data-tooltip="Vista de columnas"
                     active
                     >
                     <md-ripple></md-ripple>
@@ -18,6 +19,7 @@
                     class="view-selector" 
                     data-folders-view-type="grid" 
                     onclick="changeFoldersView(this)"
+                    data-tooltip="Vista de lista"
                     >
                     <md-ripple></md-ripple>
                     <md-icon>grid_view</md-icon>
@@ -29,8 +31,9 @@
                     onclick="toggleMenu('menu-notes-options')" 
                     class="solid"
                     id="toggler-menu-notes-options"
+                    data-tooltip="Papelera"
                     >
-                    <md-icon>more_vert</md-icon>
+                    <md-icon>delete_sweep</md-icon>
                 </md-filled-tonal-icon-button>
                 <md-menu id="menu-notes-options" style="min-width:264px;" anchor="toggler-menu-notes-options">
                     <md-menu-item onclick="openDeletedNotesWindow()" data-flip-id="animate">
@@ -124,7 +127,7 @@
 <template id="template-folders-parent">
     <div class="content-box light-color folders-parent">    
         <div class="folders-list grow-1"></div>
-        <div class="folders-list height-max-content">
+        <div class="folders-list height-max-content overflow-visible">
             <div class="folder" onclick="removeSingleFolderParent(this)">
                 <md-ripple></md-ripple>
                 <md-icon>close</md-icon>
@@ -147,15 +150,45 @@
                 <md-icon>edit_square</md-icon>
                 <span>Crear nota</span>
             </div>
-            <div
-                class="folder"
-                data-flip-id="animate"
-                onclick="toggleWindow('#window-folder-info', 'absolute', 1)"
-                >
-                <md-ripple></md-ripple>
-                <md-icon>info</md-icon>
-                <span>Información</span>
-            </div>
+            <span class="position-relative">
+                <div
+                    class="folder more-options-button"
+                    data-flip-id="animate"
+                    onclick="toggleMenu(undefined, this)"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>more_vert</md-icon>
+                    <span>Más opciones</span>
+                </div>
+                <md-menu class="md-menu" style="min-width:264px;" anchor="closest('div.folder')">
+                    <md-menu-item 
+                        data-button-folder-info 
+                        data-flip-id="animate"
+                        >
+                        <md-icon slot="start">info</md-icon>
+                        <div slot="headline">Información</div>
+                    </md-menu-item>
+                    <md-menu-item 
+                        data-button-edit-folder-name 
+                        data-flip-id="animate"
+                        >
+                        <md-icon slot="start">bookmark_manager</md-icon>
+                        <div slot="headline">Cambiar nombre</div>
+                    </md-menu-item>
+                    <md-menu-item 
+                        data-button-move-folder 
+                        data-flip-id="animate"
+                        >
+                        <md-icon slot="start">drive_file_move</md-icon>
+                        <div slot="headline">Mover carpeta</div>
+                    </md-menu-item>
+                    <md-menu-item onclick="toggleDeleteFolderDialog(this)" data-flip-id="animate">
+                        <md-icon slot="start">folder_delete</md-icon>
+                        <div slot="headline">Eliminar carpeta</div>
+                    </md-menu-item>
+                </md-menu>
+            </span>
+            
         </div>
     </div>
 </template>
@@ -168,7 +201,7 @@
 </template>
 
 <template id="template-note-editor">
-    <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1">
+    <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1" data-note-editor-parent>
         <div class="simple-container bottom-margin-8 justify-between">
             <div class="simple-container">
                 <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
@@ -176,16 +209,25 @@
             <div class="simple-container gap-8">
                 <md-icon-button 
                     type="button" 
-                    onclick="message('Esto dará la opción demover de carpeta la nota')"
+                    data-flip-id="animate"
+                    data-button-open-info
+                    onclick="toggleWindow('#window-item-info', 'absolute', 1)"
+                    data-tooltip="Información"
+                    >
+                    <md-icon>info</md-icon>
+                </md-icon-button>
+                <md-icon-button 
+                    type="button" 
+                    data-button-move-note
+                    data-flip-id="animate"
                     data-tooltip="Mover"
                     >
                     <md-icon>drive_file_move</md-icon>
                 </md-icon-button>
                 <md-icon-button 
-                    type="button" 
-                    onclick="message('Esto abrira una ventana para pregunatar confirmación de eliminación')"
+                    type="button"
+                    data-button-delete-note
                     data-tooltip="Eliminar"
-                    button-delete-note
                     >
                     <md-icon>delete</md-icon>
                 </md-icon-button>
@@ -208,7 +250,8 @@
         </div>
         <div class="editor" contenteditable="true" aria-placeholder="Escribe tu nota aquí..." ></div>
         <div class="simple-container justify-right top-margin-16">
-            <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button>
+            <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
+            <!-- <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button> -->
         </div>
     </form>
 </template>

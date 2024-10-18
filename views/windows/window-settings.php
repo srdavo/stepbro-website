@@ -200,6 +200,14 @@
                                 <md-ripple></md-ripple>
                                 Dock
                             </div>
+                            <div 
+                                class="nav-option"
+                                data-nav-option="2 glass-nav"
+                                onclick="changeNav(this)"
+                                >
+                                <md-ripple></md-ripple>
+                                Detallada
+                            </div>
                         </div>
                         <div class="simple-container">
                             <span class="label-large outline-text">
