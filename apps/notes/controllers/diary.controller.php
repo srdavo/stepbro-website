@@ -23,7 +23,7 @@ switch ($data["op"]){
 
         case "get_journal":
             $results =  Diary::getJournal($data["offset"], $data["limit"], $userid);
-            $noMoreRecords = count($results) < $limit;
+            $noMoreRecords = count($results) < $data["limit"];
             foreach($results as $result){
                 $result->content = Encrypt::decrypt($result->content);
             }
