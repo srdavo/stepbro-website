@@ -41,6 +41,7 @@ ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
 
 CREATE TABLE tasks (
   id INT NOT NULL AUTO_INCREMENT,
+  user_id BIGINT(20) NOT NULL,
   task VARCHAR(255) NOT NULL,
   status ENUM('Pendiente', 'Activo', 'Terminado') DEFAULT 'Pendiente',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

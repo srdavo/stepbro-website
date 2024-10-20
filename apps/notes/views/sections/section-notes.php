@@ -91,6 +91,7 @@
                     onclick="toggleCreateFolderWindow()"
                     >
                     <md-ripple></md-ripple>
+                    <div class="loader-container"></div>
                     <md-icon>create_new_folder</md-icon>
                     <span>Crear carpeta</span>
                 </div>
@@ -99,6 +100,7 @@
                     onclick="createNoteInsideFolder(this)"
                     >
                     <md-ripple></md-ripple>
+                    <div class="loader-container"></div>
                     <md-icon>edit_square</md-icon>
                     <span>Crear nota</span>
                 </div>
@@ -139,6 +141,7 @@
                 data-flip-id="animate"
                 >
                 <md-ripple></md-ripple>
+                <div class="loader-container"></div>
                 <md-icon>create_new_folder</md-icon>
                 <span>Crear carpeta</span>
             </div>
@@ -147,6 +150,7 @@
                 onclick="createNoteInsideFolder(this)"
                 >
                 <md-ripple></md-ripple>
+                <div class="loader-container"></div>
                 <md-icon>edit_square</md-icon>
                 <span>Crear nota</span>
             </div>
@@ -256,3 +260,19 @@
     </form>
 </template>
 
+<template id="template-item-parent">
+    <div    
+        data-item-parent
+        onclick="displayFolderContent(4, this)" 
+        data-folder-id="4" 
+        data-folder-created-at="2024-09-30 00:03:36" 
+        data-folder-name="Ideas" 
+        data-item-type="folder" 
+        class="folder"
+        >
+        <div class="loader-container"></div>
+        <md-ripple></md-ripple>
+        <md-icon class="primary-text" data-item-icon>folder</md-icon>
+        <span data-item-name>Ideas</span>
+    </div>
+</template>

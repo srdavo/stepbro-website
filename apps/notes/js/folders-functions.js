@@ -62,15 +62,13 @@ function createUiFolder(data, originFolderId = 0){
     }
     if(!newFolderParent || !newFolderParent.classList.contains("folders-parent")){return false;}
 
-    const newFolder = document.createElement("div");
-    newFolder.className = "folder";
+    const itemTemplate = document.getElementById("template-item-parent").content.cloneNode(true);
+    const newFolder = itemTemplate.querySelector("[data-item-parent]");
     newFolder.setAttribute("data-folder-id", data.id);
-    newFolder.innerHTML = `
-        <md-ripple></md-ripple>
-        <div class="loader-container"></div>
-        <md-icon class="primary-text">folder</md-icon>
-        <span>${data.folder_name}</span>
-    `;
+    newFolder.setAttribute("data-folder-name", data.folder_name);
+    newFolder.setAttribute("data-folder-created-at", data.created_at);
+    newFolder.setAttribute("data-item-type", "folder");
+    newFolder.querySelector("[data-item-name]").textContent = data.folder_name;
     newFolder.onclick  = function() {displayFolderContent(data.id, this)};
     newFolder.setAttribute("openning", "");
     newFolder.addEventListener("animationend", () =>{newFolder.removeAttribute("openning")}, {once: true})

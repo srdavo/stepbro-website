@@ -357,7 +357,7 @@ async function createNote(originFolderId = 0){
         message("Error: " + error.message, "error");
     }
 }
-function createUiNote(noteId = 0, originFolderId = 0, noteTitle = '<i class="outline-text">Nota sin nombre</i>'){
+function createUiNote(noteId = 0, originFolderId = 0, noteTitle = ''){
     if(originFolderId == 0 ){
         newNoteParent = document.getElementById("main-folders-container");
     }else{
@@ -366,24 +366,35 @@ function createUiNote(noteId = 0, originFolderId = 0, noteTitle = '<i class="out
     }
     if(!newNoteParent || !newNoteParent.classList.contains("folders-parent")){return false;}
 
-    const newNote = document.createElement("div");
-    newNote.classList.add("folder");
+    const itemTemplate = document.getElementById("template-item-parent").content.cloneNode(true);
+    const newNote = itemTemplate.querySelector("[data-item-parent]");
     newNote.setAttribute("data-note-id", noteId);
-    newNote.innerHTML = `
-        <md-ripple></md-ripple>
-        <md-icon>notes</md-icon>
-        <span>${noteTitle}</span>
-    `;
+    newNote.setAttribute("data-note-name", (noteTitle == "") ? "Nota sin nombre" : noteTitle);
+    newNote.setAttribute("data-note-created-at", new Date().toLocaleString());
+    newNote.setAttribute("data-item-type", "note");
+
+    newNote.querySelector("[data-item-name]").innerHTML = (noteTitle == "") ? "<i class='outline-text'>Nota sin nombre</i>" : noteTitle;
+    newNote.querySelector("[data-item-icon]").textContent = "notes";
+    newNote.querySelector("[data-item-icon]").className = "";
+
     newNote.onclick = function() { displayNoteContent(noteId, this); };
+    
     newNote.setAttribute("openning", "");
     newNote.addEventListener("animationend", () =>{newNote.removeAttribute("openning")}, {once: true})
+    
+    
     newNoteParent.querySelector(".folders-list").appendChild(newNote);
+    newNote.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     return newNote;
 }
 
 async function createNoteInsideFolder(originButton){
     if(!originButton){return}
+    originButton.setAttribute("disabled", "");
+
+    const loaderContainer = originButton.querySelector(".loader-container");
+    toggleLoaderIndicator(loaderContainer);
 
     const currentFoldersParent = originButton.closest(".folders-parent");
     const previousFoldersParent = currentFoldersParent.previousElementSibling;
@@ -392,10 +403,12 @@ async function createNoteInsideFolder(originButton){
     }else{
         originFolderId = 0;
     }
-
     noteId = await createNote(originFolderId);
     newNote = createUiNote(noteId, originFolderId);
     displayNoteContent(noteId, newNote)
+
+    originButton.removeAttribute("disabled");
+    toggleLoaderIndicator(loaderContainer);
 }
 function cleanHTMLContent(content) {
     // Caso 1: Si comienza con una etiqueta HTML
