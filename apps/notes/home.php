@@ -3,6 +3,7 @@ include_once '../../views/partials/__header.php';
 include_once '../../config/utilities.php';
 ?>
 
+
 <transparent>
   <?php include_once "views/windows.php"; ?>
 </transparent>

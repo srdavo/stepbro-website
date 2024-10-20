@@ -583,7 +583,7 @@ function removeUiFolder(folderId = 0){
 
 // Las siguientes funciones son para mostrar las carpetas eliminadas
 function openDeletedFoldersWindow(){
-    toggleWindow("#window-deleted-items");
+    // toggleWindow("#window-deleted-items");
     toggleWSection('w-section-deleted-folders');
     displayDeletedFolders();
 }
@@ -1133,3 +1133,7 @@ async function moveSelectedItem(newFolderId = 0){
 
 }
 
+function openTrashWindow(){
+    toggleWindow("#window-deleted-items");
+    toggleWSection('w-section-trash-home');
+}

@@ -1,7 +1,7 @@
 <?php 
 include_once '../../views/partials/__header.php'; 
 ?>
-
+<link rel="manifest" href="config/site.webmanifest" >
 
 <main>
   <nav >

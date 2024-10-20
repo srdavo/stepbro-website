@@ -1,9 +1,8 @@
 <?php 
-define('BASE_URL', '/');
+define('BASE_URL', '/cocounut-sb/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
-
 include_once  $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/cookies.php';
 cookiesRedirect($cookie_uid, "$_SERVER[REQUEST_URI]");
 
@@ -42,7 +41,25 @@ checkSession($cookie_uid);
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
 
     <!-- Manifest -->
-    <link rel="manifest" href="<?= BASE_URL?>config/site.webmanifest" >
+    <?php 
+      if (strpos($_SERVER['REQUEST_URI'], '/apps/') !== false) {
+        $current_url = explode('/', $_SERVER['REQUEST_URI'])[3];
+      } else {
+        $current_url = '';
+      }
+      
+      switch ($current_url) {
+        case 'notes':
+          echo '<link rel="manifest" href="'.BASE_URL.'apps/notes/config/site.webmanifest" >';
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+
+    ?>
+
 
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">

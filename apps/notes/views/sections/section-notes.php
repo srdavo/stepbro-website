@@ -28,12 +28,12 @@
 
             <span class="position-relative">
                 <md-filled-tonal-icon-button 
-                    onclick="toggleMenu('menu-notes-options')" 
-                    class="solid"
+                    onclick="openTrashWindow()"
+                    data-flip-id="animate" 
                     id="toggler-menu-notes-options"
                     data-tooltip="Papelera"
                     >
-                    <md-icon>delete_sweep</md-icon>
+                    <md-icon>delete</md-icon>
                 </md-filled-tonal-icon-button>
                 <md-menu id="menu-notes-options" style="min-width:264px;" anchor="toggler-menu-notes-options">
                     <md-menu-item onclick="openDeletedNotesWindow()" data-flip-id="animate">
@@ -63,26 +63,6 @@
             class="content-box light-color folders-parent"
             >
             <div class="folders-list grow-1">
-                <div class="folder" active>
-                    <md-ripple></md-ripple>
-                    <md-icon>folder</md-icon>
-                    <span>Universidad</span>
-                </div>
-                <div class="folder">
-                    <md-ripple></md-ripple>
-                    <md-icon>folder</md-icon>
-                    <span>Compras</span>
-                </div>
-                <div class="folder">
-                    <md-ripple></md-ripple>
-                    <md-icon>folder</md-icon>
-                    <span>Ideas</span>
-                </div>
-                <div class="folder">
-                    <md-ripple></md-ripple>
-                    <md-icon>folder</md-icon>
-                    <span>Luis David Elizarraraz Mondaca</span>
-                </div>
             </div>
             <div class="simple-container direction-column folders-list height-max-content">
                 <div 
@@ -113,7 +93,7 @@
             >
             <div class="simple-container justify-center align-center grow-1 direction-column gap-8" data-default-view>
                 <md-icon class="pretty">folder_open</md-icon>
-                <span class="body-large bricolage weight-500">Selecciona una nota para comenzar a editarla</span>
+                <span class="body-large bricolage weight-500 on-background-text">Selecciona una nota para comenzar a editarla</span>
             </div>
         </div>
     </div>
