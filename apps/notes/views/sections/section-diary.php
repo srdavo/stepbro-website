@@ -4,7 +4,8 @@
         class="content-box light-color direction-column grow-1 on-background-text editor-parent" 
         style="width:100%; max-width:600px; max-height:500px;"
         >
-        <span class="display-small">¿Como te fue en el Día?</span>
+        <span class="display-small text-center">Mi Diario</span>
+        <span id="diary-date"></span>
         <div 
                     class="folder" 
                     data-flip-id="animate"

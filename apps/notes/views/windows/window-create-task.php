@@ -17,7 +17,7 @@
 
         <form 
             id="create-folder-form" 
-            onsubmit="createTask(event)"
+            onsubmit="saveTask(event)"
             class="simple-container direction-column gap-16 v-margin grow-1"
             >
             <md-outlined-text-field 

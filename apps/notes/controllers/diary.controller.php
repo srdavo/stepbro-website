@@ -18,18 +18,22 @@ switch ($data["op"]){
         ];
         $diary = new Diary($data_array);
         $result =  $diary->save();
-        echo json_encode($result);
+        echo json_encode([
+            "id" => $result["id"] ? $result["id"] : null,
+            "success" => ($result["id"]) ? $result["ok"] : $result
+        ]);
         break;
 
         case "get_journal":
             $results =  Diary::getJournal($data["offset"], $data["limit"], $userid);
-            $noMoreRecords = count($results) < $limit;
+            $noMoreRecords = count($results) < $data["limit"];
             foreach($results as $result){
                 $result->content = Encrypt::decrypt($result->content);
             }
             echo json_encode([
                 "entries" => $results,
-                "noMoreRecords" => $noMoreRecords
+                "noMoreRecords" => $noMoreRecords,
+                "success" => empty($results) ? false : true
             ]);
 
             break;

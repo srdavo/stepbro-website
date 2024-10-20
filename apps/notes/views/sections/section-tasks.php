@@ -1,7 +1,7 @@
 <section id="section-to_do_list" class="align-center">
 
 <style>
-    .container {
+    .container-list {
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -41,7 +41,7 @@
 
             <h2>To-Do List: Mueve las tareas entre Pendiente, Activa y Terminada</h2>
 
-<div class="container">
+<div class="container-list">
 
     <div id="pending" class="column" ondrop="drop(event)" ondragover="allowDrop(event)">
         <div class="column-title">Pendiente</div>

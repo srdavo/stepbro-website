@@ -19,7 +19,12 @@ switch ($data["op"]){
         ];
         $task = new Tasks($data_array);
         $result =  $task->save();
-        echo json_encode($result);
+
+        echo json_encode([
+            "id" => $result["id"] ? $result["id"] : null,
+            "success" => ($result["id"]) ? $result["ok"] : $result,
+            "created_at" => $task->created_at ?? null
+        ]);
 
         break;
 

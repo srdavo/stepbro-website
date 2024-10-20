@@ -15,7 +15,7 @@ function toggleCreateTaskWindow(){
 }
 
 
-async function createTask(e,content = null){
+async function saveTask(e,content = null){
     e.preventDefault();
     
     const parentId = "#window-create-task";
@@ -38,7 +38,6 @@ async function createTask(e,content = null){
         created_at: content.created_at ?? null
 
     }
-    console.log(data)
 
     const url = `controllers/tasks.controller.php`
     try {
@@ -49,18 +48,17 @@ async function createTask(e,content = null){
         const result = await response.json();
         console.log(result);
         toggleButton(parentId, false);
-        if (result) {
+        if (result.success) {
             if (result.id) {
                 let task = {
                     task: data.task,
-                    id: result.id
+                    id: result.id,
+                    created_at: result.created_at
                 }
                 pendingDiv.appendChild(createDivTask(task))
                 message("Tarea Creada", "success");
                 
                 toggleWindow();
-            } else {
-                message(`Hubo un error: ${result.message}`, "error");
             }
         } else {
             message("Hubo un error en la solicitud", "error");
@@ -124,7 +122,13 @@ function createDivTask(task){
     divTask.classList.add("task");
     divTask.setAttribute("draggable", "true");
     divTask.setAttribute("ondragstart", "drag(event)");
-    divTask.textContent = task.task;
+
+    const taskP = document.createElement("P");
+    taskP.textContent = task.task;
+    divTask.appendChild(taskP);
+
+    divTask.innerHTML += `<md-icon aria-hidden="true">more_vert</md-icon>`;
+    
     return divTask;
 }
 

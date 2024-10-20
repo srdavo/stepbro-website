@@ -29,7 +29,7 @@ function allowDrop(ev) {
           content.status = "Terminado";
           break;
   }
-  createTask(ev,content);
+  saveTask(ev,content);
   }
 
 

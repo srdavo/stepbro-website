@@ -23,7 +23,8 @@ let alreadyExecuted = false;
 getJournal();
 
 
-
+// Global elements
+const diaryDate = document.getElementById("diary-date");
 
 
 diaryContentDiv.addEventListener("scroll", () => {
@@ -58,14 +59,12 @@ async function saveContent(content){
         });
         const result = await response.json();
         toggleButton(parentId, false);
-        if (result) {
+        console.log(result);
+        if (result.success) {
             if (result.id) {
                 idNote = result.id;
-                offset += limit;
                 message("Contenido Guardado", "success");
-            } else {
-                message(`Hubo un error: ${result.message}`, "error");
-            }
+            } 
         } else {
             message("Hubo un error en la solicitud", "error");
         }
@@ -77,7 +76,7 @@ async function saveContent(content){
 
 
 async function getJournal(){
-
+    
     if (isLoading || noMoreRecords) return; 
     isLoading = true; 
 
@@ -166,7 +165,7 @@ function displayDiaryContent(day){
     idNote = day.id;
     createdAt = day.created_at;
     diary.innerHTML = day.content;
-
+    diaryDate.textContent = formatDate(day.created_at);
 }
 
 
