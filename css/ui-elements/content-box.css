@@ -15,6 +15,7 @@
   border-radius:24px;
 }
 .content-box.light-color{background:var(--md-sys-color-surface-container-low)}
+.content-box.lowest-color{background:var(--md-sys-color-surface-container-lowest)}
 /* content divisor */
 .content-box .content-divisor{display:flex; max-width: fit-content;}
 /* .content-box .content-divisor:first-of-type{max-width: fit-content;} */

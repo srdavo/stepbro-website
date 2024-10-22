@@ -20,4 +20,19 @@ class Tasks extends ActiveRecord{
         $this->updated_at = $args["updated_at"] ?? date('Y-m-d H:i:s');
         $this->created_at = $args["created_at"] ?? date('Y-m-d H:i:s');
     }
+
+    public static function updateStatus($data_array){
+        $query = "UPDATE tasks SET status = ? WHERE id = ?";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("si", $data_array["status"], $data_array["id"]);
+
+        try{
+            $stmt->execute();
+            $stmt->close();
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 }

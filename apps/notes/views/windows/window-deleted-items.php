@@ -3,10 +3,16 @@
     class="increased on-background-text integrated"
     data-flip-id="animate"
     >
+    <div class="simple-container padding-16 gap-8 only-on-mobile">
+        <md-icon-button onclick="toggleWindow()">
+            <md-icon>close</md-icon>
+        </md-icon-button>
+        <span class="simple-container align-center headline-small">Papelera</span>
+    </div>
     <holder>
         <div class="w-section-holder simple-container grow-1 gap-16 overflow-hidden">
             <div class="w-nav w-nav-parent simple-container direction-column">
-                <div class="simple-container gap-8 bottom-margin-16">
+                <div class="simple-container gap-8 bottom-margin-16 hide-on-mobile">
                     <md-icon-button onclick="toggleWindow()">
                         <md-icon>close</md-icon>
                     </md-icon-button>
@@ -34,29 +40,30 @@
             </div>
 
             <div class="w-section simple-container justify-center align-center direction-column grow-1 gap-8 overflow-auto scrollbar-hidden on-background-text" active id="w-section-trash-home">
-                <div class="content-box border-radius-56 align-center padding-64" style="max-width:500px">
                     <div class="simple-container direction-column align-center gap-8">
-                        <md-icon class="pretty filled">delete</md-icon>
+                        <md-icon class="pretty filled error-container on-error-container-text">delete</md-icon>
                         <span class="display-small bricolage weight-600">Papelera</span>
                     </div>
                     <p class="headline-small text-center v-margin" style="max-width:400px">
                         Aquí encontrarás todas las notas y carpetas que has eliminado. Puedes restaurarlas o eliminarlas permanentemente.
                     </p>
                     <div class="simple-container direction-column gap-8 top-margin-16">
-                        <md-outlined-button class="solid-high" onclick="openDeletedNotesWindow()">
+                        <md-filled-tonal-button class="solid-high" onclick="openDeletedNotesWindow()">
                             <md-icon slot="icon">notes</md-icon>
                             Ver notas eliminadas
-                        </md-outlined-button>
-                        <md-outlined-button class="solid-high" onclick="openDeletedFoldersWindow()">
+                        </md-filled-tonal-button>
+                        <md-filled-tonal-button class="solid-high" onclick="openDeletedFoldersWindow()">
                             <md-icon slot="icon">folder</md-icon>
                             Ver carpetas eliminadas
-                        </md-outlined-button>
+                        </md-filled-tonal-button>
                     </div>    
-                </div>
                 
             </div>
 
             <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-notes">
+                <div class="simple-container only-on-mobile">
+                    <span class="headline-medium on-background-text">Notas eliminadas</span>
+                </div>
                 <div 
                     id="response-deleted-notes-container"
                     class="simple-container direction-column gap-8"
@@ -67,6 +74,9 @@
             </div>
 
             <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-folders">
+                <div class="simple-container only-on-mobile">
+                    <span class="headline-medium on-background-text">Notas eliminadas</span>
+                </div>
                 <div 
                     id="response-deleted-folders-container"
                     class="simple-container direction-column gap-8"

@@ -37,6 +37,7 @@
         <span class="icon-holder" >
           <span class="material-symbols-rounded">settings</span>
         </span>
+        <span class="only-on-mobile">Configuración</span>
       </button>
     ';
   }

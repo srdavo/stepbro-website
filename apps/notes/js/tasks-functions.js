@@ -59,6 +59,8 @@ async function saveTask(e,content = null){
                 message("Tarea Creada", "success");
                 
                 toggleWindow();
+            }else{
+                message("Tarea Actualizada", "success");
             }
         } else {
             message("Hubo un error en la solicitud", "error");
@@ -116,19 +118,114 @@ function displayTasks(tasks){
 }
 
 function createDivTask(task){
-    const divTask = document.createElement("DIV");
+    const taskItem = document.getElementById("template-task-item").content.cloneNode(true);
+    const divTask = taskItem.querySelector("[data-task-parent]");
+
+    // Set attributes
     divTask.setAttribute("id", task.id);
     divTask.setAttribute("data-created_at", task.created_at);
-    divTask.classList.add("task");
+    divTask.setAttribute("data-status", task.status);
     divTask.setAttribute("draggable", "true");
     divTask.setAttribute("ondragstart", "drag(event)");
+    
+    const taskCheckbox = divTask.querySelector("[data-task-checkbox]");
+    if(task.status === "Terminado"){taskCheckbox.checked = true;}
 
-    const taskP = document.createElement("P");
-    taskP.textContent = task.task;
-    divTask.appendChild(taskP);
+    taskCheckbox.onclick = function(){ checkTask(this, task.id); }
+    divTask.querySelector(["[data-taks-name-parent]"]).onclick = function(){openTaskDataWindow(task, this.closest('[data-task-parent]') );};
 
-    divTask.innerHTML += `<md-icon aria-hidden="true">more_vert</md-icon>`;
+    // set content
+    divTask.querySelector("[data-task-name]").textContent = task.task;
     
     return divTask;
+}
+
+function openTaskDataWindow(task, originButton){
+    toggleWindow("#window-task-data", "absolute", 1);
+    document.getElementById("edit-task-name").value = task.task;
+    document.getElementById("edit-task-status").value = originButton.dataset.status;
+    // document.getElementById("task-data-name").textContent = task.task;
+    // document.getElementById("task-data-status").textContent = task.status;
+    // document.getElementById("task-data-created_at").textContent = task.created_at;
+    // document.getElementById("task-data-id").value = task.id;
+}
+
+function checkTask(originButton, taskId){
+    if(originButton.checked){
+        uncompleteTask(taskId);
+        console.log("la tarea se quiere completar");
+
+    }else{
+        completeTask(taskId);
+        console.log("la tarea se quiere completar");
+    }
+}
+async function completeTask(taskId){
+    const update = await updateStatus(taskId, "Terminado");
+    if(update){moveUiTasks(taskId, "Terminado");}
+}
+async function uncompleteTask(taskId){
+    const update = await updateStatus(taskId, "Pendiente");
+    if(update){moveUiTasks(taskId, "Pendiente");}
+}
+
+function moveUiTasks(taskId, status){
+    const task = document.getElementById(taskId);
+    task.dataset.status = status;
+    task.querySelector("[data-task-checkbox]").checked = true;
+
+    state = Flip.getState(`[data-task-parent], .task-column-parent`);
+
+    switch (status) {
+        case "Pendiente":
+            task.querySelector("[data-task-checkbox]").checked = false;
+            pendingDiv.appendChild(task);
+            break;
+        case "Activo":
+            task.querySelector("[data-task-checkbox]").checked = false;
+            inProgressDiv.appendChild(task);
+            break;
+        case "Terminado":
+            task.querySelector("[data-task-checkbox]").checked = true;
+            completedDiv.appendChild(task);
+            break
+        
+        default:
+            break;
+    }
+    applyAnimation(state, `[data-task-parent]`, true, false, true, true);
+    applyAnimation(state, `.task-column-parent`, false);
+}
+
+async function updateStatus(taskId = 0, status = 0){
+    if(taskId === 0 || status === 0){return false;}
+    const data = {
+        op: "update_status",
+        id: taskId,
+        status: status
+    }
+    const url = `controllers/tasks.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        console.log(result);
+        if (result) {
+            if(result.success){
+                return true;
+                message("Tarea Completada", "success");
+            }else{
+                message(`Error: ${result.message}`, "error");
+                return false;
+            }
+            
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
 }
 

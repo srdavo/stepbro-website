@@ -91,9 +91,9 @@
             id="folders-note-parent" 
             class="content-box grow-1 note-parent"
             >
-            <div class="simple-container justify-center align-center grow-1 direction-column gap-8" data-default-view>
-                <md-icon class="pretty">folder_open</md-icon>
-                <span class="body-large bricolage weight-500 on-background-text">Selecciona una nota para comenzar a editarla</span>
+            <div class="simple-container justify-center align-center grow-1 direction-column gap-16" data-default-view>
+                <md-icon class="default-content-icon filled pretty secondary-container on-secondary-container-text">folder_open</md-icon>
+                <span class="headline-small text-center bricolage weight-500 on-background-text">Selecciona una nota para comenzar a editarla</span>
             </div>
         </div>
     </div>
@@ -178,9 +178,9 @@
 </template>
 
 <template id="template-note-default-view">
-    <div class="simple-container justify-center align-center grow-1 direction-column gap-8" data-default-view>
-        <md-icon class="pretty">folder_open</md-icon>
-        <span class="body-large bricolage weight-500 on-background-text">Selecciona una nota para comenzar a editarla</span>
+    <div class="simple-container justify-center align-center grow-1 direction-column gap-16" data-default-view>
+        <md-icon class="default-content-icon filled pretty secondary-container on-secondary-container-text">folder_open</md-icon>
+        <span class="headline-small text-center bricolage weight-500 on-background-text">Selecciona una nota para comenzar a editarla</span>
     </div>
 </template>
 
