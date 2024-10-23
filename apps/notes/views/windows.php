@@ -10,7 +10,7 @@ include_once 'views/windows/window-item-info.php';
 include_once 'views/windows/window-edit-folder-name.php';
 include_once 'views/windows/window-move-item.php';
 
-include_once 'views/windows/window-task-data.php';
+include_once 'views/windows/window-edit-task.php';
 
 
 

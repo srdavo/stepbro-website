@@ -6,18 +6,21 @@ function drag(ev) {
 
 function drop(ev) {
   ev.preventDefault();
-  state = Flip.getState(`.task-column-parent`);
+  // state = Flip.getState(`.task-column-parent`);
   let data = ev.dataTransfer.getData("text");
   let draggedElement = document.getElementById(data);
   let column = ev.target.closest(".column")
   column.appendChild(draggedElement); 
-  applyAnimation(state, `.task-column-parent`, false);
+  // applyAnimation(state, `.task-column-parent`, false);
 
 
-  ;
+  
   content = {
     id: draggedElement.id,
     task: draggedElement.querySelector("[data-task-name]").textContent,
+    description: draggedElement.dataset.description,
+    limit_date: draggedElement.dataset.limit_date,
+    status: draggedElement.dataset.status,
     created_at: draggedElement.dataset.created_at
   }
   

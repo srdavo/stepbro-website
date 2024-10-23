@@ -3,10 +3,12 @@
 
 class Tasks extends ActiveRecord{
     protected static $table = 'tasks';
-    protected static $columns = ["id","user_id","task","status","created_at","updated_at"];
+    protected static $columns = ["id","user_id","task", "description", "limit_date", "status","created_at","updated_at"];
 
     public $id;
     public $task;
+    public $description;
+    public $limit_date;
     public $status;
     public $user_id;
     public $updated_at;
@@ -15,6 +17,8 @@ class Tasks extends ActiveRecord{
     public function __construct($args = []) {
         $this->id = $args["id"] ?? NULL;
         $this->task = $args["task"] ?? "";
+        $this->description = $args["description"] ?? NULL;
+        $this->limit_date = $args["limit_date"] ?? NULL;
         $this->user_id = $args["user_id"] ?? "";
         $this->status = $args["status"] ?? "Pendiente";
         $this->updated_at = $args["updated_at"] ?? date('Y-m-d H:i:s');

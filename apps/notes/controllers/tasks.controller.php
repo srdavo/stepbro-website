@@ -12,6 +12,8 @@ switch ($data["op"]){
     case "save_task":
         $data_array = [
             "task" => $data["task"], 
+            "description" => $data["description"] ?? null,
+            "limit_date" => $data["limit_date"] ?? null,
             "user_id" => $userid,
             "id" => $data["id"] ?? null,
             "status" => $data["status"] ?? null,
@@ -22,6 +24,9 @@ switch ($data["op"]){
 
         echo json_encode([
             "id" => isset($result["id"]) ? $result["id"] : null,
+            "description"=> $result["description"] ?? null,
+            "limit_date"=>$result["limit_date"] ?? null,
+            "status"=>$result["status"] ?? "Pendiente",
             "success" => isset($result["id"]) ? $result["ok"] : $result,
             "created_at" => $task->created_at ?? null,
             "message" => isset($result["id"]) ? "Task saved" : "Error saving task"

@@ -87,6 +87,7 @@
         outline-with-shadow
         border-radius-16
         overflow-hidden
+        on-background-text
       "
       >
       <md-ripple></md-ripple>
@@ -128,6 +129,38 @@
       align-items: center;
       font-weight: bold;
     }
+
+    .task-limit-date-container{display:none}
+    .task-limit-date-container[active]{
+      display:flex;
+      overflow:hidden;
+      animation: taskLimitDateParentIn 700ms cubic-bezier(0.38,0.49,0,1);
+    }
+    /* .task-limit-date-container[closing]{
+      animation: taskLimitDateParentOut 500ms cubic-bezier(0.38,0.49,0,1);
+    } */
+
+    @keyframes taskLimitDateParentIn {
+      from {
+        max-height: 0;
+        opacity: 0;
+      }
+      to {
+        max-height: 75px;
+        opacity: 1;
+      }
+    }
+    /* @keyframes taskLimitDateParentOut {
+      from {
+        max-height: 75px;
+        opacity: 1;
+      }
+      to {
+        max-height: 0px;
+        opacity: 0;
+      }
+      
+    } */
   </style>
 
 

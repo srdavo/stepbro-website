@@ -37,6 +37,7 @@ include_once '../../config/utilities.php';
   document.addEventListener("DOMContentLoaded", function(event) {
     // syncNotes();
       syncFolders();
+      syncTasks();
   });
 </script>
 
