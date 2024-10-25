@@ -1,5 +1,4 @@
 <?php 
-define('BASE_URL', '/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
@@ -94,6 +93,8 @@ checkSession($cookie_uid);
   <?php
     if(isset($_SESSION['id'])){
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-settings.php';
-    } 
+    } else{
+      include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-signup.php';
+    }
   ?>
 </transparent>

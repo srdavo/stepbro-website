@@ -3,7 +3,10 @@ function toggleSection(objetiveSectionId) {
   activeSection = document.querySelector('section[active]');
   activeNavButton = nav.querySelector('nav button[active]');
   if (activeSection.id === objetiveSectionId) {
-    console.log('Ya estás en la sección que quieres ver');
+    activeSection.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     return;
   }
   if(activeSection) {activeSection.removeAttribute('active');}

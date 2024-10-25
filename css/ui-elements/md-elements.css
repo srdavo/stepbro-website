@@ -62,6 +62,10 @@ md-filled-tonal-button.delete-text{
   --md-sys-color-on-secondary-container: var(--md-sys-color-error);
 }
 
+md-filled-tonal-icon-button.solid-ligh, md-filled-tonal-button.solid-light{
+  --md-sys-color-secondary-container: var(--md-sys-color-surface-container-low);
+  --md-sys-color-on-secondary-container: var(--md-sys-color-on-surface-variant);
+}
 md-filled-tonal-icon-button.solid, md-filled-tonal-button.solid{
   --md-sys-color-secondary-container: var(--md-sys-color-surface-container);
   --md-sys-color-on-secondary-container: var(--md-sys-color-on-surface-variant);
