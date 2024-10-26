@@ -56,6 +56,17 @@
         echo "
           <button 
             class='nav-button'
+            data-flip-id='animate' 
+            onclick='toggleWindow(\"#window-sb-login\",\"\",1)'
+            >
+            <span class='icon-holder only-on-mobile'>
+            <span class='material-symbols-rounded'>login</span>
+            </span>
+            <md-ripple></md-ripple>
+            Iniciar sesión
+          </button>
+          <button 
+            class='nav-button'
             id='direct-action-header-button'
             data-flip-id='animate' 
             onclick='toggleWindow(\"#window-sb-signup\",\"\",1)'

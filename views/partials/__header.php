@@ -24,7 +24,7 @@ checkSession($cookie_uid);
     
 
     <!-- style and themes -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=1">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=123">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=1">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/diary-files.css?v=1">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">

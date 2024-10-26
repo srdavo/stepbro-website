@@ -25,12 +25,12 @@ include_once '../../config/utilities.php';
   </holder>
 </main>
 
-<script src="js/notes-functions.js"></script>
-<script src="js/diary-functions.js"></script>
-<script src="js/folders-functions.js"></script>
-<script src="js/drag-functions.js"></script>
-<script src="js/tasks-functions.js"></script>
-<script src="js/rich-text.js"></script>
+<script src="js/notes-functions.js?v=1"></script>
+<script src="js/diary-functions.js?v=1"></script>
+<script src="js/folders-functions.js?v=1"></script>
+<script src="js/drag-functions.js?v=1"></script>
+<script src="js/tasks-functions.js?v=1"></script>
+<script src="js/rich-text.js?v=1"></script>
 
 <script>
   

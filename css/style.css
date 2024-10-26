@@ -1,17 +1,17 @@
 @import url(nav.css?v=4.0.0); /* Brings the Nav Bar styles */ 
-@import url(ui-structure.css?v=1.0.0); /* Brings the main styles for the structure, important */ 
+@import url(ui-structure.css?v=3.0.0); /* Brings the main styles for the structure, important */ 
 @import url(ui-elements/content-box.css?v=5); /* Its a basic container with many uses */ 
 @import url(ui-elements/default-rules.css?v=200); /* Brings classes with propetys that all elements could use */ 
 @import url(ui-elements/message.css?v=4); /* Brings the styles for the message box */
-@import url(ui-elements/windows.css?v=5); /* Brings the styles for the message box */
+@import url(ui-elements/windows.css?v=1); /* Brings the styles for the message box */
 @import url(ui-elements/tables.css?v=4); /* Brings the styles for the tables */
 @import url(ui-elements/data-line.css?v=4); /* Brings the styles for the data line */
 @import url(ui-elements/select.css); /* Brings the styles for the data line */
 @import url(ui-elements/md-elements.css?v=4); /* Brings the styles for some things of material web components */
-@import url(ui-elements/window-navigation.css?v=1); 
+@import url(ui-elements/window-navigation.css?v=12); 
 @import url(ui-elements/theme-selector.css?v=1);
 @import url(ui-elements/editor.css?v=1);
-@import url(ui-elements/folder-files.css?v=1);
+@import url(ui-elements/folder-files.css?v=2);
 @import url(ui-elements/input.css?v=1);
 @import url(ui-elements/button.css?v=1);
 
