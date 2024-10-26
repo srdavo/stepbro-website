@@ -19,7 +19,7 @@
       <md-icon slot="start" aria-hidden="true">settings</md-icon>
       <div slot="headline">Configuración</div>
     </md-menu-item>
-    <md-menu-item href="<?= BASE_URL?>/apps/notes" >
+    <md-menu-item onclick="window.location.href='index'">
       <md-icon slot="start" aria-hidden="true">exit_to_app</md-icon>
       <div slot="headline">Volver a inicio</div>
     </md-menu-item>
