@@ -137,7 +137,9 @@
     </div>
   </div>
 
-  <div class="content-box grow-1 top-margin-64 light-color"></div>
+  <div class="content-box grow-1 top-margin-64 light-color align-center">
+      <md-text-button href="<?= BASE_URL ?>">Ir a página principal de stepbro</md-text-button>
+  </div>
 
     
    

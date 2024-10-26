@@ -1,8 +1,6 @@
 <?php 
 include_once 'views/partials/__header.php'; 
 include_once 'config/utilities.php';
-
-
 ?>
 
 <transparent>
@@ -26,6 +24,7 @@ include_once 'config/utilities.php';
 <script src="js/calories-functions.js"></script>
 
 <script>
+  window.location.href = "index";
   document.addEventListener("DOMContentLoaded", function(event) {
     getUserData();
     syncCalories()

@@ -1,4 +1,5 @@
 <?php 
+define('BASE_URL', '/cocounut-sb/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
@@ -95,6 +96,7 @@ checkSession($cookie_uid);
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-settings.php';
     } else{
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-signup.php';
+      include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-login.php';
     }
   ?>
 </transparent>

@@ -1,15 +1,20 @@
-async function signUp(){
-  const parent = "#parent-signup";
+
+
+async function signUp(ev){
+  ev.preventDefault();
+  const activeWindow = document.querySelector("window.active");
+  const currentForm =  activeWindow.querySelector("form");
+  const parent = "#window-sb-signup";
   if(!checkEmpty(parent, "input")) { return; }
 
-  const userInput = document.getElementById("input-signup-user");
-  const pwdInput = document.getElementById("input-signup-password");
-  const pwdRepeatInput = document.getElementById("input-signup-password_repeat");
+  const userInput = document.getElementById("user-signup-email");
+  const pwdInput = document.getElementById("user-signup-password");
+  const pwdRepeatInput = document.getElementById("user-signup-password-repeat");
 
   if(pwdInput.value != pwdRepeatInput.value) {
     pwdInput.setAttribute("error", "");
     pwdRepeatInput.setAttribute("error", "");
-    // message("Las contraseñas no son iguales", "error");
+    message("Las contraseñas no son iguales", "error");
     return;
   }
 
@@ -26,7 +31,7 @@ async function signUp(){
   pwdInput.removeAttribute("error");
   pwdRepeatInput.removeAttribute("error");
 
-  toggleButton(parent, true);
+  toggleButton(parent, true, "submit");
 
   const data = {
     op: "signup",
@@ -39,10 +44,12 @@ async function signUp(){
     body: JSON.stringify(data),
   });
   if (response.ok) {
+    toggleButton(parent, false, "submit");
     const result = await response.json();
     switch (result) {
       case "user_already_exists":
         message("El usuario ya existe", "error");
+        currentForm.querySelector("[data-form-step-1]").scrollIntoView({ behavior: 'smooth' });
         userInput.setAttribute("error", "");
         break;
       case "access_accepted":
@@ -51,20 +58,21 @@ async function signUp(){
       default:
         message("Hubo un error", "error");
     }
-    toggleButton(parent, false);
-
   } else {
     console.error('Error al registrarse:', response.statusText);
   }
 }
 
-async function logIn(){
-  const parent = "#parent-login";
+async function logIn(ev){
+  ev.preventDefault();
+  const activeWindow = document.querySelector("window.active");
+  const currentForm =  activeWindow.querySelector("form");
+  const parent = "#window-sb-login";
   if(!checkEmpty(parent, "input")) { return; }
-  toggleButton(parent, true);
+  toggleButton(parent, true, "submit");
 
-  const userInput = document.getElementById("input-login-user");
-  const pwdInput = document.getElementById("input-login-password");
+  const userInput = document.getElementById("user-login-email");
+  const pwdInput = document.getElementById("user-login-password");
 
   const data = {
     op: "login",
@@ -77,10 +85,12 @@ async function logIn(){
     body: JSON.stringify(data),
   });
   if (response.ok) {
+    toggleButton(parent, false, "submit");
     const result = await response.json();
     switch (result) {
       case "user_doesnt_exist": 
         message("El usuario no existe", "error"); 
+        currentForm.querySelector("[data-form-step-1]").scrollIntoView({ behavior: 'smooth' });
         userInput.setAttribute("error", ""); 
         break;
       case "wrong_password": 
@@ -89,11 +99,9 @@ async function logIn(){
         pwdInput.setAttribute("error", "");
         break;
       case "access_accepted":
-        window.location.href='index';
+        window.location.href='home';
         break;
     }
-    toggleButton(parent, false);
-
   } else {
     console.error('Error al iniciar sesión:', response.statusText);
   }
@@ -190,4 +198,32 @@ async function syncUserData(){
   document.getElementById("response-settings-account-username").textContent = data.name;
   document.getElementById("response-settings-account-username-title").textContent = data.name;
   document.getElementById("response-settings-account-username-first-letter").textContent = data.name.charAt(0).toUpperCase();
+}
+
+
+function validateFormStep1(){
+  const activeWindow = document.querySelector("window.active");
+  const currentForm =  activeWindow.querySelector("form");
+  const emailField = currentForm.querySelector("input[name='user-email']");
+  if(!checkEmpty(`#${currentForm.id} [data-form-step-1]`, "input")) { return; }
+  if(!validateEmailData(emailField.value) && activeWindow.id == "window-sb-signup") {
+    emailField.setAttribute("error", "");
+    message("El correo no es valido", "error");
+    return false;
+  }
+  emailField.removeAttribute("error");
+  currentForm.classList.remove("overflow-hidden");
+  currentForm.querySelector("[data-form-step-2] input").focus({ preventScroll: true });
+  currentForm.querySelector("[data-form-step-2] input").scrollIntoView({ behavior: 'smooth' });
+}
+
+function validateEmailData(value){
+  const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return regex.test(value);
+}
+
+function resetFormSteps(){
+  const activeWindow = document.querySelector("window.active");
+  const currentForm =  activeWindow.querySelector("form");
+  currentForm.classList.add("overflow-hidden");
 }

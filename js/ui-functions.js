@@ -129,7 +129,7 @@ function resetFormNextGen(parentId){
 function checkEmpty(parentId, elementToCheck){
   const parentElement = document.querySelector(parentId);
   if(!parentElement){return;}
-  const inputs = parentElement.querySelectorAll(materialT(elementToCheck));
+  const inputs = parentElement.querySelectorAll(`${materialT(elementToCheck)}, ${elementToCheck}`);
   validation = 0;
   for (let i=0; i<inputs.length; i++){
     inputs[i].addEventListener("focus", function() {inputs[i].removeAttribute('error')}, {once: true});

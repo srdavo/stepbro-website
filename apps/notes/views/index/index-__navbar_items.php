@@ -54,18 +54,18 @@
         ";
       } else{
         echo "
-            <button 
-              class='nav-button'
-              id='direct-action-header-button'
-              data-flip-id='animate' 
-              onclick='toggleWindow(\"#window-sb-signup\",\"\",1)'
-              >
-              <span class='icon-holder only-on-mobile'>
-              <span class='material-symbols-rounded'>arrow_circle_right</span>
-              </span>
-              <md-ripple></md-ripple>
-              Crear cuenta
-            </button>
+          <button 
+            class='nav-button'
+            id='direct-action-header-button'
+            data-flip-id='animate' 
+            onclick='toggleWindow(\"#window-sb-signup\",\"\",1)'
+            >
+            <span class='icon-holder only-on-mobile'>
+            <span class='material-symbols-rounded'>person_add</span>
+            </span>
+            <md-ripple></md-ripple>
+            Crear cuenta
+          </button>
         ";
       }
     ?>
