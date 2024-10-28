@@ -1,9 +1,8 @@
 <?php 
-define('BASE_URL', '/');
+define('BASE_URL', '/cocounut-sb/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
-
 include_once  $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/cookies.php';
 cookiesRedirect($cookie_uid, "$_SERVER[REQUEST_URI]");
 
@@ -25,9 +24,9 @@ checkSession($cookie_uid);
     
 
     <!-- style and themes -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css">
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=15">
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/diary-files.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=123">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=1">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/diary-files.css?v=1">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="<?= BASE_URL ?>js/theme.js"></script>
@@ -42,7 +41,25 @@ checkSession($cookie_uid);
     <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
 
     <!-- Manifest -->
-    <link rel="manifest" href="<?= BASE_URL?>config/site.webmanifest" >
+    <?php 
+      if (strpos($_SERVER['REQUEST_URI'], '/apps/') !== false) {
+        $current_url = explode('/', $_SERVER['REQUEST_URI'])[2];
+      } else {
+        $current_url = '';
+      }
+      
+      switch ($current_url) {
+        case 'notes':
+          echo '<link rel="manifest" href="'.BASE_URL.'apps/notes/config/site.webmanifest" >';
+          break;
+        
+        default:
+          # code...
+          break;
+      }
+
+    ?>
+
 
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -77,6 +94,9 @@ checkSession($cookie_uid);
   <?php
     if(isset($_SESSION['id'])){
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-settings.php';
-    } 
+    } else{
+      include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-signup.php';
+      include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-login.php';
+    }
   ?>
 </transparent>

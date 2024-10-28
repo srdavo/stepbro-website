@@ -1,6 +1,6 @@
 <section id="section-home" active class="gap-24" style="margin:auto;">
   
-   <div class="quick-note-main-parent">
+    <div class="quick-note-main-parent on-background-text">
         <div class="quick-note-editor-parent" data-note-id >
             <div class="clickeable-to-open" onclick="toggleQuickNoteEditor()"></div>
             <md-ripple></md-ripple>
@@ -31,7 +31,7 @@
             ></div>
             <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
         </div>
-        <md-text-button class="scroll-to-quick-notes" onclick="scrollQuickNotesToView()"><md-icon slot="icon">arrow_downward</md-icon>Mis notas rápidas</md-text-button>
+        <md-filled-tonal-button class="scroll-to-quick-notes" onclick="scrollQuickNotesToView()"><md-icon slot="icon">arrow_downward</md-icon>Mis notas rápidas</md-filled-tonal-button>
    </div>
    <div class="simple-container direction-column gap-8" id="home-quick-notes-container" style="min-height:100%;">
         

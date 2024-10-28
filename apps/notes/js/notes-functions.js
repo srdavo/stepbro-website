@@ -13,6 +13,7 @@ note.addEventListener("input", () => {
     timeOut = setTimeout(() => {
         let noteContent = note.innerHTML;
         saveNote(noteContent,true);
+        updateNoteUiName();
     },950);
 });
 
@@ -255,7 +256,7 @@ function setNoteDataAttributes(originNoteButton){
     noteEditor.querySelector("[data-button-open-info]").onclick = function(){ 
         toggleNoteInfoWindow({
             id: noteId,
-            name: noteName,
+            name: noteEditor.getAttribute("data-note-name"),
             created_at: noteCreatedAt
         }) 
     }
@@ -291,11 +292,22 @@ function setNoteEditorContent(note){
 
                 let noteContent = editor.innerHTML;
 
-                saveNote(noteContent);                   
+                saveNote(noteContent);   
+                updateNoteUiName(idNote, noteContent);                
                 resolve();
             }, 500);
         });
     });
+}
+function updateNoteUiName(noteId, noteContent){
+    const activeNoteButton = document.querySelector(`.folder[data-note-id="${noteId}"]`);
+    const nameElement = activeNoteButton.querySelector("span:last-child");
+
+    newNoteName = cleanHTMLContent(noteContent);
+    nameElement.textContent = newNoteName;
+    activeNoteButton.setAttribute("data-note-name", newNoteName);
+    const noteEditor = document.getElementById("folders-note-parent").querySelector("[data-note-editor-parent]");
+    noteEditor.setAttribute("data-note-name", newNoteName);
 }
 
 
@@ -491,8 +503,8 @@ function removeUiNote(noteId = 0){
 
 // Las siguientes funciones son para la muestra de notas eliminadas
 function openDeletedNotesWindow(){
-    toggleWindow("#window-deleted-items");
-    toggleWSection('w-section-deleted-notes');4
+    // toggleWindow("#window-deleted-items");
+    toggleWSection('w-section-deleted-notes');
     displayDeletedNotes();
 }
 function toggleDeletedNoteContentView(originButton){
@@ -688,18 +700,29 @@ async function deleteNoteForever(noteId, originButton){
 
 // las siguientes funciones son para manejar la interfaz de las notas rápidas
 function toggleQuickNoteEditor(){
-    const quickNoteEditorParent = document.querySelector("#section-home .quick-note-editor-parent");
+    const quickNoteEditorParent = document.querySelector("section[active] .quick-note-editor-parent");
+
+    // const quickNoteEditorParent = document.querySelector("#section-home .quick-note-editor-parent");
     if(!quickNoteEditorParent){return;}
 
-    state = Flip.getState(".quick-note-editor-parent");
+    state = Flip.getState("section[active] .quick-note-editor-parent");
     quickNoteEditorParent.toggleAttribute("active");
-    applyAnimation(state, ".quick-note-editor-parent", false, true, true);
+    applyAnimation(state, "section[active] .quick-note-editor-parent", false, true, true);
 
     if(quickNoteEditorParent.hasAttribute("active")){
-        document.getElementById("create-note-content").focus();
+        const editor = quickNoteEditorParent.querySelector(".editor");
+        editor.focus();
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(editor);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
     }
 
 }
+
+
 
 function scrollQuickNotesToView(){
     document.getElementById("home-quick-notes-container").scrollIntoView({behavior: "smooth"});

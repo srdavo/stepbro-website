@@ -43,7 +43,9 @@ CREATE TABLE tasks (
   id INT NOT NULL AUTO_INCREMENT,
   user_id BIGINT(20) NOT NULL,
   task VARCHAR(255) NOT NULL,
-  status ENUM('Pendiente', 'Activo', 'Terminado') DEFAULT 'Pendiente',
+  description TEXT,
+  limit_date DATE,
+  status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT 'Pendiente',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -52,8 +54,12 @@ CREATE TABLE tasks (
 
 -- Modiifcacion ya agregadas *IGNORAR*
 ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
+ALTER TABLE folders ADD status TINYINT(1) DEFAULT 1;
 
 -- Modificaciones que agregar *NO IGNORAR*
-ALTER TABLE folders ADD status TINYINT(1) DEFAULT 1;
+ALTER TABLE tasks MODIFY status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT 'Pending';
+
+ALTER TABLE tasks ADD description TEXT AFTER task;
+ALTER TABLE tasks ADD limit_date DATE AFTER description;
 
 

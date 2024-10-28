@@ -84,7 +84,7 @@
                 <div class="simple-container direction-column grow-1 gap-16">
                     <div class="simple-container gpa-8 direction-column">
                         <span class="headline-medium">Apariencia</span>
-                        <span class="body-large on-surface-variant-text">Modifica la apariencia de la app a un color de tu preferencia</span>
+                        <span class="body-large outline-text">Modifica la apariencia de la app a un color de tu preferencia</span>
                     </div>
                     <div class="theme-selector-parent v-margin" id="app-theme-selector-parent">
                         <div 
@@ -219,57 +219,17 @@
                 </div>
             </div>
             <div class="w-section simple-container grow-1 w-section-holder" id="w-section-information">
-                <div class="simple-container w-nav w-nav-parent direction-column">
-                    <button 
-                        class="w-nav-button"
-                        data-w-section="w-section-test"
-                        onclick="toggleWSection('w-section-test', this)"
-                        
-                        >
-                        <md-ripple></md-ripple>
-                        <md-icon>folder</md-icon>
-                        <span>test</span>
-                    </button>
-                    <button 
-                        class="w-nav-button"
-                        data-w-section="w-section-test-2"
-                        onclick="toggleWSection('w-section-test-2', this)"
-                        >
-                        <md-ripple></md-ripple>
-                        <md-icon>folder</md-icon>
-                        <span>test 2</span>
-                    </button>
-                </div>
-                <div class="simple-container w-section" id="w-section-test" >
-                    Tests
-                </div>
-                <div class="simple-container w-section" id="w-section-test-2" >
-                    <div class="simple-container w-nav w-nav-parent direction-column">
-                        <button 
-                            class="w-nav-button"
-                            data-w-section="w-section-test-3"
-                            onclick="toggleWSection('w-section-test-3', this)"
-                            
-                            >
-                            <md-ripple></md-ripple>
-                            <md-icon>folder</md-icon>
-                            <span>test 3</span>
-                        </button>
-                        <button 
-                            class="w-nav-button"
-                            data-w-section="w-section-test-4"
-                            onclick="toggleWSection('w-section-test-4', this)"
-                            >
-                            <md-ripple></md-ripple>
-                            <md-icon>folder</md-icon>
-                            <span>test 4</span>
-                        </button>
+                <div class="simple-container direction-column grow-1  gap-16">
+                    <div class="simple-container gpa-8 direction-column">
+                        <span class="headline-medium">Información</span>
+                        <span class="body-large outline-text">Información sobre la app y el desarrollador</span>
                     </div>
-                    <div class="simple-container w-section" id="w-section-test-3" >
-                        Tests 3
-                    </div>
-                    <div class="simple-container w-section" id="w-section-test-4" >
-                        Tests 4 
+                    <div class="simple-container direction-column gap-16">
+                        <div class="content-box direction-row padding-24 border-radius-16 justify-between">
+                            <div class="simple-container"><span class="label-large">Versión</span></div>
+                            <div class="simple-container"><span class="body-large
+                            ">1.0.0</span></div>
+                        </div>
                     </div>
                 </div>
             </div>

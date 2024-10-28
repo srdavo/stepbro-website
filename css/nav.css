@@ -250,8 +250,8 @@ nav button.nav-button md-ripple{
     /* position: absolute;  */
 
     width: auto;
-    margin:14px;
-    margin-bottom:0px;
+    margin:0 14px;
+    /* margin-bottom:0px; */
     border-radius:32px;;
   }
   nav.nav-style-4 button.nav-button{padding:4px;}
@@ -268,8 +268,8 @@ nav button.nav-button md-ripple{
     border-radius:64px;
   }
   nav.nav-style-4 button.nav-button[active]{
-    background:var(--md-sys-color-primary);
-    color:var(--md-sys-color-on-primary);
+    background:var(--md-sys-color-primary-container);
+    color:var(--md-sys-color-on-primary-container);
   }
   nav.nav-style-4 button.nav-button.color-gray:not([active]){background:var(--md-sys-color-surface-container)}
   nav.nav-style-4 button.nav-button:not([active]):hover{background:var(--md-sys-color-surface-container-high)}
@@ -282,13 +282,87 @@ nav button.nav-button md-ripple{
     color:var(--md-sys-color-on-background);
   }
   nav.nav-style-4 button.nav-button[active] span.icon-holder{
-    color:var(--md-sys-color-on-primary);
+    color:var(--md-sys-color-on-primary-container);
   }
   nav.nav-style-4 button.nav-button span.icon-holder span.material-symbols-rounded{
     background: transparent;
     padding:0;
   }
-
+  nav.nav-style-4 button.nav-button[active] span.icon-holder span.material-symbols-rounded{
+    color:var(--md-sys-color-on-primary-container);
+  }
   /* nav.nav-style-4 button.nav-button > span:last-child{ display: none; } */
   nav.nav-style-4 button.nav-button span{margin-bottom:0 !important;}
+
+
+  /* nav style 5, nav-style-5 */
+  nav.nav-style-5{
+    flex-direction:row;
+    height:auto;
+    width:auto;
+
+    margin:0 6px;
+    margin-top:6px;
+    margin-bottom:-32px;
+    
+    background: var(--md-sys-color-background);
+    box-sizing: border-box;
+    
+  }
+  nav.nav-style-5 button.nav-button{
+    display:flex;
+    align-items: center;
+    width:auto;
+
+    font-size:16px;
+    padding:8px 16px;
+    height: 40px;
+    gap:4px;
+    border-radius:64px;
+    transition: background 300ms, color 300ms;
+    font-family: 'inter', sans-serif;
+    color:var(--md-sys-color-outline);
+  }
+  nav.nav-style-5 button.nav-button span.icon-holder{
+    
+  }
+  nav.nav-style-5 button.nav-button span.icon-holder{
+    width:auto;
+    height:auto;
+    background:transparent;
+    margin-bottom:0;
+  }
+  nav.nav-style-5 button.nav-button[active]{
+    background:var(--md-sys-color-surface-container);
+    color:var(--md-sys-color-on-background);
+  }
+  nav.nav-style-5 button.nav-button span.icon-holder{
+    transform: scale(0.8);
+  }
+  nav.nav-style-5 button.nav-button[active] span.icon-holder span.material-symbols-rounded{
+    padding:0;
+    background:transparent;
+    color:var(--md-sys-color-on-background)
+    /* cambiar color del icono aquí */
+  }
+
+  nav.nav-style-5 button.nav-button.stepbro{
+    font-family: "Bricolage Grotesque", system-ui;
+    font-size:18px;
+    font-weight: 600;
+  }
+  nav.nav-style-5 button.nav-button.stepbro[active]{
+    background:transparent;
+  }
+
+  nav.nav-style-5 button.nav-button md-ripple{
+    --md-ripple-hover-color: initial;
+    --md-ripple-pressed-color: initial;
+  }
+
+  nav.nav-style-5 button.nav-button[directActionOn]{
+    background:var(--md-sys-color-primary-container);
+    color:var(--md-sys-color-on-primary-container);
+  }
+  
 }

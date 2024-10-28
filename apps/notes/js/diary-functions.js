@@ -61,9 +61,9 @@ async function saveContent(content){
         toggleButton(parentId, false);
         console.log(result);
         if (result.success) {
+            uiConfirmNoteChanges()
             if (result.id) {
                 idNote = result.id;
-                message("Contenido Guardado", "success");
             } 
         } else {
             message("Hubo un error en la solicitud", "error");
@@ -99,7 +99,7 @@ async function getJournal(){
             isLoading = false; 
             if (result.noMoreRecords) {
                 noMoreRecords = true;
-                message("No hay mas registros", "error");   
+                // message("No hay mas registros", "error");   
             }
         } else {
             message("Hubo un error en la solicitud", "error");
@@ -176,7 +176,7 @@ function displayDiaryContent(day){
 })();
 
 function toggleCheckDiaryNotes(){
-    toggleWindow("#window-check-diary-notes");
+    toggleWindow("#window-check-diary-notes", undefined, 1);
 
 }
 

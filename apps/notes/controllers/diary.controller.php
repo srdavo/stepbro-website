@@ -18,9 +18,10 @@ switch ($data["op"]){
         ];
         $diary = new Diary($data_array);
         $result =  $diary->save();
+        // Codigo original
         echo json_encode([
-            "id" => $result["id"] ? $result["id"] : null,
-            "success" => ($result["id"]) ? $result["ok"] : $result
+            "id" => isset($result["id"]) ? $result["id"] : null,
+            "success" => isset($result["id"]) ? $result["ok"] : $result
         ]);
         break;
 

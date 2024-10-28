@@ -41,6 +41,33 @@ button.w-nav-button[active] md-icon{font-variation-settings: 'FILL' 1;}
 
 
 @media only screen and (max-width: 680px){
+    .w-section-holder{
+        flex-direction: column-reverse;
+        padding-bottom:calc(env(safe-area-inset-bottom) + 88px);
+    }
+    .w-nav-parent{
+        position:fixed;
+        width: 100%;
+        left:0;
+        bottom:0;
+        padding-top:8px;
+        background:var(--md-sys-color-surface);
+        flex-direction: row;
+        padding-right:0;
+        border-right:none;
+        padding:24px;
+        padding-bottom: calc(env(safe-area-inset-bottom) + 24px);
+        box-sizing: border-box;
+    }
+    button.w-nav-button{
+        flex-direction: column;
+        width:100%;
+        padding:8px 16px;
+    }
+    button.w-nav-button > span{
+        font-size:12px;
+    }
+
+
     button.w-nav-button{border-radius:24px;}
-    button.w-nav-button > span{display:none;}
 }

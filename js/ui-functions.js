@@ -3,7 +3,10 @@ function toggleSection(objetiveSectionId) {
   activeSection = document.querySelector('section[active]');
   activeNavButton = nav.querySelector('nav button[active]');
   if (activeSection.id === objetiveSectionId) {
-    console.log('Ya estás en la sección que quieres ver');
+    activeSection.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     return;
   }
   if(activeSection) {activeSection.removeAttribute('active');}
@@ -126,7 +129,7 @@ function resetFormNextGen(parentId){
 function checkEmpty(parentId, elementToCheck){
   const parentElement = document.querySelector(parentId);
   if(!parentElement){return;}
-  const inputs = parentElement.querySelectorAll(materialT(elementToCheck));
+  const inputs = parentElement.querySelectorAll(`${materialT(elementToCheck)}, ${elementToCheck}`);
   validation = 0;
   for (let i=0; i<inputs.length; i++){
     inputs[i].addEventListener("focus", function() {inputs[i].removeAttribute('error')}, {once: true});
@@ -405,8 +408,9 @@ function toggleTab(windowId, tabId, workHidden){
 //   const template = document.getElementById(templateId);
 
 // }
-function applyAnimation(state, target, scale = true, absolute = false, customEase = false){
+function applyAnimation(state, target, scale = true, absolute = false, customEase = false, zIndex = false){
   easeToUse = CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 ")
+  if(!zIndex){zIndex = 0}else{zIndex = 100}
   if(customEase){easeToUse = CustomEase.create("easeName", "0.38,0.49,0,1")}
   let timeline = Flip.from(state, {
     ease: easeToUse,
@@ -415,6 +419,7 @@ function applyAnimation(state, target, scale = true, absolute = false, customEas
     duration: 0.7,
     absolute:absolute,
     scale:scale,
+    zIndex:zIndex,
     simple:true
   })
   timeline.play();

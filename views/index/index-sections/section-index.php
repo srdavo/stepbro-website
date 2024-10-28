@@ -1,4 +1,4 @@
-<section id="section-index" class="padding-8 t-padding-0" active>
+<section id="section-index" class="padding-8" active>
 
   <div class="simple-container direction-column gap-8 grow-1 border-radius-24 overflow-auto scrollbar-hidden">
     <div class="content-box justify-center align-center height-100 gap-16" style="padding:48px">

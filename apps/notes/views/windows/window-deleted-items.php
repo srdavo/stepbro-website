@@ -3,10 +3,16 @@
     class="increased on-background-text integrated"
     data-flip-id="animate"
     >
+    <div class="simple-container padding-16 gap-8 only-on-mobile">
+        <md-icon-button onclick="toggleWindow()">
+            <md-icon>close</md-icon>
+        </md-icon-button>
+        <span class="simple-container align-center headline-small">Papelera</span>
+    </div>
     <holder>
         <div class="w-section-holder simple-container grow-1 gap-16 overflow-hidden">
             <div class="w-nav w-nav-parent simple-container direction-column">
-                <div class="simple-container gap-8 bottom-margin-16">
+                <div class="simple-container gap-8 bottom-margin-16 hide-on-mobile">
                     <md-icon-button onclick="toggleWindow()">
                         <md-icon>close</md-icon>
                     </md-icon-button>
@@ -16,7 +22,6 @@
                     class="w-nav-button"
                     data-w-section="w-section-deleted-notes"
                     onclick="if(toggleWSection('w-section-deleted-notes')){displayDeletedNotes()}"
-                    active
                     >
                     <md-ripple></md-ripple>
                     <md-icon>restore_from_trash</md-icon>
@@ -34,23 +39,31 @@
                 </button>
             </div>
 
-            <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" active id="w-section-deleted-notes">
-                    <!-- <div class="simple-container align-center gap-8">
-                        <md-icon class="pretty small">restore_from_trash</md-icon>
-                        <span class="headline-small v-margin">Notas eliminadas</span>
-                    </div>     -->
-            
-            
-                <!-- <div class="simple-container gap-8 overflow-auto scrollbar-hidden" style="min-height:40px">
-                    <select class="no-reset">
-                        <option>Ordenar por: Fecha de eliminación</option>
-                        <option>Ordenar por: Fecha de creación</option>
-                    </select>
-                    <select class="no-reset">
-                        <option>Ascendente</option>
-                        <option>Descendente</option>
-                    </select>
-                </div> -->
+            <div class="w-section simple-container justify-center align-center direction-column grow-1 gap-8 overflow-auto scrollbar-hidden on-background-text" active id="w-section-trash-home">
+                    <div class="simple-container direction-column align-center gap-8">
+                        <md-icon class="pretty filled error-container on-error-container-text">delete</md-icon>
+                        <span class="display-small bricolage weight-600">Papelera</span>
+                    </div>
+                    <p class="headline-small text-center v-margin" style="max-width:400px">
+                        Aquí encontrarás todas las notas y carpetas que has eliminado. Puedes restaurarlas o eliminarlas permanentemente.
+                    </p>
+                    <div class="simple-container direction-column gap-8 top-margin-16">
+                        <md-filled-tonal-button class="solid-high" onclick="openDeletedNotesWindow()">
+                            <md-icon slot="icon">notes</md-icon>
+                            Ver notas eliminadas
+                        </md-filled-tonal-button>
+                        <md-filled-tonal-button class="solid-high" onclick="openDeletedFoldersWindow()">
+                            <md-icon slot="icon">folder</md-icon>
+                            Ver carpetas eliminadas
+                        </md-filled-tonal-button>
+                    </div>    
+                
+            </div>
+
+            <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-notes">
+                <div class="simple-container only-on-mobile">
+                    <span class="headline-medium on-background-text">Notas eliminadas</span>
+                </div>
                 <div 
                     id="response-deleted-notes-container"
                     class="simple-container direction-column gap-8"
@@ -61,6 +74,9 @@
             </div>
 
             <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-folders">
+                <div class="simple-container only-on-mobile">
+                    <span class="headline-medium on-background-text">Notas eliminadas</span>
+                </div>
                 <div 
                     id="response-deleted-folders-container"
                     class="simple-container direction-column gap-8"

@@ -74,7 +74,7 @@ switch ($data["op"]){
         $get_folders = $Folders->getFolders($data_array);
         if(!$get_folders){
             $response = [
-                'success' => false,
+                'success' => true,
                 'message' => "No folders found"
             ];
         }else{
