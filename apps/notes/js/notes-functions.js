@@ -5,25 +5,24 @@ function syncNotes(){
 let timeOut;
 let idNote = null;
 let timeoutPromise = null; 
-note = document.getElementById("create-note-content");
+let note = document.getElementById("create-note-content");
+let quickNoteId = null;
 
 note.addEventListener("input", () => {
     clearTimeout(timeOut);
     timeOut = setTimeout(() => {
-        idNote = null
-        noteContent = note.innerHTML;
-        saveNote(noteContent);
+        let noteContent = note.innerHTML;
+        saveNote(noteContent,true);
     },950);
 });
 
-async function saveNote(content){
+async function saveNote(content, isQuickNote = false){
     const parentId = "#window-create-note";
     if(!checkEmpty(parentId, "input")){return;}
-    
     const data = {
         op: "save_note",
-        content: content,
-        id: idNote 
+        content: content.replace(/'/g, "\\'"),
+        id: isQuickNote ? note.getAttribute("data-note-id") : idNote 
     }
     console.log(data);
     const url = `controllers/notes.controller.php`
@@ -37,7 +36,11 @@ async function saveNote(content){
         toggleButton(parentId, false);
         if (result) {
             if (result.id) {
-                idNote = result.id;
+                if(isQuickNote){note.setAttribute("data-note-id", result.id);}
+                else {   
+                    idNote = result.id;
+                } 
+                
                 //form.querySelector(".editor").innerHTML = "";
                 //form.closest(".editor-parent").removeAttribute("active");
                 // message("Nota guardada", "success");
@@ -281,9 +284,8 @@ function setNoteEditorContent(note){
     let editor = container.querySelector("form > .editor");
     idNote = note.data[0].id
     editor.addEventListener("input", () => {
-        clearTimeout(timeOut); // Limpiar cualquier timeout anterior
+        clearTimeout(timeOut); 
 
-        // Crear una nueva promesa para el timeout
         timeoutPromise = new Promise((resolve) => {
             timeOut = setTimeout( () => {
 
