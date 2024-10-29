@@ -14,7 +14,7 @@
     </div>
 
     <div class="quick-note-main-parent on-background-text">
-        <div class="quick-note-editor-parent" >
+        <div class="quick-note-editor-parent" data-note-id >
             <div class="clickeable-to-open" onclick="toggleQuickNoteEditor()"></div>
             <md-ripple></md-ripple>
             <div class="simple-container direction-column quick-note-title">
