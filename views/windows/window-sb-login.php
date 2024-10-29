@@ -16,9 +16,13 @@
             >
             <div class="simple-container direction-column grow-1 width-100 height-100 align-center" data-form-step-1>
                 <div class="simple-container justify-center grow-1 gap-24 direction-column width-100 max-width-600" >
-                    <span class="display-small bricolage weight-500 on-background-text" style="white-space:nowrap">
-                        Inicia sesión
-                    </span>
+                    <div class="simple-container direction-column">
+                        <div class="sbcorp-icon">stepbro</div>
+                        <span class="display-small weight-600 top-margin-8">
+                            Bienvenido(a)
+                        </span>
+                        <span class="body-medium outline-text">Inicia sesión para continuar</span>
+                    </div>
                     <div class="simple-container direction-column position-relative" >
                         <label for="user-login-email" class="input-pretty-label headline-medium weight-500">Correo o Usuario</label>
                         <input 
@@ -40,11 +44,12 @@
                 <div class="simple-container justify-center grow-1 gap-8 direction-column width-100 max-width-600 bottom-margin-64" >
 
                     <div class="simple-container direction-column position-relative">
+                        <label for="user-login-password" class="input-pretty-label headline-medium weight-500">Contraseña</label>
 
                         <input 
                             type="password" 
                             placeholder="Escribe tu contraseña" 
-                            class="pretty bottom-prepared"
+                            class="pretty prepared"
                             id="user-login-password"
                         >
                         <md-filled-button type="submit" class="input-pretty-button">Confirmar</md-filled-button>

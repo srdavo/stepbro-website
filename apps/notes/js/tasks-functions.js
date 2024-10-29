@@ -13,7 +13,7 @@ function syncTasks(){
 }
 
 function toggleCreateTaskWindow(){
-    toggleWindow("#window-create-task");
+    toggleWindow("#window-create-task", "", 1);
     // document.getElementById("create-folder-form").onsubmit = function(event){ createFolder(event); }
 }
 

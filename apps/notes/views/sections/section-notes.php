@@ -1,7 +1,7 @@
 <section id="section-notes">
     <div class="simple-container justify-between">
         <div class="simple-container">
-            <span class="headline-large">Notas</span>
+            <span class="headline-large on-background-text">Notas</span>
         </div>
         <div class="simple-container gap-8">
             <div class="simple-container hide-on-mobile" id="folders-view-selector-parent">

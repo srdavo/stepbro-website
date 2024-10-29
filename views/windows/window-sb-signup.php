@@ -16,9 +16,12 @@
             >
             <div class="simple-container direction-column grow-1 width-100 height-100 align-center" data-form-step-1>
                 <div class="simple-container justify-center grow-1 gap-24 direction-column width-100 max-width-600" >
-                    <span class="display-small bricolage weight-500 on-background-text" style="white-space:nowrap">
-                        Crea tu cuenta
-                    </span>
+                    <div class="simple-container direction-column gap-8">
+                        <div class="sbcorp-icon">stepbro</div>
+                        <span class="display-small bricolage weight-600 on-background-text" style="white-space:nowrap">
+                            Crea tu cuenta
+                        </span>
+                    </div>
                     <div class="simple-container direction-column position-relative" >
                         <label for="user-login-email" class="input-pretty-label headline-medium weight-500">Correo</label>
                         <input 

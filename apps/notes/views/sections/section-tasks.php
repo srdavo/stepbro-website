@@ -1,7 +1,7 @@
 <section id="section-to_do_list">
   <div class="simple-container justify-between align-center gap-16">
     <div class="simple-container direction-column">
-      <span class="display-small bricolage weight-600">Mis tareas</span>
+      <span class="display-small bricolage weight-600 on-background-text">Mis tareas</span>
       <span class="body-large outline-text">Arrastra las tareas a su columna deseada</span>
     </div>
     <div class="simple-container">
@@ -14,17 +14,17 @@
   </div>
   <div class="simple-container user-select-none grow-1" style="min-height:400px;">
     
-    <div class="simple-container gap-8 grow-1 flex-wrap">
+    <div class="simple-container grow-1 flex-wrap">
       
-      <div class="content-box padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
+      <div class="simple-container direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
 
-        <div class="content-box padding-16 on-secondary-container-text overflow-hidden">
-          <span class="headline-small ">Pendientes</span>
-          <md-icon class="absolute-card small filled" aria-hidden="true">pending</md-icon>
+        <div class=" padding-16 on-secondary-container-text overflow-hidden">
+          <span class="headline-large ">Pendientes</span>
+          <!-- <md-icon class="absolute-card small filled" aria-hidden="true">pending</md-icon> -->
         </div>
 
         <div 
-          class="content-box grow-1 column padding-8"
+          class="content-box light-color grow-1 column padding-8"
           id="pending"
           ondrop="drop(event)"
           ondragover="allowDrop(event)"
@@ -32,15 +32,15 @@
         </div>
       </div>
 
-      <div class="content-box padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
+      <div class="simple-container direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
 
-        <div class="content-box padding-16 on-secondary-container-text overflow-hidden">
-          <span class="headline-small ">En progreso</span>
-          <md-icon class="absolute-card small filled" aria-hidden="true">build</md-icon>
+        <div class=" padding-16 on-secondary-container-text overflow-hidden">
+          <span class="headline-large ">En progreso</span>
+          <!-- <md-icon class="absolute-card small filled" aria-hidden="true">build</md-icon> -->
         </div>
 
         <div 
-          class="content-box grow-1 column padding-8"
+          class="content-box light-color grow-1 column padding-8"
           id="in-progress"
           ondrop="drop(event)"
           ondragover="allowDrop(event)"
@@ -49,15 +49,15 @@
         </div>
       </div>
 
-      <div class="content-box padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
+      <div class="simple-container direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
 
-        <div class="content-box padding-16 primary-container on-primary-container-text overflow-hidden">
-          <span class="headline-small weight-500">Completadas</span>
-          <md-icon class="absolute-card small filled" aria-hidden="true">task_alt</md-icon>
+        <div class=" padding-16 overflow-hidden">
+          <span class="headline-large weight-500">Completadas</span>
+          <!-- <md-icon class="absolute-card small filled" aria-hidden="true">task_alt</md-icon> -->
         </div>
 
         <div 
-          class="content-box grow-1 column padding-8"
+          class="content-box light-color grow-1 column padding-8"
           id="completed"
           ondrop="drop(event)"
           ondragover="allowDrop(event)"

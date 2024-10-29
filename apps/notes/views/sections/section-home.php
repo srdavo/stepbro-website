@@ -1,5 +1,18 @@
 <section id="section-home" active class="gap-24" style="margin:auto;">
-  
+    <div class="simple-container only-on-mobile-soft hide-on-editor-open" style="position:absolute; left:24px; z-index:2;" id="parent-menu-app-options-mobile" active>
+        <md-icon-button onclick="toggleMenu('menu-app-options-mobile')" id="toggler-menu-app-options-mobile"><md-icon>more_vert</md-icon></md-icon-button>
+        <md-menu id="menu-app-options-mobile" style="min-width:264px; z-index:5;" anchor="toggler-menu-app-options-mobile">
+            <md-menu-item onclick="toggleWindow('#window-settings', '', 1)" data-flip-id="animate">
+            <md-icon slot="start" aria-hidden="true">settings</md-icon>
+            <div slot="headline">Configuración</div>
+            </md-menu-item>
+            <md-menu-item onclick="window.location.href='index'">
+            <md-icon slot="start" aria-hidden="true">exit_to_app</md-icon>
+            <div slot="headline">Volver a inicio</div>
+            </md-menu-item>
+        </md-menu>
+    </div>
+
     <div class="quick-note-main-parent on-background-text">
         <div class="quick-note-editor-parent" >
             <div class="clickeable-to-open" onclick="toggleQuickNoteEditor()"></div>
@@ -31,14 +44,14 @@
             ></div>
             <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
         </div>
-        <md-filled-tonal-button class="scroll-to-quick-notes" onclick="scrollQuickNotesToView()"><md-icon slot="icon">arrow_downward</md-icon>Mis notas rápidas</md-filled-tonal-button>
+        <!-- <md-filled-tonal-button class="scroll-to-quick-notes" onclick="scrollQuickNotesToView()"><md-icon slot="icon">arrow_downward</md-icon>Mis notas rápidas</md-filled-tonal-button> -->
    </div>
-   <div class="simple-container direction-column gap-8" id="home-quick-notes-container" style="min-height:100%;">
+   <!-- <div class="simple-container direction-column gap-8" id="home-quick-notes-container" style="min-height:100%;">
         
         <div class="content-box light-color grow-1">
             <span class="display-medium on-background-text width-100 text-center">Mis notas rápidas</span>
         </div>
-   </div>
+   </div> -->
 
 
     <!-- <div class="simple-container direction-column grow-1 align-center width-100" data-quick-notes-editor>   

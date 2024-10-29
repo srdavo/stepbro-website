@@ -27,8 +27,10 @@ button.w-nav-button > span{
 }
 
 button.w-nav-button[active]{
-    background:var(--md-sys-color-secondary-container);
-    color:var(--md-sys-color-on-secondary-container);
+    /* background:var(--md-sys-color-secondary-container); */
+    /* color:var(--md-sys-color-on-secondary-container); */
+    background:var(--md-sys-color-primary-container);
+    color:var(--md-sys-color-on-primary-container);
 }
 button.w-nav-button[active] md-icon{font-variation-settings: 'FILL' 1;}
 

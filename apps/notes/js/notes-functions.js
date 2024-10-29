@@ -705,6 +705,12 @@ function toggleQuickNoteEditor(){
 
     state = Flip.getState("section[active] .quick-note-editor-parent");
     quickNoteEditorParent.toggleAttribute("active");
+
+    document.querySelectorAll(".hide-on-editor-open").forEach(element => {
+        element.toggleAttribute("active");
+    });
+
+
     applyAnimation(state, "section[active] .quick-note-editor-parent", false, true, true);
 
     if(quickNoteEditorParent.hasAttribute("active")){

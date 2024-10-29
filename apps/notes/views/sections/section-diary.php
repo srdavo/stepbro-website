@@ -33,9 +33,11 @@
             <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
         </div>
         <md-filled-tonal-button 
-            class="scroll-to-quick-notes" 
+            class="scroll-to-quick-notes hide-on-editor-open" 
+            id="diary-open-button"
             data-flip-id="animate" 
             onclick="toggleCheckDiaryNotes()"
+            active
             >
             <md-icon slot="icon">auto_stories</md-icon>
             Contenido del diario

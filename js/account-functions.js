@@ -195,9 +195,10 @@ async function syncUserData(){
   document.getElementById("modify-account-username").value = data.name;
 
   document.getElementById("response-settings-account-email").textContent = data.email;
-  document.getElementById("response-settings-account-username").textContent = data.name;
+  document.getElementById("response-settings-account-username").innerHTML = (data.name == "") ? "<i class='outline-text'>Sin nombre de usuario</i>" : data.name;
   document.getElementById("response-settings-account-username-title").textContent = data.name;
-  document.getElementById("response-settings-account-username-first-letter").textContent = data.name.charAt(0).toUpperCase();
+  document.getElementById("response-settings-account-username-first-letter").textContent = (data.name.charAt(0).toUpperCase() == "") ? data.email.charAt(0) : data.name.charAt(0).toUpperCase();
+  document.getElementById("response-header-account-username-first-letter").textContent = (data.name.charAt(0).toUpperCase() == "") ? data.email.charAt(0) : data.name.charAt(0).toUpperCase();
 }
 
 

@@ -149,3 +149,28 @@ h3{
   0% {opacity: 0; transform: translateY(-4px);}
   100% {opacity: 1; transform: translateY(0);}
 }
+
+
+.sbcorp-icon{
+  padding:8px 16px;
+  max-width: fit-content;
+  background:var(--md-sys-color-surface-container);
+  border-radius:64px;
+  font-family: "Bricolage Grotesque", system-ui;
+  font-size:18px;
+  font-weight: 600;
+  user-select: none;
+}
+
+.header-account-circle{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius:24px;
+  width:24px;
+  height:24px;
+  font-family: "Bricolage Grotesque", system-ui;
+  font-weight: 600;
+  background:var(--md-sys-color-surface-container);
+}

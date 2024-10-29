@@ -8,7 +8,7 @@
     </div>
     <holder>
         <div class="simple-container gap-16 grow-1 w-section-holder">
-            <div class="w-nav simple-container direction-column gap-4 w-nav-parent">
+            <div class="w-nav simple-container direction-column w-nav-parent">
                 <!-- <span class="body-large bottom-margin-8 on-surface-variant-text">Configuración</span> -->
                 <button 
                     class="w-nav-button"
@@ -198,7 +198,7 @@
                                 onclick="changeNav(this)"
                                 >
                                 <md-ripple></md-ripple>
-                                Dock
+                                Inferior
                             </div>
                             <div 
                                 class="nav-option"
@@ -207,6 +207,14 @@
                                 >
                                 <md-ripple></md-ripple>
                                 Detallada
+                            </div>
+                            <div 
+                                class="nav-option"
+                                data-nav-option="6"
+                                onclick="changeNav(this)"
+                                >
+                                <md-ripple></md-ripple>
+                                Interesante
                             </div>
                         </div>
                         <div class="simple-container">
