@@ -8,10 +8,22 @@
     >
     <md-ripple></md-ripple>
     <span class="icon-holder" >
-      <span
-        class="header-account-circle" 
-        id="response-header-account-username-first-letter"
-      ></span>
+      <?php 
+        if(isset($_SESSION["additional_data"])){
+            if($_SESSION["additional_data"]["profile_picture"] != ""){
+                $picture = $_SESSION["additional_data"]["profile_picture"];
+                echo "<span class='simple-container overflow-hidden border-radius-64 header-account-circle'><img class='width-100' src='$picture'></span>";
+            }else{
+                echo '
+                    <span
+                      class="header-account-circle" 
+                      id="response-header-account-username-first-letter"
+                    ></span>
+                ';
+            }
+        }
+      ?>
+      
     </span>
     <span>stepbro</span>
   </button> 

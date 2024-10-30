@@ -21,7 +21,7 @@ checkSession($cookie_uid);
   <head>
     <title><?php echo $_ENV['APP_NAME'] ?></title>
     <script> const BASE_URL = "<?= BASE_URL ?>"</script>
-    
+    <script src="https://accounts.google.com/gsi/client" async></script>
 
     <!-- style and themes -->
     <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=123">
