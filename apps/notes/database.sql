@@ -62,4 +62,6 @@ ALTER TABLE tasks MODIFY status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1
 ALTER TABLE tasks ADD description TEXT AFTER task;
 ALTER TABLE tasks ADD limit_date DATE AFTER description;
 
+ALTER TABLE tasks add last_status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT '1';
+
 

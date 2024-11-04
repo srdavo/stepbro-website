@@ -19,6 +19,17 @@ CREATE TABLE users_data (
 );
 
 
+CREATE TABLE user_page_access (
+    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT(20) NOT NULL,
+    page_name VARCHAR(255) NOT NULL,
+    access_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    device_type VARCHAR(50),
+    ip_address VARCHAR(45),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+
 -- Hostinger:
 -- Nombre de la base de datos: 
 -- Usuario de la base de datos: 

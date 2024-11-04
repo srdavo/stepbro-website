@@ -10,6 +10,10 @@
         <span>Crear tarea</span>
       </md-filled-button>
     </div>
+    <div class="simple-container direction-column gap-8">
+                <span class="label-large">Año y mes:</span>
+                <input type="month" id="dateInput" onchange="filterCompleted()">
+    </div>
     
   </div>
   <div class="simple-container user-select-none grow-1" style="min-height:400px;">

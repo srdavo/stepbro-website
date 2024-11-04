@@ -35,9 +35,36 @@ switch ($data["op"]){
         break;
 
     case "get_tasks":
-        $result = Tasks::allByUserId($userid);
+        $result = Tasks::taskByIdWhCompleted($userid);
         echo json_encode($result);
         break;
+    case "get_completed_tasks":
+        $result = Tasks::CompletedtaskById($userid, $data["month"], $data["year"]);
+        echo json_encode($result);
+        break;
+    case "get_deleted_tasks":
+        $result = Tasks::getDeletedTasks($userid);
+        echo json_encode($result);
+        break;
+
+    case "delete_task":
+        $task = new Tasks($data["id"]);
+        $result = $task->delete();
+        if(!$result){
+            $response = [
+                "success" => false,
+                "message" => "Error deleting task"
+            ];
+            echo json_encode($response);
+            break;
+        }
+        $response = [
+            "success" => true,
+            "message" => "Task deleted"
+        ];
+        echo json_encode($response);
+        break;
+
     case "update_status":
         if(!isset($data["id"])){
             $repsonse = [
@@ -50,7 +77,8 @@ switch ($data["op"]){
 
         $data_array = [
             "id" => $data["id"],
-            "status" => $data["status"] ?? "Pendiente"
+            "status" => $data["status"] ?? "Pendiente",
+            "last_status" => $data["last_status"] ?? "0"
         ];
         $task = new Tasks();
         $update_status = $task->updateStatus($data_array);

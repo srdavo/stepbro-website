@@ -1,7 +1,9 @@
 <?php
 require_once("../config/connect.php");
 require_once("../models/Users.php");
+require_once("../models/User_page_access.php");
 require_once("../config/cookies.php");
+require_once("../config/session.php");
 $users = new users();
 
 if (isset($_GET["cookies"])) {
@@ -82,8 +84,19 @@ switch ($data["op"]) {
         if(!$updatePassword){echo json_encode(false); exit;}
         echo json_encode($updatePassword);
         break;
+        case 'registerAccess' : 
+            $userRegister = new User_page_access();
+            $page = $data["page"];
+            $device = $data["device"];
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+            $result = $userRegister->registerAccess($userid, $page, $device, $ip_address);
+            if(!$result){echo json_encode(false); exit;}
+            echo json_encode($result);
+            break;
     default:
         # code...
         break;
 }
+
+
  

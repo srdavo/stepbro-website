@@ -31,6 +31,7 @@ include_once '../../config/utilities.php';
 <script src="js/drag-functions.js?v=1"></script>
 <script src="js/tasks-functions.js?v=1"></script>
 <script src="js/rich-text.js?v=1"></script>
+<script src="js/register-access.js?v=1"></script>
 
 <script>
   
@@ -38,6 +39,8 @@ include_once '../../config/utilities.php';
     // syncNotes();
       syncFolders();
       syncTasks();
+      registerAccess();
+      setDefaultMonth();
   });
 </script>
 
