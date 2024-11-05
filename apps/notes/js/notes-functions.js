@@ -443,6 +443,7 @@ async function createNoteInsideFolder(originButton){
     toggleLoaderIndicator(loaderContainer);
 }
 function cleanHTMLContent(content) {
+    content = content.replace(/\s*class="[^"]*"/g, '');
     // Caso 1: Si comienza con una etiqueta HTML
     if (content.startsWith("<")) {
       // Encuentra el cierre de la primera etiqueta

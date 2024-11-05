@@ -93,6 +93,7 @@ class ActiveRecord{
         $query .= "') ";
 
         // Resultado de la consulta
+
         $result = self::$db->query($query);
 
         return [

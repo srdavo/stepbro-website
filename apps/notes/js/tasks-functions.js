@@ -146,7 +146,7 @@ function createDivTask(task){
     if(task.status === "Terminado"){taskCheckbox.checked = true;}
 
     taskCheckbox.onclick = function(){ checkTask(this, task.id); }
-    divTask.querySelector(["[data-taks-name-parent]"]).onclick = function(){openEditTaskWindow(task, this.closest('[data-task-parent]') );};
+    divTask.querySelector(["[data-taks-name-parent]"]).onclick = function(){openEditTaskWindow(task, this.closest('[data-task-parent]'), divTask );};
 
     // set content
     divTask.querySelector("[data-task-name]").textContent = task.task;
@@ -154,9 +154,13 @@ function createDivTask(task){
     return divTask;
 }
 
-function openEditTaskWindow(task, originButton){
+function openEditTaskWindow(task, originButton, divTask= null){
     toggleWindow("#window-edit-task", "", 1);
     const taskParent = originButton.closest("[data-task-parent]");
+    document.getElementById("delete-task").setAttribute("data-task_id", task.id);
+    document.getElementById("delete-task").onclick = function(){updateStatus(task.id) 
+        toggleWindow()
+        if(divTask) divTask.remove();};
     document.getElementById("edit-task-name").value = taskParent.dataset.task_name  ;
     document.getElementById("edit-task-description").value = taskParent.dataset.description ?? "";
     document.getElementById("edit-task-status").value = taskParent.dataset.status;
@@ -229,13 +233,17 @@ function updateUiTask(content){
     // task.querySelector("[data-task-description]").textContent = content.descriptions;
 }
 
-async function updateStatus(taskId = 0, status = 0){
-    if(taskId === 0 || status === 0){return false;}
+async function updateStatus(taskId = 0, status = "0"){
+    // if(taskId === 0 || status === 0){return false;}
+    const currentStatus = document.getElementById(taskId).dataset.status;
     const data = {
         op: "update_status",
         id: taskId,
-        status: status
+        status: status,
+        last_status: status ==0 ? currentStatus : null 
     }
+
+    
     const url = `controllers/tasks.controller.php`
     try {
         const response = await fetch(url, {
@@ -243,7 +251,7 @@ async function updateStatus(taskId = 0, status = 0){
             body: JSON.stringify(data),
         });
         const result = await response.json();
-        console.log(result);
+
         if (result) {
             if(result.success){
                 return true;
@@ -297,4 +305,45 @@ async function editTask(ev){
         moveUiTasks(content.id, content.status);
         toggleWindow();
     }
+}
+
+async function filterCompleted() {
+    completedDiv.innerHTML = "";
+    const dateInput = document.getElementById('dateInput').value;
+    const [year, month] = dateInput.split('-');
+    console.log(year, month);
+    
+    const data = {
+        op: "get_completed_tasks",
+        year,
+        month
+    }
+
+    const url = `controllers/tasks.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        console.log(result);
+        if (result) {
+            displayTasks(result);
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+
+function setDefaultMonth() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+
+
+    document.getElementById('dateInput').value = `${year}-${month}`;
+
+    filterCompleted();
 }

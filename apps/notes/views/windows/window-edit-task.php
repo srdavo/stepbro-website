@@ -8,6 +8,14 @@
             <md-icon>close</md-icon>
         </md-icon-button>
         <span class="simple-container align-center headline-small window-title">Editar tarea</span>
+        <md-icon-button 
+            type="button"
+            data-button-delete-task
+            data-tooltip="Eliminar"
+            id = "delete-task"
+            >
+            <md-icon>delete</md-icon>
+        </md-icon-button>
     </div>
     <holder>
         <!-- <div class="simple-container direction-column align-center justify-center gap-16 bottom-margin-24">

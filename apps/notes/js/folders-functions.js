@@ -153,6 +153,7 @@ async function displayFolderList(page = 0){
     container.innerHTML = `
         ${result.data.map(item => {
             itemName = item.item_type == "folder" ? cleanHTMLContent(item.item_name) : cleanHTMLContent(item.item_content);
+            let itemNameFormated;
             if(itemName == ""){itemNameFormated = `<i class="outline-text">Nota sin nombre</i>`;}else{itemNameFormated = itemName;}
             icon = item.item_type === "folder" ? "folder" : "notes";
             iconClass = item.item_type === "folder" ? "primary-text" : "";

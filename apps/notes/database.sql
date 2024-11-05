@@ -67,4 +67,6 @@ ALTER TABLE tasks ADD description TEXT AFTER task;
 -- Modificaciones que agregar *NO IGNORAR*
 
 
+ALTER TABLE tasks add last_status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT '1';
+
 
