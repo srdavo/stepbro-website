@@ -51,16 +51,21 @@ CREATE TABLE tasks (
   PRIMARY KEY (id)
 )
 
+CREATE TABLE diary_pins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT(20) NOT NULL,
+  diary_pin VARCHAR(255) NOT NULL
+);
 
 -- Modiifcacion ya agregadas *IGNORAR*
 ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
 ALTER TABLE folders ADD status TINYINT(1) DEFAULT 1;
+ALTER TABLE tasks MODIFY status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT 'Pending';
+ALTER TABLE tasks ADD limit_date DATE AFTER description;
+ALTER TABLE tasks ADD description TEXT AFTER task;
 
 -- Modificaciones que agregar *NO IGNORAR*
-ALTER TABLE tasks MODIFY status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT 'Pending';
 
-ALTER TABLE tasks ADD description TEXT AFTER task;
-ALTER TABLE tasks ADD limit_date DATE AFTER description;
 
 ALTER TABLE tasks add last_status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT '1';
 

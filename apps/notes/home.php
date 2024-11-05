@@ -33,14 +33,19 @@ include_once '../../config/utilities.php';
 <script src="js/rich-text.js?v=1"></script>
 <script src="js/register-access.js?v=1"></script>
 
+<!-- Prubas de neuvo editor de texto -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script> -->
+
 <script>
   
   document.addEventListener("DOMContentLoaded", function(event) {
-    // syncNotes();
+
       syncFolders();
       syncTasks();
       registerAccess();
       setDefaultMonth();
+      startDiary();
   });
 </script>
 

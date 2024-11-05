@@ -13,17 +13,17 @@
     </button>
   </div>
   <div class="simple-container grow-0-1 gap-8">
-    <button 
+    <!-- <button 
       class="nav-button"
-      data-section="section-login" 
-      onclick="toggleSection('section-login')"
+      data-section="section-pricing" 
+      onclick="toggleSection('section-pricing')"
       >
       <span class="icon-holder only-on-mobile">
-        <span class="material-symbols-rounded">mail</span>
+        <span class="material-symbols-rounded">payments</span>
       </span>
       <md-ripple></md-ripple>
-      Contáctanos
-    </button>
+      Precios
+    </button> -->
     
 
     <?php

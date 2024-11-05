@@ -217,26 +217,32 @@
                 </md-icon-button>
             </div>
         </div>
-        <div class="content-box light-color padding-8 direction-row gap-0 flex-wrap">
+        <div class="content-box light-color padding-8 direction-row gap-0 flex-wrap" data-toolbar>
             <md-icon-button type="button" onclick="execCmd('undo')" role="presentation" value=""><md-icon aria-hidden="true">undo</md-icon></md-icon-button>
             <md-icon-button type="button" onclick="execCmd('redo')" role="presentation" value=""><md-icon aria-hidden="true">redo</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('bold')" role="presentation" value=""><md-icon aria-hidden="true">format_bold</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('italic')" role="presentation" value=""><md-icon aria-hidden="true">format_italic</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('underline')" role="presentation" value=""><md-icon aria-hidden="true">format_underlined</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('justifyLeft')" role="presentation" value=""><md-icon aria-hidden="true">format_align_left</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('justifyCenter')" role="presentation" value=""><md-icon aria-hidden="true">format_align_center</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('justifyRight')" role="presentation" value=""><md-icon aria-hidden="true">format_align_right</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('insertOrderedList')" role="presentation" value=""><md-icon aria-hidden="true">format_list_numbered</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('insertUnorderedList')" role="presentation" value=""><md-icon aria-hidden="true">format_list_bulleted</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h1>')" role="presentation" value=""><md-icon aria-hidden="true">format_h1</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h2>')" role="presentation" value=""><md-icon aria-hidden="true">format_h2</md-icon></md-icon-button>
-            <md-icon-button type="button" onclick="execCmd('formatBlock', false, '<h3>')" role="presentation" value=""><md-icon aria-hidden="true">format_h3</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="bold" onclick="execCmd('bold')" role="presentation" value=""><md-icon aria-hidden="true">format_bold</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="italic" onclick="execCmd('italic')" role="presentation" value=""><md-icon aria-hidden="true">format_italic</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="underline" onclick="execCmd('underline')" role="presentation" value=""><md-icon aria-hidden="true">format_underlined</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="justifyLeft" onclick="execCmd('justifyLeft')" role="presentation" value=""><md-icon aria-hidden="true">format_align_left</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="justifyCenter" onclick="execCmd('justifyCenter')" role="presentation" value=""><md-icon aria-hidden="true">format_align_center</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="justifyRight" onclick="execCmd('justifyRight')" role="presentation" value=""><md-icon aria-hidden="true">format_align_right</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="insertOrderedList" onclick="execCmd('insertOrderedList')" role="presentation" value=""><md-icon aria-hidden="true">format_list_numbered</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="insertUnorderedList" onclick="execCmd('insertUnorderedList')" role="presentation" value=""><md-icon aria-hidden="true">format_list_bulleted</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="h1" onclick="execCmd('formatBlock', false, '<h1>')" role="presentation" value=""><md-icon aria-hidden="true">format_h1</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="h2" onclick="execCmd('formatBlock', false, '<h2>')" role="presentation" value=""><md-icon aria-hidden="true">format_h2</md-icon></md-icon-button>
+            <!-- <md-icon-button type="button" toggle data-cmd="h3" onclick="execCmd('formatBlock', false, '<h3>')" role="presentation" value=""><md-icon aria-hidden="true">format_h3</md-icon></md-icon-button> -->
+            <!-- <md-icon-button type="button" toggle data-cmd="h4" onclick="execCmd('formatBlock', false, '<h4>')" role="presentation" value=""><md-icon aria-hidden="true">format_h4</md-icon></md-icon-button> -->
         </div>
-        <div class="editor" contenteditable="true" aria-placeholder="Escribe tu nota aquí..." ></div>
+        
+        <!-- <div id="templated-note-toolbar" class="content-box light-color padding-8 direction-row gap-0 flex-wrap">
+            <md-icon-button type="button" id="main-note-editor-toggler-bold" ><md-icon>format_bold</md-icon></md-icon-button>
+        </div> -->
+        <div class="editor" id="templated-note-editor" contenteditable="true" aria-placeholder="Escribe tu nota aquí..." ></div>
         <div class="simple-container justify-right top-margin-16">
             <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
             <!-- <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button> -->
         </div>
+        
     </form>
 </template>
 
