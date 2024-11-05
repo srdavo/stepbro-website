@@ -13,7 +13,6 @@ note.addEventListener("input", () => {
     timeOut = setTimeout(() => {
         let noteContent = note.innerHTML;
         saveNote(noteContent,true);
-        updateNoteUiName();
     },950);
 });
 
@@ -25,7 +24,6 @@ async function saveNote(content, isQuickNote = false){
         content: content.replace(/'/g, "\\'"),
         id: isQuickNote ? note.getAttribute("data-note-id") : idNote 
     }
-    console.log(data);
     const url = `controllers/notes.controller.php`
     try {
         const response = await fetch(url, {
@@ -33,13 +31,21 @@ async function saveNote(content, isQuickNote = false){
             body: JSON.stringify(data),
         });
         const result = await response.json();
-        console.log(result);
+        // console.log(result);
         toggleButton(parentId, false);
         if (result) {
             if (result.id) {
-                if(isQuickNote){note.setAttribute("data-note-id", result.id);}
+                if(isQuickNote){
+                    note.setAttribute("data-note-id", result.id);
+                    if (typeof result.id === 'number') {
+                        createUiNote(result.id, 0, cleanHTMLContent(content));
+                    } else {
+                        updateNoteUiName(result.id, content);
+                    }
+                }
                 else {   
                     idNote = result.id;
+                    
                 } 
                 
                 //form.querySelector(".editor").innerHTML = "";
@@ -301,7 +307,9 @@ function setNoteEditorContent(note){
 }
 function updateNoteUiName(noteId, noteContent){
     const activeNoteButton = document.querySelector(`.folder[data-note-id="${noteId}"]`);
+    if(!activeNoteButton){return;}
     const nameElement = activeNoteButton.querySelector("span:last-child");
+    if(!nameElement){return;}
 
     newNoteName = cleanHTMLContent(noteContent);
     nameElement.textContent = newNoteName;

@@ -144,7 +144,7 @@
 
 .cursor-pointer{cursor:pointer;}
 .height-max-content{min-height:max-content;}
-
+.height-fit-content{height:fit-content;}
 
 .hover-scale-small{
   transition: transform .3s cubic-bezier(0,0,0.5,1)

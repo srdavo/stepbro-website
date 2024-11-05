@@ -42,9 +42,21 @@
 
             <div class="w-section simple-container direction-column grow-1 gap-8" active id="w-section-account">
                 <div class="simple-container direction-row justify-center">
-                    <div class="simple-container padding-40 border-radius-64 surface-variant relative user-select-none">
-                        <span id="response-settings-account-username-first-letter" class="display-large absolute-centered bricolage weight-600">...</span>
-                    </div>
+                    <?php 
+                        if(isset($_SESSION["additional_data"])){
+                            if($_SESSION["additional_data"]["profile_picture"] != ""){
+                                $picture = $_SESSION["additional_data"]["profile_picture"];
+                                echo "<span class='simple-container overflow-hidden border-radius-64'><img class='width-100' src='$picture'></span>";
+                            }else{
+                                echo '
+                                    <div class="simple-container padding-40 border-radius-64 surface-variant relative user-select-none">
+                                        <span id="response-settings-account-username-first-letter" class="display-large absolute-centered bricolage weight-600">...</span>
+                                    </div>
+                                ';
+                            }
+                        }
+                    ?>
+                    
                 </div>
                 <div class="simple-container justify-center">
                     <span id="response-settings-account-username-title" class="body-large">...</span>

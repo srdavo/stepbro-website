@@ -18,6 +18,10 @@ CREATE TABLE users_data (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
+-- NUEVO *NO IGNORAR*
+ALTER TABLE users_data ADD COLUMN profile_picture TEXT AFTER store_name;
+ALTER TABLE users_data ADD COLUMN google_id VARCHAR(255) AFTER user_token;
+
 
 CREATE TABLE user_page_access (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,

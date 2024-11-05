@@ -197,8 +197,15 @@ async function syncUserData(){
   document.getElementById("response-settings-account-email").textContent = data.email;
   document.getElementById("response-settings-account-username").innerHTML = (data.name == "") ? "<i class='outline-text'>Sin nombre de usuario</i>" : data.name;
   document.getElementById("response-settings-account-username-title").textContent = data.name;
-  document.getElementById("response-settings-account-username-first-letter").textContent = (data.name.charAt(0).toUpperCase() == "") ? data.email.charAt(0) : data.name.charAt(0).toUpperCase();
-  document.getElementById("response-header-account-username-first-letter").textContent = (data.name.charAt(0).toUpperCase() == "") ? data.email.charAt(0) : data.name.charAt(0).toUpperCase();
+
+  const settingsProfileCircle = document.getElementById("response-settings-account-username-first-letter"); 
+  if(settingsProfileCircle) {
+    settingsProfileCircle.textContent = (data.name.charAt(0).toUpperCase() == "") ? data.email.charAt(0) : data.name.charAt(0).toUpperCase();
+  }
+  const headerProfileCircle = document.getElementById("response-header-account-username-first-letter"); 
+  if(headerProfileCircle) {
+    document.getElementById("response-header-account-username-first-letter").textContent = (data.name.charAt(0).toUpperCase() == "") ? data.email.charAt(0) : data.name.charAt(0).toUpperCase();
+  }  
 }
 
 
@@ -228,3 +235,27 @@ function resetFormSteps(){
   const currentForm =  activeWindow.querySelector("form");
   currentForm.classList.add("overflow-hidden");
 }
+
+
+// new google auth
+function handleCredentialResponse(response) { 
+  // Post JWT token to server-side
+  fetch(`${BASE_URL}controllers/users.controller.php`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ op: "google_auth", credential: response.credential }),
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.status === 1) {
+          // Redirigir o manejar el inicio de sesión exitoso
+          window.location.href = 'home'; // O lo que necesites hacer
+      } else {
+          // Manejar errores
+          console.error(data.message);
+          message(data.message, "error");
+      }
+  })
+  .catch(console.error);
+}
+

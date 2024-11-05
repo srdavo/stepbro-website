@@ -32,8 +32,32 @@
                         >
                         <md-filled-button type="button" onclick="validateFormStep1()" class="input-pretty-button">Continuar</md-filled-button>
                     </div>
-                    <div class="simple-container bottom-margin-64">
-                            <md-filled-tonal-button type="button" onclick="changeWindow('#window-sb-login')" class="solid-light">Ya tengo una cuenta</md-filled-tonal-button>
+                    <div class="simple-container bottom-margin-64 justify-between">
+                        <md-filled-tonal-button type="button" onclick="changeWindow('#window-sb-login')" class="solid-light">Ya tengo una cuenta</md-filled-tonal-button>
+
+                        <div class="simple-container overflow-hidden border-radius-64">
+                            <!-- Sign In With Google button with HTML data attributes API -->
+                            <div id="g_id_onload"
+                                data-client_id="819722503345-qies2hv7hjl6ig525dtau8327qccj82a.apps.googleusercontent.com"
+                                data-context="signin"
+                                data-ux_mode="popup"
+                                data-callback="handleCredentialResponse"
+                                data-auto_prompt="false">
+                            </div>
+
+                            <div class="g_id_signin"
+                                data-type="standard"
+                                data-shape="pill"
+                                data-theme="outline"
+                                data-text="continue_with"
+                                data-size="large"
+                                data-logo_alignment="left">
+                            </div>
+
+                            <!-- Display the user's profile info -->
+                            <div class="pro-data hidden"></div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -69,3 +93,5 @@
         
     </holder>
 </window>
+
+

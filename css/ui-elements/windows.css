@@ -13,7 +13,7 @@ transparent{
   z-index: 3;
   min-height: -webkit-fill-available;
   background: rgba(0, 0, 0, .1);
-  backdrop-filter: blur(2px);
+  /* backdrop-filter: blur(2px); */
 }
 @media (prefers-color-scheme: dark) {
   transparent{background: rgba(0, 0, 0, .2);}
