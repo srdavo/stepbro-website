@@ -23,7 +23,7 @@ async function createFolder(event, originFolderId = 0){
         if (response.ok) {
             const result = await response.json();
             if (result.success) {
-                message("Calorias registradas", "success");
+                message("Carpeta creada", "success");
                 data.id = result.id;
                 toggleWindow();
                 createUiFolder(data, originFolderId);

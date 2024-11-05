@@ -71,7 +71,7 @@ window{
   width:calc(100% - 48px);
   height: auto;
   max-height: 90vh;
-  z-index: 4;
+  z-index: 1;
   position:relative;
 
   overflow:hidden;
@@ -210,20 +210,18 @@ window.not-animated {
   width: 100%;
   height: 100%;
   display: none;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
 
   gap:8px;
   box-sizing: border-box;
-  padding:32px;
+  padding:24px;
 
   background:var(--md-sys-color-background);
   z-index: 2;
   animation: moveIn 400ms cubic-bezier(0.1, 0.8, 0, 1);
   opacity: 1;
 }
-.overmessage > *{ text-align: center;}
+/* .overmessage > *{ text-align: center;} */
 
 .overmessage.active{ display:flex;}
 .overmessage[closing]{

@@ -10,12 +10,21 @@ input{
 
     font-size:16px;
     line-height: 32px;
-
-
     cursor: pointer;
+    transition: box-shadow 0.5s, background 0.5s;
+}
+input[error]{
+    background:var(--md-sys-color-error-container);
+    color:var(--md-sys-color-on-error-container)
 }
 input:hover{
     background:var(--md-sys-color-surface-container-highest);
+}
+input.bottom-prepared{
+    padding-bottom: 64px;
+}
+input.top-prepared{
+    padding-top: 64px;
 }
 
 input.pretty{

@@ -18,7 +18,7 @@
                 <div class="simple-container justify-center grow-1 gap-24 direction-column width-100 max-width-600" >
                     <div class="simple-container direction-column">
                         <div class="sbcorp-icon">stepbro</div>
-                        <span class="display-small weight-600 top-margin-8">
+                        <span class="display-small weight-600 top-margin-8 on-background-text bricolage">
                             Bienvenido(a)
                         </span>
                         <span class="body-medium outline-text">Inicia sesión para continuar</span>

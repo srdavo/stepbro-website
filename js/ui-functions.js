@@ -9,11 +9,12 @@ function toggleSection(objetiveSectionId) {
     });
     return;
   }
-  if(activeSection) {activeSection.removeAttribute('active');}
+  if(activeSection) {activeSection.removeAttribute('active'); activeSection.classList.remove("section-open");}
   if(activeNavButton) {activeNavButton.removeAttribute('active');}
   if(document.getElementById(objetiveSectionId)) {
     document.getElementById(objetiveSectionId).setAttribute('active', '');
     nav.querySelector(`button[data-section="${objetiveSectionId}"]`).setAttribute('active', '');
+    document.getElementById(objetiveSectionId).classList.add("section-open");
 
     if((window.location.pathname).split("/").pop() === "home"){
       localStorage.setItem("currentSection", objetiveSectionId);
@@ -216,7 +217,7 @@ function toggleWindow(windowId, position, scale){
 
   if (activeWindow) {
     if (transparent.hasAttribute("closing")) { return; }
-    // toggleOvermessage();
+    toggleOvermessage();
 
     // This attribute added and all makes the close animation smooth
     transparent.setAttribute("closing", "");
@@ -550,4 +551,38 @@ function changeWindow(windowId){
   setTimeout(function() {
     toggleWindow(windowId);
   },250);
+}
+
+
+function toggleOvermessage(overId){
+  if (overId == ''){overId = null}
+
+  // const currentWindow = document.querySelector(getStorage("currentWindow")); 
+  const currentWindow = document.querySelector('transparent window.active');
+
+  // Close
+  const activeOvermessage = currentWindow.querySelector(".overmessage.active");
+  function closingAnimation() {
+    if (activeOvermessage.hasAttribute("closing")) {
+      activeOvermessage.classList.remove('active');
+      activeOvermessage.removeAttribute("closing");
+    }
+  }
+  if (activeOvermessage) {
+    activeOvermessage.setAttribute("closing", "");
+    activeOvermessage.addEventListener("animationend", () =>{closingAnimation()}, {once: true})
+    return;
+  }
+  if (activeOvermessage) {
+    if (activeOvermessage.hasAttribute("closing") && activeOvermessage.classList.contains("active")) {
+      activeOvermessage.removeAttribute("closing");
+    }
+  }
+  
+
+  // Open
+  const overmessage = currentWindow.querySelector(overId);
+  if(!overmessage){ return; }
+  overmessage.classList.add("active");
+
 }

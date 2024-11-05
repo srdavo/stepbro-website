@@ -9,6 +9,7 @@
 .box-sizing{box-sizing:border-box;}
 
 .align-center{align-items:center;}
+.align-center-0{align-items:center;}
 .align-start{align-items:flex-start;}
 .vh-center{justify-content:center;align-items:center;}
 
@@ -94,6 +95,7 @@
   .grow-1-0{flex-grow: unset;}
   .justify-between-wide-screen{justify-content: initial;}
   .grow-0-1{flex-grow:1;}
+  .align-center-0{align-items:initial;}
 }
 
 .simple-container{display:flex;}

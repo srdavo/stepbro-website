@@ -34,7 +34,7 @@
       <div slot="headline">Configuración</div>
     </md-menu-item>
     <md-menu-item onclick="window.location.href='index'">
-      <md-icon slot="start" aria-hidden="true">exit_to_app</md-icon>
+      <md-icon slot="start" aria-hidden="true">first_page</md-icon>
       <div slot="headline">Volver a inicio</div>
     </md-menu-item>
   </md-menu>
@@ -92,8 +92,9 @@
 
 <button 
   class="nav-button"  
-  data-section="section-diary" 
-  onclick="toggleSection('section-diary')"
+  data-section="section-diary"
+  id="open-diary-nav-button"
+  data-flip-id="animate"
   >
   <md-ripple></md-ripple>
   <span class="icon-holder" >
@@ -102,6 +103,18 @@
   <span>Diario</span>
 </button>
 
+<button 
+  class="nav-button hide-on-mobile"  
+  data-section="section-diary"
+  onclick="openTrashWindow()"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">delete</span>
+  </span>
+  <span>Papelera</span>
+</button>
 
 <!-- <button 
   class="nav-button"

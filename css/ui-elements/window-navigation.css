@@ -48,6 +48,8 @@ button.w-nav-button[active] md-icon{font-variation-settings: 'FILL' 1;}
         padding-bottom:calc(env(safe-area-inset-bottom) + 88px);
     }
     .w-nav-parent{
+        min-width: initial;
+        max-width:100%;
         position:fixed;
         width: 100%;
         left:0;

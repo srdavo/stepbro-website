@@ -23,6 +23,7 @@ ALTER TABLE users_data ADD COLUMN profile_picture TEXT AFTER store_name;
 ALTER TABLE users_data ADD COLUMN google_id VARCHAR(255) AFTER user_token;
 
 
+
 -- Hostinger:
 -- Nombre de la base de datos: 
 -- Usuario de la base de datos: 

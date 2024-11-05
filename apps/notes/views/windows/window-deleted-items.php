@@ -24,7 +24,7 @@
                     onclick="if(toggleWSection('w-section-deleted-notes')){displayDeletedNotes()}"
                     >
                     <md-ripple></md-ripple>
-                    <md-icon>restore_from_trash</md-icon>
+                    <md-icon>notes</md-icon>
                     <span>Notas eliminadas</span>
                 </button>
                 <button 
@@ -37,6 +37,16 @@
                     <md-icon>folder_delete</md-icon>
                     <span>Carpetas eliminadas</span>
                 </button>
+                <button 
+                    class="w-nav-button"
+                    data-w-section="w-section-deleted-tasks"
+                    onclick="if(toggleWSection('w-section-deleted-tasks')){}"
+                    
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>task</md-icon>
+                    <span>Tareas eliminadas</span>
+                </button>
             </div>
 
             <div class="w-section simple-container justify-center align-center direction-column grow-1 gap-8 overflow-auto scrollbar-hidden on-background-text" active id="w-section-trash-home">
@@ -44,17 +54,21 @@
                         <md-icon class="pretty filled error-container on-error-container-text">delete</md-icon>
                         <span class="display-small bricolage weight-600">Papelera</span>
                     </div>
-                    <p class="headline-small text-center v-margin" style="max-width:400px">
+                    <p class="headline-small outline-text text-center v-margin max-width-400">
                         Aquí encontrarás todas las notas y carpetas que has eliminado. Puedes restaurarlas o eliminarlas permanentemente.
                     </p>
-                    <div class="simple-container direction-column gap-8 top-margin-16">
+                    <div class="simple-container direction-column gap-8 top-margin-16 hide-on-mobile">
                         <md-filled-tonal-button class="solid-high" onclick="openDeletedNotesWindow()">
                             <md-icon slot="icon">notes</md-icon>
-                            Ver notas eliminadas
+                            Ver Notas eliminadas
                         </md-filled-tonal-button>
                         <md-filled-tonal-button class="solid-high" onclick="openDeletedFoldersWindow()">
                             <md-icon slot="icon">folder</md-icon>
-                            Ver carpetas eliminadas
+                            Ver Carpetas eliminadas
+                        </md-filled-tonal-button>
+                        <md-filled-tonal-button class="solid-high" onclick="toggleWSection('w-section-deleted-tasks')">
+                            <md-icon slot="icon">task</md-icon>
+                            Ver Tareas eliminadas
                         </md-filled-tonal-button>
                     </div>    
                 
@@ -75,7 +89,7 @@
 
             <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-folders">
                 <div class="simple-container only-on-mobile">
-                    <span class="headline-medium on-background-text">Notas eliminadas</span>
+                    <span class="headline-medium on-background-text">Carpetas eliminadas</span>
                 </div>
                 <div 
                     id="response-deleted-folders-container"
@@ -84,6 +98,15 @@
                 </div>
                 <div class="simple-container width-100 container-info-empty-table"></div>
                 <div class="simple-container" id="pagination-deleted-folders-container"></div>
+            </div>
+
+            <div class="w-section simple-container direction-column grow-1 gap-8 overflow-auto scrollbar-hidden" id="w-section-deleted-tasks">
+                <div class="simple-container only-on-mobile">
+                    <span class="headline-medium on-background-text">Tareas eliminadas</span>
+                </div>
+                <div class="simple-container grow-1 align-center justify-center">
+                    <span class="headline-small outline-text user-select-none">Próximamente</span>
+                </div>
             </div>
         </div>
         

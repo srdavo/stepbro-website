@@ -3,12 +3,20 @@
         <md-icon-button onclick="toggleMenu('menu-app-options-mobile')" id="toggler-menu-app-options-mobile"><md-icon>more_vert</md-icon></md-icon-button>
         <md-menu id="menu-app-options-mobile" style="min-width:264px; z-index:5;" anchor="toggler-menu-app-options-mobile">
             <md-menu-item onclick="toggleWindow('#window-settings', '', 1)" data-flip-id="animate">
-            <md-icon slot="start" aria-hidden="true">settings</md-icon>
-            <div slot="headline">Configuración</div>
+                <md-icon slot="start" aria-hidden="true">settings</md-icon>
+                <div slot="headline">Configuración</div>
+            </md-menu-item>
+            <md-menu-item onclick="openTrashWindow()" data-flip-id="animate">
+                <md-icon slot="start" aria-hidden="true">delete</md-icon>
+                <div slot="headline">Papelera</div>
+            </md-menu-item>
+            <md-menu-item onclick="location.reload()">
+                <md-icon slot="start" aria-hidden="true">refresh</md-icon>
+                <div slot="headline">Recargar App</div>
             </md-menu-item>
             <md-menu-item onclick="window.location.href='index'">
-            <md-icon slot="start" aria-hidden="true">exit_to_app</md-icon>
-            <div slot="headline">Volver a inicio</div>
+                <md-icon slot="start" aria-hidden="true">first_page</md-icon>
+                <div slot="headline">Volver a inicio</div>
             </md-menu-item>
         </md-menu>
     </div>

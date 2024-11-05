@@ -238,6 +238,10 @@ async function displayNoteContent(noteId, originButton){
 
     // 3. Load the note editor to its container
     setNoteEditorContent(note);
+    function execCmd(command, showUI = false, value = null) {
+        document.execCommand(command, showUI, value);
+    }
+    
 
     // 4. Manage the folders parent (folder columns)
     const currentFoldersParent = originButton.closest(".folders-parent");
@@ -283,6 +287,12 @@ function setNoteEditorContent(note){
     const noteEditor = document.getElementById("template-note-editor").content.cloneNode(true);  
     noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;   
     container.appendChild(noteEditor);
+
+    // Start the Rich text editor, format buttons, etc
+    // const quill = startQuill("#templated-note-editor");
+    // document.getElementById("main-note-editor-toggler-bold").onclick = function(){ editorToggleBold(quill) };
+    container.addEventListener("mouseup", updateButtonStates);
+    container.addEventListener("keyup", updateButtonStates);
 
     // const deleteButton = container.querySelector("[button-delete-note]");
     // deleteButton.onclick = function(){ toggleDeleteNoteDialog(note.data[0].id) };
