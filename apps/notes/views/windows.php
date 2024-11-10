@@ -13,6 +13,10 @@ include_once 'views/windows/window-move-item.php';
 include_once 'views/windows/window-edit-task.php';
 
 
+include_once 'views/windows/window-set-diary-pin.php';
+include_once 'views/windows/window-diary-pin.php';
+
+
 
 
 include_once 'views/windows/window-sb.php';

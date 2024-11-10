@@ -233,3 +233,8 @@ div.clickeable-to-open{
 
 .hide-on-editor-open{display:none !important}
 .hide-on-editor-open[active]{display:flex !important} */
+
+
+/* [data-toolbar] md-icon-button.active{
+  color:var(--md-sys-color-primary);
+} */

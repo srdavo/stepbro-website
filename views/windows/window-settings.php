@@ -170,6 +170,16 @@
                             <span style="background:#d2bcff;"></span>
                             <md-ripple></md-ripple>
                         </div>
+                        <div 
+                            class="ball" 
+                            data-theme="oled"
+                            onclick="changeTheme(this)"
+                            >
+                            <span style="background:#000000;"></span>
+                            <span style="background:#0f0f0f;"></span>
+                            <span style="background:#0a0a0a;"></span>
+                            <md-ripple></md-ripple>
+                        </div>
 
                     </div>
                     <div class="simple-container">
@@ -181,7 +191,7 @@
                             <span class="body-medium">Restablecer tema</span>
                         </div>
                     </div>
-                    <div class="simple-container direction-column gap-16">
+                    <div class="simple-container direction-column gap-16 hide-on-mobile">
                         <div class="simple-container gpa-8 direction-column">
                             <span class="headline-small">Navegación</span>
                             <span class="body-large on-surface-variant-text">Elige el estilo de navegación que más te guste </span>
