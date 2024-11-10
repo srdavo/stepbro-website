@@ -105,3 +105,5 @@ section::-webkit-scrollbar{display: none;}
   .special-container{border-radius:32px !important }
   /* #section-home{padding:16px; padding-top: calc(env(safe-area-inset-top) + 24px) !important;} */
 }
+
+.hidden{display:none !important}

@@ -54,7 +54,6 @@ async function saveTask(e,content = null){
             body: JSON.stringify(data),
         });
         const result = await response.json();
-        console.log(result);
         toggleButton(parentId, false);
         if (result.success) {
             if (result.id) {
@@ -311,7 +310,6 @@ async function filterCompleted() {
     completedDiv.innerHTML = "";
     const dateInput = document.getElementById('dateInput').value;
     const [year, month] = dateInput.split('-');
-    console.log(year, month);
     
     const data = {
         op: "get_completed_tasks",
@@ -326,7 +324,6 @@ async function filterCompleted() {
             body: JSON.stringify(data),
         });
         const result = await response.json();
-        console.log(result);
         if (result) {
             displayTasks(result);
         } else {

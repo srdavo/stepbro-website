@@ -50,6 +50,12 @@ async function saveContent(content){
         id: idNote,
         created_at: createdAt
     }
+    let span = document.querySelector("[data-id_journal='"+idNote+"'] span");
+    if(span){
+        const divHidden = document.querySelector("[data-id_journal='"+idNote+"'] .hidden");
+        divHidden.textContent = content;
+        span.textContent = content.replace(/<[^>]*>/g, ' ');
+    }
 
     const url = `controllers/diary.controller.php`
     try {
@@ -59,9 +65,9 @@ async function saveContent(content){
         });
         const result = await response.json();
         toggleButton(parentId, false);
-        console.log(result);
         if (result.success) {
             uiConfirmNoteChanges()
+
             if (result.id) {
                 idNote = result.id;
             } 
@@ -122,22 +128,30 @@ function showJournalContent(journal){
             "flex-wrap", 
             "diary-box"
           );
-          
+        const divHidden = document.createElement("DIV");
+        divHidden.classList.add("hidden");
+        divHidden.textContent = day.content;
+
         diaryBox.onclick = () => {
             toggleWindow("#window-check-diary-notes");
-            displayDiaryContent(day)  };
+            displayDiaryContent(day, true);
+            };
 
         const diaryNote = document.createElement("DIV");
         diaryNote.classList.add("diary-note");
+        diaryNote.setAttribute("data-id_journal", day.id);
         diaryNote.innerHTML = `
             <md-ripple aria-hidden="true"></md-ripple>
             <md-icon aria-hidden="true">notes</md-icon>
         `;
 
         const span = document.createElement("SPAN");
-        span.innerHTML = day.content;
+        span.innerHTML = day.content.replace(/<[^>]*>/g, ' ');
+
+
 
         diaryNote.appendChild(span);
+        diaryNote.appendChild(divHidden);
         diaryBox.appendChild(diaryNote);
 
         const spanDate = document.createElement("SPAN");
@@ -161,12 +175,16 @@ function checkDay(days){
     });
 }
 
-function displayDiaryContent(day){
+function displayDiaryContent(day, click = false) {
     idNote = day.id;
+    const divHidden = document.querySelector("[data-id_journal='"+idNote+"'] .hidden");
     createdAt = day.created_at;
-    diary.innerHTML = day.content;
+    diary.innerHTML = divHidden.textContent ?? day.content;
     diaryDate.textContent = formatDate(day.created_at);
 }
+
+
+
 
 
 }
