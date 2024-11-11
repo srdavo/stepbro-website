@@ -1,5 +1,4 @@
 
-console.log("Registering access...");
 async function registerAccess(){
     const data = {
         op: "registerAccess",
@@ -13,10 +12,9 @@ async function registerAccess(){
             body: JSON.stringify(data),
         });
         const result = await response.json();
-        console.log(result);
 
         if (result) {
-            console.log("Access registered");
+            return result.success;
         } 
     } catch (error) {
         message("Error: " + error.message, "error");

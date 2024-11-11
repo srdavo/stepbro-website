@@ -1,34 +1,37 @@
 <section id="section-to_do_list">
-  <div class="simple-container justify-between align-center gap-16">
+  <div class="simple-container justify-between align-start gap-16">
     <div class="simple-container direction-column">
-      <span class="display-small bricolage weight-600 on-background-text">Mis tareas</span>
+      <span class="headline-medium bricolage weight-600 on-background-text">Tareas</span>
       <span class="body-large outline-text">Arrastra las tareas a su columna deseada</span>
     </div>
-    <div class="simple-container">
-      <md-filled-button onclick="toggleCreateTaskWindow()" data-flip-id="animate">
-        <md-icon slot="icon">add</md-icon>
-        <span>Crear tarea</span>
-      </md-filled-button>
+    <div class="simple-container flex-wrap gap-8">
+      <div class="simple-container align-center gap-8 flex-wrap ">
+        <span class="label-large outline-text">Filtrar mes:</span>
+        <input type="month" class="style-button" id="dateInput" onchange="filterCompleted()">
+      </div>
+      <div class="simple-container">
+        <md-filled-button onclick="toggleCreateTaskWindow()" data-flip-id="animate">
+          <md-icon slot="icon">add</md-icon>
+          <span>Crear tarea</span>
+        </md-filled-button>
+      </div>
     </div>
-    <div class="simple-container direction-column gap-8">
-                <span class="label-large">Año y mes:</span>
-                <input type="month" id="dateInput" onchange="filterCompleted()">
-    </div>
+    
     
   </div>
   <div class="simple-container user-select-none grow-1" style="min-height:400px;">
     
-    <div class="simple-container grow-1 flex-wrap">
+    <div class="simple-container gap-8 grow-1 flex-wrap">
       
-      <div class="simple-container direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
+      <div class="content-box light-color direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent" style="min-height:200px;">
 
-        <div class=" padding-16 on-secondary-container-text overflow-hidden">
-          <span class="headline-large ">Pendientes</span>
+        <div class="padding-16 b-padding-0 on-secondary-container-text overflow-hidden">
+          <span class="headline-small">Pendientes</span>
           <!-- <md-icon class="absolute-card small filled" aria-hidden="true">pending</md-icon> -->
         </div>
 
         <div 
-          class="content-box light-color grow-1 column padding-8"
+          class="simple-container direction-column grow-1 column padding-8 gap-8"
           id="pending"
           ondrop="drop(event)"
           ondragover="allowDrop(event)"
@@ -36,15 +39,15 @@
         </div>
       </div>
 
-      <div class="simple-container direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
+      <div class="content-box light-color direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent" style="min-height:200px;">
 
-        <div class=" padding-16 on-secondary-container-text overflow-hidden">
-          <span class="headline-large ">En progreso</span>
+        <div class="padding-16 b-padding-0 on-secondary-container-text overflow-hidden">
+          <span class="headline-small">En progreso</span>
           <!-- <md-icon class="absolute-card small filled" aria-hidden="true">build</md-icon> -->
         </div>
 
         <div 
-          class="content-box light-color grow-1 column padding-8"
+          class="simple-container direction-column grow-1 column padding-8 gap-8"
           id="in-progress"
           ondrop="drop(event)"
           ondragover="allowDrop(event)"
@@ -53,15 +56,15 @@
         </div>
       </div>
 
-      <div class="simple-container direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent">
+      <div class="content-box light-color direction-column gap-8 padding-8 light-color border-radius-32 grow-1 basis-small task-column-parent" style="min-height:200px;">
 
-        <div class=" padding-16 overflow-hidden">
-          <span class="headline-large weight-500">Completadas</span>
+        <div class="padding-16 b-padding-0 on-secondary-container-text overflow-hidden">
+          <span class="headline-small weight-500">Completadas</span>
           <!-- <md-icon class="absolute-card small filled" aria-hidden="true">task_alt</md-icon> -->
         </div>
 
         <div 
-          class="content-box light-color grow-1 column padding-8"
+          class="simple-container direction-column grow-1 column padding-8 gap-8"
           id="completed"
           ondrop="drop(event)"
           ondragover="allowDrop(event)"

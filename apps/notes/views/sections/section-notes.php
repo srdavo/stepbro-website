@@ -1,7 +1,7 @@
 <section id="section-notes">
     <div class="simple-container justify-between">
-        <div class="simple-container">
-            <span class="headline-large on-background-text">Notas</span>
+        <div class="simple-container direction-column justify-center">
+            <span class="headline-medium bricolage weight-600 on-background-text">Notas</span>
         </div>
         <div class="simple-container gap-8">
             <div class="simple-container hide-on-mobile" id="folders-view-selector-parent">
@@ -26,7 +26,7 @@
                 </span>
             </div>
 
-            <span class="position-relative">
+            <!-- <span class="position-relative">
                 <md-filled-tonal-icon-button 
                     onclick="openTrashWindow()"
                     data-flip-id="animate" 
@@ -46,13 +46,13 @@
                     </md-menu-item>
                     
                 </md-menu>
-            </span>
+            </span> -->
             
 
-            <md-outlined-button onclick="toggleCreateFolderWindow()" data-flip-id="animate">
+            <md-filled-button onclick="toggleCreateFolderWindow()" data-flip-id="animate">
                 <md-icon slot="icon">add</md-icon>
                 <span>Crear carpeta</span>
-            </md-outlined-button>
+            </md-filled-button>
         </div>
         
     </div>
@@ -89,7 +89,7 @@
         
         <div
             id="folders-note-parent" 
-            class="content-box grow-1 note-parent"
+            class="content-box transparent grow-1 note-parent outline-1-light-inset"
             >
             <div class="simple-container justify-center align-center grow-1 direction-column gap-16" data-default-view>
                 <md-icon class="default-content-icon filled pretty secondary-container on-secondary-container-text">folder_open</md-icon>

@@ -10,6 +10,7 @@ nav{
   gap:8px;
   z-index: 1;
 }
+nav button.nav-button:focus-visible{outline:none;}
 nav button.nav-button:active{ -webkit-tap-highlight-color: transparent;}
 nav button.nav-button{
   width:100%;

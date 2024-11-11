@@ -24,6 +24,7 @@
                 <md-outlined-text-field 
                     id = "create-task-name" 
                     label = "Nombre de la tarea"
+                    autocomplete="off"
                 ></md-outlined-text-field>
             </div>
             <md-outlined-text-field

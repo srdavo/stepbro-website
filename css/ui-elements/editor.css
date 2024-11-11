@@ -220,6 +220,11 @@ div.clickeable-to-open{
 @media only screen and (min-width: 680px){
   #section-home #parent-menu-app-options-mobile{display:none !important;}
 }
+@media only screen and (max-width: 680px){
+  #folders-note-parent{
+    padding:12px;
+  }
+}
 
 /* @media only screen and (max-width: 680px){ */
   .hide-on-editor-open:not([active]){

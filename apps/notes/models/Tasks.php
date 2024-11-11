@@ -60,4 +60,10 @@ class Tasks extends ActiveRecord{
         return $result;
     }
 
+    public static function getTaskData($id, $user_id){
+        $query = "SELECT * FROM " . static::$table . " where id = " . $id. " AND user_id = " . $user_id;
+        $result = self::querySQL($query);
+        return $result;
+    }
+
 }

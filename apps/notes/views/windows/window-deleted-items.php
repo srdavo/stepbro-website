@@ -40,13 +40,23 @@
                 <button 
                     class="w-nav-button"
                     data-w-section="w-section-deleted-tasks"
-                    onclick="if(toggleWSection('w-section-deleted-tasks')){}"
+                    onclick="if(toggleWSection('w-section-deleted-tasks')){displayDeletedTasks()}"
                     
                     >
                     <md-ripple></md-ripple>
                     <md-icon>task</md-icon>
                     <span>Tareas eliminadas</span>
                 </button>
+                <!-- <div class="simple-container grow-1 hide-on-mobile"></div>
+                <button
+                    class="w-nav-button hide-on-mobile"
+                    data-w-section="w-section-trash-home"
+                    onclick="toggleWindowFullSize()"
+                    >
+                    <md-ripple></md-ripple>
+                    <md-icon>aspect_ratio</md-icon>
+                    <span>Pantalla completa</span>
+                </button> -->
             </div>
 
             <div class="w-section simple-container justify-center align-center direction-column grow-1 gap-8 overflow-auto scrollbar-hidden on-background-text" active id="w-section-trash-home">
@@ -66,7 +76,7 @@
                             <md-icon slot="icon">folder</md-icon>
                             Ver Carpetas eliminadas
                         </md-filled-tonal-button>
-                        <md-filled-tonal-button class="solid-high" onclick="toggleWSection('w-section-deleted-tasks')">
+                        <md-filled-tonal-button class="solid-high" onclick="openDeletedTasksWindow()">
                             <md-icon slot="icon">task</md-icon>
                             Ver Tareas eliminadas
                         </md-filled-tonal-button>
@@ -83,7 +93,7 @@
                     class="simple-container direction-column gap-8"
                     >
                 </div>
-                <div class="simple-container width-100 container-info-empty-table"></div>
+                <div class="simple-container width-100 container-info-empty-table grow-1"></div>
                 <div class="simple-container" id="pagination-deleted-notes-container"></div>
             </div>
 
@@ -96,7 +106,7 @@
                     class="simple-container direction-column gap-8"
                     >
                 </div>
-                <div class="simple-container width-100 container-info-empty-table"></div>
+                <div class="simple-container width-100 container-info-empty-table grow-1"></div>
                 <div class="simple-container" id="pagination-deleted-folders-container"></div>
             </div>
 
@@ -104,9 +114,16 @@
                 <div class="simple-container only-on-mobile">
                     <span class="headline-medium on-background-text">Tareas eliminadas</span>
                 </div>
-                <div class="simple-container grow-1 align-center justify-center">
+                <!-- <div class="simple-container grow-1 align-center justify-center">
                     <span class="headline-small outline-text user-select-none">Próximamente</span>
+                </div> -->
+                <div 
+                    id="response-deleted-tasks-container"
+                    class="simple-container direction-column gap-8"
+                    >
                 </div>
+                <div class="simple-container width-100 container-info-empty-table grow-1"></div>
+                <div class="simple-container" id="pagination-deleted-tasks-container"></div>
             </div>
         </div>
         

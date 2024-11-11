@@ -122,21 +122,29 @@ function showJournalContent(journal){
             "diary-box"
           );
           
+        const divHidden = document.createElement("DIV");
+        divHidden.classList.add("hidden");
+        divHidden.textContent = day.content;
+
         diaryBox.onclick = () => {
             toggleWindow("#window-check-diary-notes");
-            displayDiaryContent(day)  };
+            displayDiaryContent(day)
+            displayDiaryContent(day, true);
+        };
 
         const diaryNote = document.createElement("DIV");
         diaryNote.classList.add("diary-note");
+        diaryNote.setAttribute("data-id_journal", day.id);
         diaryNote.innerHTML = `
             <md-ripple aria-hidden="true"></md-ripple>
             <md-icon aria-hidden="true">notes</md-icon>
         `;
 
         const span = document.createElement("SPAN");
-        span.innerHTML = day.content;
+        span.innerHTML = day.content.replace(/<[^>]*>/g, ' ');
 
         diaryNote.appendChild(span);
+        diaryNote.appendChild(divHidden);
         diaryBox.appendChild(diaryNote);
 
                 const spanDate = document.createElement("SPAN");
@@ -159,10 +167,11 @@ function showJournalContent(journal){
             });
         }
 
-function displayDiaryContent(day){
+function displayDiaryContent(day, click = false) {
     idNote = day.id;
+    const divHidden = document.querySelector("[data-id_journal='"+idNote+"'] .hidden");
     createdAt = day.created_at;
-    diary.innerHTML = day.content;
+    diary.innerHTML = divHidden.textContent ?? day.content;
     diaryDate.textContent = formatDate(day.created_at);
 }
 

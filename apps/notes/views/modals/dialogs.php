@@ -108,7 +108,7 @@
   <md-icon slot="icon" aria-hidden="true">folder_delete</md-icon>
   <form id="form-dialog-delete-folder-confirmation" slot="content" method="dialog">
     ¿Estás seguro de que quieres eliminar esta carpeta?<br>
-    Esto moverá la nota a la papelera.
+    Esto moverá la carpeta a la papelera.
   </form>
   <div slot="actions">
     <md-text-button form="form-dialog-delete-folder-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
@@ -143,6 +143,52 @@
   <div slot="actions">
     <md-text-button form="form-dialog-delete-folder-forever-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
     <md-filled-tonal-button id="button-confirm-delete-folder-forever" class="delete" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
+      Eliminar
+    </md-filled-tonal-button>
+  </div>
+</md-dialog>
+
+<md-dialog id="dialog-delete-task-confirmation">
+  <div slot="headline">Eliminar tarea</div>
+  <md-icon slot="icon" aria-hidden="true">task</md-icon>
+  <form id="form-dialog-delete-task-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres eliminar esta tarea?<br>
+    Esto moverá la tarea a la papelera.
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-delete-task-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-tonal-button id="button-confirm-delete-task" class="delete" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">delete</md-icon>
+      Eliminar
+    </md-filled-tonal-button>
+  </div>
+</md-dialog>
+
+<md-dialog id="dialog-restore-task-confirmation">
+  <div slot="headline">Recuperar tarea</div>
+  <md-icon slot="icon" aria-hidden="true">task</md-icon>
+  <form id="form-dialog-restore-task-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres recuperar esta tarea?<br>
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-restore-task-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-button id="button-confirm-restore-task" value="confirm">
+      <md-icon slot="icon" aria-hidden="true">restore</md-icon>
+      Recuperar
+    </md-filled-button>
+  </div>
+</md-dialog>
+
+<md-dialog id="dialog-delete-task-forever-confirmation">
+  <div slot="headline">Eliminar permanentemente</div>
+  <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
+  <form id="form-dialog-delete-task-forever-confirmation" slot="content" method="dialog">
+    ¿Estás seguro de que quieres eliminar <span class="weight-600">permanentemente</span> esta tarea?<br>
+  </form>
+  <div slot="actions">
+    <md-text-button form="form-dialog-delete-task-forever-confirmation" value="cancel" role="presentation">Cancelar</md-text-button>
+    <md-filled-tonal-button id="button-confirm-delete-task-forever" class="delete" value="confirm">
       <md-icon slot="icon" aria-hidden="true">delete_forever</md-icon>
       Eliminar
     </md-filled-tonal-button>

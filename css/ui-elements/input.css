@@ -66,3 +66,17 @@ input.pretty[error]{
     background:var(--md-sys-color-error-container);
     color:var(--md-sys-color-on-error-container)
 }
+
+
+input.style-button{
+    padding:0 16px;
+    border-radius:64px;
+    height: 40px;
+    font-size:14px;
+    cursor:pointer;
+    background: var(--md-sys-color-surface-container-low);
+}
+input.style-button:hover{
+    background:var(--md-sys-color-surface-container-high);
+    box-shadow: 0 0 0 1px var(--md-sys-color-outline-variant) inset;
+}

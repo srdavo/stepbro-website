@@ -126,6 +126,7 @@
 
 .outline-1{box-shadow: 0px 0px 0px 1px var(--md-sys-color-outline-variant);}
 .outline-1-light{box-shadow: 0px 0px 0px 1px var(--md-sys-color-inverse-on-surface);}
+.outline-1-light-inset{box-shadow: 0px 0px 0px 1px var(--md-sys-color-inverse-on-surface) inset;}
 .outline-with-shadow{
   box-shadow: 0px 0px 0px 0.5px rgba(0,0,0, 0.05), 0px 0.5px 2.5px 0px rgba(0,0,0, 0.16);
 }
@@ -154,3 +155,4 @@
 .hover-scale-small:hover{
   transform: scale(1.03);
 }
+.hidden{display:none !important}

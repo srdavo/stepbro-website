@@ -127,7 +127,7 @@ switch ($data["op"]){
         break;
     case "get_deleted_notes":
         $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
-        $limit = 100;
+        $limit = 30;
         $offset = (($page+1) * $limit)-$limit;
 
         $data_array = [

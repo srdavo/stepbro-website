@@ -623,9 +623,9 @@ async function displayDeletedFolders(page = 0){
     container.nextElementSibling.innerHTML = ``;
     if(!result.data || result.data.length === 0){
         container.nextElementSibling.innerHTML = `
-            <div class="content-box on-background-text align-center info-table-empty">
+            <div class="content-box light-color on-background-text align-center justify-center">
                 <md-icon class="pretty medium" aria-hidden="true">sentiment_content</md-icon>
-                <span class="headline-small">No hay carpetas eliminadas</span>
+                <span class="headline-small text-center">No hay <span class="primary-text">carpetas</span> eliminadas</span>
             </div>
         `;
         return;
@@ -653,6 +653,7 @@ async function displayDeletedFolders(page = 0){
                             <md-icon-button 
                                 onclick="toggleDeleteFolderForeverDialog(${item.id}, this)" 
                                 data-tooltip="Eliminar permanentemente"
+                                title="Eliminar permanentemente"
                                 class="tooltip-left"
                                 >
                                 <md-icon>delete_forever</md-icon>
@@ -661,6 +662,7 @@ async function displayDeletedFolders(page = 0){
                                 data-folder-name="${item.folder_name}"
                                 onclick="toggleRestoreFolderDialog(${item.id}, this)" 
                                 data-tooltip="Recuperar"
+                                title="Recuperar"
                                 class="tooltip-left"
                                 >
                                 <md-icon>restore</md-icon>

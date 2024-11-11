@@ -75,6 +75,10 @@ switch ($data["op"]){
             break;
         }
 
+        // if($data["status"] === "0"){
+        //     $data["status"] = 0;
+        // }
+
         $data_array = [
             "id" => $data["id"],
             "status" => $data["status"] ?? "Pendiente",
@@ -95,7 +99,26 @@ switch ($data["op"]){
         }
         echo json_encode($repsonse);
         break;
+    case "get_task_data":
+        $task = new Tasks($data["id"]);
+        $task_data = $task->getTaskData($data["id"], $userid);
+        if(!$task_data){
+            $response = [
+                "success" => false,
+                "message" => "Error getting task data"
+            ];
+            echo json_encode($response);
+            break;
+        }
+        $response = [
+            "success" => true,
+            "data" => $task_data
+        ];
+        echo json_encode($response);
 
+
+
+        break;
     default:
         $response = [
             "success" => false,

@@ -318,9 +318,12 @@ function toggleWindow(windowId, position, scale){
 function animate(element, windowNew, position, scale){
   let easeType = CustomEase.create("custom", "M0,0 C0.308,0.19 0.107,0.633 0.288,0.866 0.382,0.987 0.656,1 1,1 ");
   if(position === "absolute" && window.innerWidth >= 681){
+    easeType = CustomEase.create("custom", "M0,0 C0.249,-0.124 0.04,0.951 0.335,1 0.684,1.057 0.614,0.964 1,1");
+    // easeType = CustomEase.create("custom", "M0,0 C0.311,0 0.118,0.629 0.319,0.872 0.457,1.039 0.818,1.001 1,1 ");
+    
     // easeType = CustomEase.create("custom", "M0,0 C0.249,-0.124 -0.003,0.896 0.325,1.044 0.653,1.191 0.585,0.935 1,1 ");
     // easeType = CustomEase.create("custom", "M0,0 C0.249,-0.124 0.026,0.939 0.335,1.013 0.685,1.097 0.585,0.935 1,1 ");
-    easeType = CustomEase.create("custom", "M0,0 C0.249,-0.124 0.04,0.951 0.335,1 0.684,1.057 0.614,0.964 1,1");
+    
     // easeType = CustomEase.create("custom", "M0,0 C0.249,-0.124 0.045,0.925 0.335,1 0.625,1.074 0.532,0.987 1,1");
   }
 
@@ -507,7 +510,7 @@ function toggleWSection(wSectionId, originButton){
   }
   const activeWSection = holder.querySelector('.w-section[active]');
   const activeWSectionButton = holder.querySelector('button[active]');
-  if(wSectionId === activeWSection.id){console.log("seccion repetida"); return false;}
+  if(wSectionId === activeWSection.id){return false;}
 
   const objetiveWSection = holder.querySelector(`#${wSectionId}`);
   const objetiveWSectionButton = holder.querySelector(`button[data-w-section="${wSectionId}"]`);
@@ -541,7 +544,7 @@ function toggleWSection(wSectionId, originButton){
     if(activeWSection){activeWSection.removeAttribute('active');}
     if(activeWSectionButton){activeWSectionButton.removeAttribute('active');}
     objetiveWSection.setAttribute('active', '');
-    objetiveWSectionButton.setAttribute('active', '');
+    if(objetiveWSectionButton){objetiveWSectionButton.setAttribute('active', '');}
   }
   return true;
 }

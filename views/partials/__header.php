@@ -1,5 +1,5 @@
 <?php 
-define('BASE_URL', '/');
+define('BASE_URL', '/cocounut-sb/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
@@ -43,7 +43,7 @@ checkSession($cookie_uid);
     <!-- Manifest -->
     <?php 
       if (strpos($_SERVER['REQUEST_URI'], '/apps/') !== false) {
-        $current_url = explode('/', $_SERVER['REQUEST_URI'])[2];
+        $current_url = explode('/', $_SERVER['REQUEST_URI'])[3];
       } else {
         $current_url = '';
       }

@@ -60,13 +60,13 @@ CREATE TABLE diary_pins (
 -- Modiifcacion ya agregadas *IGNORAR*
 ALTER TABLE notes ADD status TINYINT(1) DEFAULT 1;
 ALTER TABLE folders ADD status TINYINT(1) DEFAULT 1;
-ALTER TABLE tasks MODIFY status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT 'Pending';
+ALTER TABLE tasks MODIFY status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT 'Pendiente';
 ALTER TABLE tasks ADD limit_date DATE AFTER description;
 ALTER TABLE tasks ADD description TEXT AFTER task;
 
 -- Modificaciones que agregar *NO IGNORAR*
-
-
 ALTER TABLE tasks add last_status ENUM('Pendiente', 'Activo', 'Terminado', '0', '1') DEFAULT '1';
+
+
 
 

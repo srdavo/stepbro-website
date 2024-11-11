@@ -32,7 +32,6 @@ async function saveNote(content, isQuickNote = false){
         });
         const result = await response.json();
         // console.log(result);
-        toggleButton(parentId, false);
         if (result) {
             if (result.id) {
                 if(isQuickNote){
@@ -128,7 +127,7 @@ async function getNotes(page = 0){
         if (response.ok) {
             const result = await response.json();
             if(result.success){ 
-                console.log(result);
+                // console.log(result);
                 return result;
             } else { 
                 message(`Hubo un error: ${result.message}`, "error"); 
@@ -160,7 +159,7 @@ async function displayNotes(page = 0){
 
     container.innerHTML = `
         ${result.data.map(note => `
-            ${console.log(note.content)}
+            
             <div class="content-box">
                 ${note.content.replace(/\n/g, '<br>')}
             </div>
@@ -317,6 +316,7 @@ function setNoteEditorContent(note){
 }
 function updateNoteUiName(noteId, noteContent){
     const activeNoteButton = document.querySelector(`.folder[data-note-id="${noteId}"]`);
+    // console.log(activeNoteButton);
     if(!activeNoteButton){return;}
     const nameElement = activeNoteButton.querySelector("span:last-child");
     if(!nameElement){return;}
@@ -325,8 +325,9 @@ function updateNoteUiName(noteId, noteContent){
     nameElement.textContent = newNoteName;
     activeNoteButton.setAttribute("data-note-name", newNoteName);
     const noteEditor = document.getElementById("folders-note-parent").querySelector("[data-note-editor-parent]");
-    noteEditor.setAttribute("data-note-name", newNoteName);
+    if(noteEditor){noteEditor.setAttribute("data-note-name", newNoteName);}
 }
+
 
 
 
@@ -570,9 +571,9 @@ async function displayDeletedNotes(page = 0){
     container.nextElementSibling.innerHTML = ``;
     if(!result.data || result.data.length === 0){
         container.nextElementSibling.innerHTML = `
-            <div class="content-box on-background-text align-center info-table-empty">
+            <div class="content-box light-color on-background-text align-center justify-center">
                 <md-icon class="pretty medium" aria-hidden="true">sentiment_content</md-icon>
-                <span class="headline-small">No hay notas eliminadas</span>
+                <span class="headline-small text-center">No hay <span class="primary-text">notas</span> eliminadas</span>
             </div>
         `;
         return;
@@ -589,7 +590,7 @@ async function displayDeletedNotes(page = 0){
                     <div class="simple-container grow-1 justify-between" main-deleted-item-container>
                         <div class="simple-container gap-8">    
                             <md-icon-button toggle onclick="toggleDeletedNoteContentView(this)">
-                                <md-icon >arrow_drop_down</md-icon>
+                                <md-icon >notes</md-icon>
                                 <md-icon slot="selected">arrow_drop_up</md-icon>
                             </md-icon-button>
 
@@ -600,6 +601,7 @@ async function displayDeletedNotes(page = 0){
                             <md-icon-button 
                                 onclick="toggleDeleteNoteForeverDialog(${note.id}, this)" 
                                 data-tooltip="Eliminar permanentemente"
+                                title="Eliminar permanentemente"
                                 class="tooltip-left"
                                 >
                                 <md-icon>delete_forever</md-icon>
@@ -607,6 +609,7 @@ async function displayDeletedNotes(page = 0){
                             <md-icon-button 
                                 onclick="toggleRestoreNoteDialog(${note.id}, this)" 
                                 data-tooltip="Recuperar"
+                                title="Recuperar"
                                 class="tooltip-left"
                                 >
                                 <md-icon>restore</md-icon>
@@ -743,9 +746,17 @@ function toggleQuickNoteEditor(){
         range.collapse(false);
         selection.removeAllRanges();
         selection.addRange(range);
+    }else{
+        resetQuickNoteEditor();
     }
 
 }
+
+function resetQuickNoteEditor(){
+    note.innerHTML = "";
+    note.removeAttribute("data-note-id");
+}
+
 
 
 

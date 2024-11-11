@@ -19,8 +19,8 @@ include_once '../../config/utilities.php';
       </md-fab>
     </div> -->
     <?php 
-      include_once 'views/sections.php'; 
       include_once 'views/modals/dialogs.php'; 
+      include_once 'views/sections.php'; 
       ?>  
   </holder>
 </main>

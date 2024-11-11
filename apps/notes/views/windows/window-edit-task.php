@@ -8,10 +8,12 @@
             <md-icon>close</md-icon>
         </md-icon-button>
         <span class="simple-container align-center headline-small window-title">Editar tarea</span>
+        <div class="simple-container grow-1"></div>
         <md-icon-button 
             type="button"
             data-button-delete-task
             data-tooltip="Eliminar"
+            onclic="toggleDeleteTaskDialog()"
             id = "delete-task"
             >
             <md-icon>delete</md-icon>

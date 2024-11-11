@@ -8,7 +8,7 @@
     max-width: 276px;
     transition: max-width 0.7s cubic-bezier(0.1, 0.8, 0, 1);
     overflow: hidden;
-    box-shadow: var(--md-sys-color-surface-container-high) 0px 0px 0px 1px inset;
+    /* box-shadow: var(--md-sys-color-surface-container-high) 0px 0px 0px 1px inset; */
 }
 
 /* .folders-parent:not([openning]):not([closing]){
