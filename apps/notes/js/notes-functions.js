@@ -427,9 +427,13 @@ async function createNoteInsideFolder(originButton){
     originButton.setAttribute("disabled", "");
 
     const loaderContainer = originButton.querySelector(".loader-container");
-    toggleLoaderIndicator(loaderContainer);
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
 
-    const currentFoldersParent = originButton.closest(".folders-parent");
+    if(originButton.classList.contains("nav-button")){
+        currentFoldersParent = document.getElementById("main-folders-container");
+    }else{
+        currentFoldersParent = originButton.closest(".folders-parent");
+    }
     const previousFoldersParent = currentFoldersParent.previousElementSibling;
     if(previousFoldersParent && previousFoldersParent.classList.contains("folders-parent")){
         originFolderId = previousFoldersParent.querySelector(".folder[active]").getAttribute("data-folder-id");
@@ -441,41 +445,41 @@ async function createNoteInsideFolder(originButton){
     displayNoteContent(noteId, newNote)
 
     originButton.removeAttribute("disabled");
-    toggleLoaderIndicator(loaderContainer);
+    if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
+    return true;
 }
 function cleanHTMLContent(content) {
+    // Elimina las clases de los elementos
     content = content.replace(/\s*class="[^"]*"/g, '');
+
+    // Reemplaza &nbsp; y otras entidades comunes de espacio en blanco
+    content = content.replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
+
     // Caso 1: Si comienza con una etiqueta HTML
     if (content.startsWith("<")) {
-      // Encuentra el cierre de la primera etiqueta
-      const firstClosingTagIndex = content.indexOf(">");
-      if (firstClosingTagIndex !== -1) {
-        // Extrae todo el contenido después del cierre de la primera etiqueta
-        const afterFirstTag = content.slice(firstClosingTagIndex + 1);
-        
-        // Encuentra dónde comienza la siguiente etiqueta para mantener solo el contenido dentro de la primera etiqueta
-        const secondTagIndex = afterFirstTag.indexOf("<");
-        if (secondTagIndex !== -1) {
-          // Mantén solo el contenido de la primera etiqueta, antes de que comience la segunda etiqueta
-          const firstTagContent = afterFirstTag.slice(0, secondTagIndex).trim();
-          return firstTagContent;
-        } else {
-          // Si no hay más etiquetas, solo devuelve el contenido dentro de la primera etiqueta
-          return afterFirstTag.trim();
+        const firstClosingTagIndex = content.indexOf(">");
+        if (firstClosingTagIndex !== -1) {
+            const afterFirstTag = content.slice(firstClosingTagIndex + 1);
+            const secondTagIndex = afterFirstTag.indexOf("<");
+            if (secondTagIndex !== -1) {
+                const firstTagContent = afterFirstTag.slice(0, secondTagIndex).trim();
+                return firstTagContent;
+            } else {
+                return afterFirstTag.trim();
+            }
         }
-      }
     }
-  
+
     // Caso 2: Si comienza con texto plano
     const firstTagIndex = content.indexOf("<");
     if (firstTagIndex !== -1) {
-      // Retorna solo el texto que aparece antes de la primera etiqueta HTML
-      return content.slice(0, firstTagIndex).trim();
+        return content.slice(0, firstTagIndex).trim();
     }
-  
+
     // Si no hay etiquetas HTML, devuelve el contenido tal como está
     return content.trim();
 }
+
 
 
 // Las siguientes funciones son para la eliminación de notas
@@ -762,5 +766,10 @@ function resetQuickNoteEditor(){
 
 function scrollQuickNotesToView(){
     document.getElementById("home-quick-notes-container").scrollIntoView({behavior: "smooth"});
+}
+
+async function quickCreateNote(originButton){
+    toggleSection('section-notes');
+    await createNoteInsideFolder(originButton);
 }
 

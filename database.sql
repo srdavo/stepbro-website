@@ -18,10 +18,8 @@ CREATE TABLE users_data (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- NUEVO *NO IGNORAR*
 ALTER TABLE users_data ADD COLUMN profile_picture TEXT AFTER store_name;
 ALTER TABLE users_data ADD COLUMN google_id VARCHAR(255) AFTER user_token;
-
 
 CREATE TABLE user_page_access (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
@@ -30,6 +28,17 @@ CREATE TABLE user_page_access (
     access_timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     device_type VARCHAR(50),
     ip_address VARCHAR(45),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- NUEVO *NO IGNORAR*
+CREATE TABLE suggestions (
+    id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+    user_id BIGINT(20) NOT NULL,
+    page_name VARCHAR(255) NOT NULL,
+    suggestion TEXT NOT NULL,
+    creation_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TINYINT(1) DEFAULT 1
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 

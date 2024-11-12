@@ -103,6 +103,50 @@
   <span>Diario</span>
 </button>
 
+
+<button 
+  class="nav-button label-button quick-action-button top-margin-24 hide-on-mobile"  
+  data-section="section-diary"
+  >
+  <span>Opciones</span>
+</button>
+
+<button 
+  class="nav-button hide-on-mobile"  
+  data-section="section-diary"
+  onclick="quickCreateNote(this)"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">edit_square</span>
+  </span>
+  <span>Crear nota</span>
+</button>
+<button 
+  class="nav-button hide-on-mobile"  
+  data-section="section-diary"
+  onclick="quickCreateFolder()"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">create_new_folder</span>
+  </span>
+  <span>Crear carpeta</span>
+</button>
+<button 
+  class="nav-button hide-on-mobile"  
+  data-section="section-diary"
+  onclick="quickCreateTask()"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">add</span>
+  </span>
+  <span>Crear tarea</span>
+</button>
 <button 
   class="nav-button hide-on-mobile"  
   data-section="section-diary"
@@ -113,8 +157,26 @@
   <span class="icon-holder" >
     <span class="material-symbols-rounded">delete</span>
   </span>
-  <span>Papelera</span>
+  <span>Abrir papelera</span>
 </button>
+
+
+
+
+<div class="simple-container hide-on-mobile grow-1"></div>
+<button 
+  class="nav-button hide-on-mobile"  
+  data-section="section-diary"
+  onclick="toggleWindow('#window-send-suggestion')"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">feedback</span>
+  </span>
+  <span>Hacer sugerencia</span>
+</button>
+
 
 <!-- <button 
   class="nav-button"

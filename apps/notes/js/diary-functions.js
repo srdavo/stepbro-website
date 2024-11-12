@@ -108,64 +108,66 @@ async function saveContent(content){
             }
         }
 
-function showJournalContent(journal){
-    journal.forEach(day => {
-        const diaryBox = document.createElement("DIV");
-        diaryBox.classList.add(
-            "content-box", 
-            "top-margin-16", 
-            "padding-8", 
-            "direction-column", 
-            "gap-0", 
-            "border-radius-64", 
-            "flex-wrap", 
-            "diary-box"
-          );
-          
-        const divHidden = document.createElement("DIV");
-        divHidden.classList.add("hidden");
-        divHidden.textContent = day.content;
+function showJournalContent(journal) {
+  journal.forEach((day) => {
+    const diaryBox = document.createElement("DIV");
+    diaryBox.classList.add(
+        "content-box",
+        "padding-8",
+        "direction-column",
+        "gap-8",
+        "v-padding-16",
+        
+        "flex-wrap",
+        "diary-box"
+    );
 
-        diaryBox.onclick = () => {
-            toggleWindow("#window-check-diary-notes");
-            displayDiaryContent(day)
-            displayDiaryContent(day, true);
-        };
+    const divHidden = document.createElement("DIV");
+    divHidden.classList.add("hidden");
+    divHidden.textContent = day.content;
 
-        const diaryNote = document.createElement("DIV");
-        diaryNote.classList.add("diary-note");
-        diaryNote.setAttribute("data-id_journal", day.id);
-        diaryNote.innerHTML = `
-            <md-ripple aria-hidden="true"></md-ripple>
-            <md-icon aria-hidden="true">notes</md-icon>
-        `;
+    diaryBox.onclick = () => {
+        toggleWindow("#window-check-diary-notes");
+        displayDiaryContent(day);
+        displayDiaryContent(day, true);
+    };
 
-        const span = document.createElement("SPAN");
-        span.innerHTML = day.content.replace(/<[^>]*>/g, ' ');
+    const diaryNote = document.createElement("DIV");
+    diaryNote.classList.add("diary-note");
+    diaryNote.setAttribute("data-id_journal", day.id);
+    diaryNote.innerHTML = `
+        <md-icon>notes</md-icon>
+    `;
 
-        diaryNote.appendChild(span);
-        diaryNote.appendChild(divHidden);
-        diaryBox.appendChild(diaryNote);
+    const span = document.createElement("SPAN");
+    span.innerHTML = day.content.replace(/<[^>]*>/g, " ");
 
-                const spanDate = document.createElement("SPAN");
-                spanDate.classList.add("left-margin-24");
-                spanDate.textContent = formatDate(day.created_at);
+    diaryNote.appendChild(span);
+    diaryNote.appendChild(divHidden);
+    diaryBox.appendChild(diaryNote);
+    
+    const ripple = document.createElement("md-ripple");
+    diaryBox.appendChild(ripple);
 
-                diaryBox.appendChild(spanDate);
+    const spanDate = document.createElement("SPAN");
+    spanDate.classList.add("left-margin-16");
+    spanDate.textContent = formatDate(day.created_at);
 
-                diaryContentDiv.appendChild(diaryBox);
-            });
+    diaryBox.appendChild(spanDate);
+
+    diaryContentDiv.appendChild(diaryBox);
+  });
+}
+
+function checkDay(days) {
+    if (alreadyExecuted) return;
+
+    days.forEach(day => {
+        if (day.created_at.split(" ")[0] === localDate) {
+            displayDiaryContent(day);
         }
-
-        function checkDay(days) {
-            if (alreadyExecuted) return;
-
-            days.forEach(day => {
-                if (day.created_at.split(" ")[0] === localDate) {
-                    displayDiaryContent(day);
-                }
-            });
-        }
+    });
+}
 
 function displayDiaryContent(day, click = false) {
     idNote = day.id;

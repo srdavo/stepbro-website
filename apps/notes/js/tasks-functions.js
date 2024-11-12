@@ -433,10 +433,17 @@ async function displayDeletedTasks(page = 0){
                             </md-icon-button>
 
                                 
-                            <span style="padding-top:12px;">${task.task}</span>
+                            <span style="padding-top:12px;">${escapeHTML(task.task)}</span>
                         </div>
                         <div>
-                            
+                            <md-icon-button 
+                                onclick="toggleDeleteTaskForeverDialog(${task.id}, this)" 
+                                data-tooltip="Eliminar permanentemente"
+                                title="Eliminar permanentemente"
+                                class="tooltip-left"
+                                >
+                                <md-icon>delete_forever</md-icon>
+                            </md-icon-button>
                             <md-icon-button 
                                 onclick="toggleRestoreTaskDialog(${task.id}, this)" 
                                 data-tooltip="Recuperar"
@@ -519,15 +526,53 @@ async function getTaskData(taskId){
         message("Error: " + error.message, "error");
     }
 }
-
+function openDeletedTasksWindow(){
+    toggleWSection('w-section-deleted-tasks');
+    displayDeletedTasks();
+}
+// Las siguientes funciones son para la eliminación permanente de tareas
 function toggleDeleteTaskForeverDialog(taskId, originButton){
     document.getElementById("button-confirm-delete-task-forever").onclick = function(){
         deleteTaskForever(taskId, originButton);
     }
     toggleDialog("dialog-delete-task-forever-confirmation");
 }
+async function deleteTaskForever(taskId, originButton){
+    const data = {
+        op: "delete_task",
+        id: taskId
+    }
+    const url = `controllers/tasks.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if(result.success){
+                removeTaskFromUi(originButton.closest(".deleted-item"));
+                message("Tarea eliminada permanentemente", "success");
+                toggleDialog();
+            }else{
+                message(`Error: ${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+function removeTaskFromUi(task = false){
+    if(!task){return;}
 
-function openDeletedTasksWindow(){
-    toggleWSection('w-section-deleted-tasks');
-    displayDeletedTasks();
+    state = Flip.getState(".deleted-item:not([active])");
+    task.remove();
+    applyAnimation(state, ".deleted-item:not([active])");
+}
+
+function quickCreateTask(){
+    toggleSection("section-to_do_list");
+    toggleCreateTaskWindow();
 }

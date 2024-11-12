@@ -168,6 +168,19 @@ nav button.nav-button md-ripple{
       box-shadow: 0px 0px 32px -10px var(--md-sys-color-primary-container), 0px 0px 0px 1px rgba(255, 255, 255, 0.24) inset, 0px 4px 24px 0px rgba(255, 255, 255, 0.24) inset;
     }
   }
+  nav.nav-style-2 button.nav-button.label-button span{
+    left:24px;
+  }
+  button.nav-button.label-button span{
+    color:var(--md-sys-color-outline-variant) !important
+  }
+  button.nav-button.label-button{
+    cursor:default;
+    color:var(--md-sys-color-outline-variant) !important
+  } 
+  nav.nav-style-2 button.nav-button.label-button:not([active]):hover > span:not(.icon-holder){
+    color:var(--md-sys-color-outline-variant) !important
+  }
 }
 
 

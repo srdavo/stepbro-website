@@ -1140,3 +1140,8 @@ function openTrashWindow(){
     toggleWindow("#window-deleted-items");
     toggleWSection('w-section-trash-home');
 }
+
+function quickCreateFolder(){
+    toggleSection("section-notes");
+    toggleCreateFolderWindow()
+}

@@ -24,9 +24,9 @@ checkSession($cookie_uid);
     <script src="https://accounts.google.com/gsi/client" async></script>
 
     <!-- style and themes -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=123">
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=1">
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/diary-files.css?v=1">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=7">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=7">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/diary-files.css?v=7">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="<?= BASE_URL ?>js/theme.js"></script>
@@ -94,6 +94,8 @@ checkSession($cookie_uid);
   <?php
     if(isset($_SESSION['id'])){
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-settings.php';
+      include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-send-suggestion.php';
+      
     } else{
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-signup.php';
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-sb-login.php';

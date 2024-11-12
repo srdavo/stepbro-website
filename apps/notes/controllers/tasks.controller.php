@@ -48,7 +48,10 @@ switch ($data["op"]){
         break;
 
     case "delete_task":
-        $task = new Tasks($data["id"]);
+        $data_array = [
+            "id" => $data["id"]
+        ];
+        $task = new Tasks($data_array);
         $result = $task->delete();
         if(!$result){
             $response = [

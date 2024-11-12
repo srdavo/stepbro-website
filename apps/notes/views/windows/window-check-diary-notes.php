@@ -1,6 +1,6 @@
 <window
     id="window-check-diary-notes"
-    class="increased slim h-auto"
+    class="increased slim"
     data-flip-id="animate"
     >
     <div class="simple-container padding-16">
@@ -10,12 +10,12 @@
     </div>
     <holder>
         
-        <span class="simple-container direction-column gap-8 display-medium bricolage weight-600 on-backgrond-text" style="line-height:40px">
+        <span class="simple-container direction-column v-margin gap-8 display-medium bricolage weight-600 on-backgrond-text" style="line-height:40px">
             Mi diario
         </span>
 
 
-        <div class="diary-content">
+        <div class="diary-content simple-container direction-column gap-8">
             
         </div>
 
