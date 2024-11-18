@@ -1,9 +1,13 @@
 <section id="section-notes">
     <div class="simple-container justify-between">
-        <div class="simple-container direction-column justify-center">
+        <div class="simple-container justify-center ">
             <span class="headline-medium bricolage weight-600 on-background-text">Notas</span>
         </div>
         <div class="simple-container gap-8">
+            <div class="simple-container">
+                <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>info</md-icon></md-icon-button>
+
+            </div>
             <div class="simple-container hide-on-mobile" id="folders-view-selector-parent">
                 <span 
                     class="view-selector" 
@@ -239,7 +243,7 @@
         </div> -->
         <div class="editor" id="templated-note-editor" contenteditable="true" aria-placeholder="Escribe tu nota aquí..." ></div>
         <div class="simple-container justify-right top-margin-16">
-            <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
+            <md-icon class="pretty small ui-confirm-note-changes" title="Indicador de auto guardado">cloud_done</md-icon>
             <!-- <md-filled-button type="submit" role="presentation" value="">Guardar</md-filled-button> -->
         </div>
         

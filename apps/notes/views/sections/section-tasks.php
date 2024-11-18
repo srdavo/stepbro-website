@@ -5,6 +5,8 @@
       <span class="body-large outline-text">Arrastra las tareas a su columna deseada</span>
     </div>
     <div class="simple-container flex-wrap gap-8">
+      <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-tasks-tutorial')"><md-icon>info</md-icon></md-icon-button>
+
       <div class="simple-container align-center gap-8 flex-wrap ">
         <span class="label-large outline-text">Filtrar mes:</span>
         <input type="month" class="style-button" id="dateInput" onchange="filterCompleted()">

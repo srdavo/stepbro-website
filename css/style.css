@@ -154,7 +154,7 @@ h4{
   animation: tooltip-in 200ms cubic-bezier(0.1, 0.8, 0, 1);
 } */
 
-.tooltip-right::after {left: 0;}
+[data-tooltip].tooltip-right::after {left: 0;}
 .tooltip-left::after {right: 0;}
 .tooltip-top::after {bottom: calc(100% + 4px);}
 

@@ -15,6 +15,7 @@ CREATE TABLE users_data (
     permissions int(1) NOT NULL,
     store_name varchar(200) NOT NULL,
     creation_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    first_time_login TINYINT(1) DEFAULT 1,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -30,17 +31,18 @@ CREATE TABLE user_page_access (
     ip_address VARCHAR(45),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
--- NUEVO *NO IGNORAR*
 CREATE TABLE suggestions (
     id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT(20) NOT NULL,
     page_name VARCHAR(255) NOT NULL,
     suggestion TEXT NOT NULL,
     creation_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status TINYINT(1) DEFAULT 1
+    status TINYINT(1) DEFAULT 1,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+-- NUEVO *NO IGNORAR*
+ALTER TABLE users_data ADD COLUMN first_time_login TINYINT(1) DEFAULT 1;
+
 
 
 -- Hostinger:

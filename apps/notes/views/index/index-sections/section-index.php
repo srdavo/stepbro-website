@@ -114,14 +114,14 @@
           <div class="simple-container"><md-icon class="primary-container-text filled pretty small">list</md-icon></div>
           <div class="simple-container direction-column gap-8 grow-1">
             <span class="headline-small  weight-500">To do List</span>
-            <p class="body-large text-wrap-pretty">Usable en cualquier dispositivo, ya sea que prefieras una computadora, tablet o teléfono. Además, puedes instalarla como una Progressive Web App (PWA) para tenerla siempre a mano.</p>
+            <p class="body-large text-wrap-pretty">Un sistema de listas de tareas simple y funcional, con estados como pendiente, en progreso y completado. Organiza y marca tus objetivos fácilmente, con la posibilidad de añadir fechas límite.</p>
           </div>
         </div>
         <div class="content-box padding-32 direction-row hover-scale-small light-color">
           <div class="simple-container"><md-icon class="primary-container-text filled pretty small">devices</md-icon></div>
           <div class="simple-container direction-column gap-8 grow-1">
             <span class="headline-small  weight-500">Multiplataforma</span>
-            <p class="body-large text-wrap-pretty">Un sistema de listas de tareas simple y funcional, con estados como pendiente, en progreso y completado. Organiza y marca tus objetivos fácilmente, con la posibilidad de añadir fechas límite.</p>
+            <p class="body-large text-wrap-pretty">Usable en cualquier dispositivo, ya sea que prefieras una computadora, tablet o teléfono. Además, puedes instalarla como una Progressive Web App (PWA) para tenerla siempre a mano.</p>
           </div>
         </div>
         <div class="content-box padding-32 direction-row hover-scale-small light-color">
@@ -137,8 +137,8 @@
     </div>
   </div>
 
-  <div class="content-box grow-1 top-margin-64 light-color align-center">
-      <md-text-button href="<?= BASE_URL ?>">Ir a página principal de stepbro</md-text-button>
+  <div class="simple-container grow-1 top-margin-64 light-color align-center">
+      <!-- <md-text-button href="<?= BASE_URL ?>">Ir a página principal de stepbro</md-text-button> -->
   </div>
 
     

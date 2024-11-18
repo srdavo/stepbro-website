@@ -54,7 +54,7 @@
                 contenteditable="true" 
                 aria-placeholder="Escribe tu nota aquí..."    
             ></div>
-            <md-icon class="pretty small ui-confirm-note-changes">cloud_done</md-icon>
+            <md-icon class="pretty small ui-confirm-note-changes" title="Indicador de auto guardado">cloud_done</md-icon>
         </div>
         <!-- <md-filled-tonal-button class="scroll-to-quick-notes" onclick="scrollQuickNotesToView()"><md-icon slot="icon">arrow_downward</md-icon>Mis notas rápidas</md-filled-tonal-button> -->
    </div>

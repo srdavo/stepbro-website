@@ -166,6 +166,7 @@ async function displayFolderList(page = 0){
                     data-${item.item_type}-created-at="${item.created_at}"
                     data-${item.item_type}-name="${itemName}"
                     data-item-type="${item.item_type}"
+                    title="${itemName}"
                     class="folder"
                     >
                     <div class="loader-container"></div>
@@ -273,6 +274,7 @@ function displayFolderContentList(data, originButton){
                     data-${item.item_type}-id="${item.item_id}"
                     data-${item.item_type}-created-at="${item.created_at}"
                     data-${item.item_type}-name="${itemName}"
+                    title="${itemName}"
                     class="folder"
                     >
                     <md-ripple></md-ripple>
