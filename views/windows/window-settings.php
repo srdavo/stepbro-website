@@ -38,6 +38,22 @@
                     <md-icon>info</md-icon>
                     <span>Información</span>
                 </button>
+                <?php 
+                    if(isset($_SESSION["additional_data"])){
+                        if($_SESSION['additional_data']['permissions'] == 7){
+                            echo "
+                                <button 
+                                    class='w-nav-button'
+                                    onclick='changeWindow(\"#window-admin-panel\")'
+                                    >
+                                    <md-ripple></md-ripple>
+                                    <md-icon>admin_panel_settings</md-icon>
+                                    <span>Panel de admin</span>
+                                </button>
+                            ";
+                        }
+                    }
+                ?>
             </div>
 
             <div class="w-section simple-container direction-column grow-1 gap-8" active id="w-section-account">
