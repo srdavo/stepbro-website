@@ -226,6 +226,7 @@
             <md-icon-button type="button" onclick="execCmd('redo')" role="presentation" value=""><md-icon aria-hidden="true">redo</md-icon></md-icon-button>
             <md-icon-button type="button" toggle data-cmd="bold" onclick="execCmd('bold')" role="presentation" value=""><md-icon aria-hidden="true">format_bold</md-icon></md-icon-button>
             <md-icon-button type="button" toggle data-cmd="italic" onclick="execCmd('italic')" role="presentation" value=""><md-icon aria-hidden="true">format_italic</md-icon></md-icon-button>
+            <md-icon-button type="button" toggle data-cmd="strikeThrough" onclick="execCmd('strikeThrough')" role="presentation" value=""><md-icon aria-hidden="true">format_strikethrough</md-icon></md-icon-button>
             <md-icon-button type="button" toggle data-cmd="underline" onclick="execCmd('underline')" role="presentation" value=""><md-icon aria-hidden="true">format_underlined</md-icon></md-icon-button>
             <md-icon-button type="button" toggle data-cmd="justifyLeft" onclick="execCmd('justifyLeft')" role="presentation" value=""><md-icon aria-hidden="true">format_align_left</md-icon></md-icon-button>
             <md-icon-button type="button" toggle data-cmd="justifyCenter" onclick="execCmd('justifyCenter')" role="presentation" value=""><md-icon aria-hidden="true">format_align_center</md-icon></md-icon-button>

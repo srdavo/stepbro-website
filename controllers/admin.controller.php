@@ -11,7 +11,7 @@ $data = json_decode($json_data, true);
 switch ($data["op"]){
     case "get_users":
         $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
-        $limit = 10;
+        $limit = 100;
         $offset = (($page+1) * $limit)-$limit;
 
         $data_array = [
@@ -25,7 +25,7 @@ switch ($data["op"]){
             $response = [
                 "success" => true,
                 "data" => $get_users["data"],
-                "total_rows" => null, //there is no pagination yet
+                "total_rows" => $admin->getTotalRows("users"),
                 "limit" => $data_array["limit"],
                 "offset" => $data_array["offset"]
             ];
@@ -37,6 +37,62 @@ switch ($data["op"]){
         }
         echo json_encode($response);
         
+        break;
+    case "get_page_access":
+        $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
+        $limit = 100;
+        $offset = (($page+1) * $limit)-$limit;
+
+        $data_array = [
+            "page" => $page,
+            "limit" => $limit,
+            "offset" => $offset,
+            "user_id" => $userid
+        ];
+        $get_page_access = $admin->getPageAccess($data_array);
+        if($get_page_access["success"]){
+            $response = [
+                "success" => true,
+                "data" => $get_page_access["data"],
+                "total_rows" => $admin->getTotalRows("user_page_access"),
+                "limit" => $data_array["limit"],
+                "offset" => $data_array["offset"]
+            ];
+        }else{
+            $response = [
+                "success" => false,
+                "message" => "Error al obtener los accesos"
+            ];
+        }
+        echo json_encode($response);
+        break;
+    case "get_suggestions":
+        $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
+        $limit = 100;
+        $offset = (($page+1) * $limit)-$limit;
+
+        $data_array = [
+            "page" => $page,
+            "limit" => $limit,
+            "offset" => $offset,
+            "user_id" => $userid
+        ];
+        $get_suggestions = $admin->getSuggestions($data_array);
+        if($get_suggestions["success"]){
+            $response = [
+                "success" => true,
+                "data" => $get_suggestions["data"],
+                "total_rows" => $admin->getTotalRows("suggestions"),
+                "limit" => $data_array["limit"],
+                "offset" => $data_array["offset"]
+            ];
+        }else{
+            $response = [
+                "success" => false,
+                "message" => "Error al obtener las sugerencias"
+            ];
+        }
+        echo json_encode($response);
         break;
     default:
         $response = [
