@@ -43,7 +43,7 @@ checkSession($cookie_uid);
     <!-- Manifest -->
     <?php 
       if (strpos($_SERVER['REQUEST_URI'], '/apps/') !== false) {
-        $current_url = explode('/', $_SERVER['REQUEST_URI'])[3];
+        $current_url = explode('/', $_SERVER['REQUEST_URI'])[2];
       } else {
         $current_url = '';
       }
@@ -51,6 +51,26 @@ checkSession($cookie_uid);
       switch ($current_url) {
         case 'notes':
           echo '<link rel="manifest" href="'.BASE_URL.'apps/notes/config/site.webmanifest" >';
+          echo '
+            <meta property="og:title" content="stepbro Notes" />
+            <meta property="og:description" content="Una aplicación de notas completa y multiplataforma: toma notas rápidas, organiza con carpetas, listas de tareas y un diario encriptado." />
+            <meta property="og:image" content="https://stepbro.site/assets/icon.png" />
+            <meta property="og:url" content="https://notes.stepbro.site" />
+            <meta property="og:type" content="website" />
+
+            <script type="application/ld+json">
+              {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "stepbro Notes",
+                "description": "Organiza tus tareas y notas con facilidad. Incluye carpetas, to-do list y un diario seguro.",
+                "url": "https://notes.stepbro.site",
+                "image": "https://stepbro.site/assets/icon.png",
+                "applicationCategory": "ProductivityApplication",
+                "operatingSystem": "All"
+              }
+            </script>
+          ';
           break;
         
         default:

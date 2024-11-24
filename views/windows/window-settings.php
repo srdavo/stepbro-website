@@ -274,7 +274,7 @@
                         <div class="content-box direction-row padding-24 border-radius-16 justify-between">
                             <div class="simple-container"><span class="label-large">Versión</span></div>
                             <div class="simple-container"><span class="body-large
-                            ">1.3.0</span></div>
+                            ">1.3.1</span></div>
                         </div>
 
                         <div class="content-box padding-8 border-radius-16 on-background-tex">
