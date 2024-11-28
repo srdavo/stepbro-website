@@ -194,7 +194,7 @@ function toggleWindowFullSize(){
   })
   timeline.play();
 }
-function toggleWindow(windowId, position, scale){
+function toggleWindow(windowId, position, scale, appearStyle = false){
   if (windowId == ''){windowId = null}
 
   const windowNew = document.querySelector(windowId);
@@ -295,11 +295,17 @@ function toggleWindow(windowId, position, scale){
     if (rect.top < (screenHeight/2)) {
       windowNew.style.bottom = "unset";
       windowNew.style.top = (Math.round(rect.top) + Math.round(rect.height) + 8)+"px";
+      if(appearStyle){
+        windowNew.style.top = (Math.round(rect.top))+"px";
+      }
       transparent.classList.add("top");
 
     }else{
       windowNew.style.top = "unset";
       windowNew.style.bottom = (screenHeight-Math.round(rect.bottom) + Math.round(rect.height) + 8)+"px";
+      if(appearStyle){
+        windowNew.style.bottom = (screenHeight-Math.round(rect.bottom))+"px";
+      }
       transparent.classList.add("bottom");
     }
     

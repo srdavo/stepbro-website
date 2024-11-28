@@ -26,6 +26,9 @@ input.bottom-prepared{
 input.top-prepared{
     padding-top: 64px;
 }
+input.rounded{
+    border-radius: 64px;
+}
 
 input.pretty{
     padding: 24px;

@@ -10,11 +10,12 @@
 @import url(ui-elements/md-elements.css?v=7); /* Brings the styles for some things of material web components */
 @import url(ui-elements/window-navigation.css?v=7); 
 @import url(ui-elements/theme-selector.css?v=7);
-@import url(ui-elements/editor.css?v=7);
+@import url(ui-elements/editor.css?v=1.4.0);
 @import url(ui-elements/folder-files.css?v=7);
-@import url(ui-elements/input.css?v=7);
+@import url(ui-elements/input.css?v=1.4.0);
 @import url(ui-elements/button.css?v=7);
 @import url(ui-elements/task.css?v=7);
+@import url(ui-elements/search.css);
 
 
 :root {

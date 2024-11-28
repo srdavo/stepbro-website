@@ -1,5 +1,5 @@
 <section id="section-to_do_list">
-  <div class="simple-container justify-between align-start gap-16">
+  <div class="simple-container justify-between align-start gap-16 hide-on-mobile">
     <div class="simple-container direction-column">
       <span class="headline-medium bricolage weight-600 on-background-text">Tareas</span>
       <span class="body-large outline-text">Arrastra las tareas a su columna deseada</span>
@@ -19,7 +19,18 @@
       </div>
     </div>
     
-    
+  </div>
+  <div class="simple-container only-on-mobile justify-between gap-8">
+    <div class="simple-container">
+      <span class="headline-medium bricolage weight-600 on-background-text">Tareas</span>
+    </div>
+    <div class="simple-container gap-8">
+      <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-tasks-tutorial')"><md-icon>info</md-icon></md-icon-button>
+      <md-filled-button onclick="toggleCreateTaskWindow()" data-flip-id="animate">
+        <md-icon slot="icon">add</md-icon>
+        <span>Crear tarea</span>
+      </md-filled-button>
+    </div>
   </div>
   <div class="simple-container user-select-none grow-1" style="min-height:400px;">
     

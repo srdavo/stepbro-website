@@ -19,6 +19,8 @@ include_once 'views/windows/window-diary-pin.php';
 include_once 'views/windows/window-notes-tutorial.php';
 include_once 'views/windows/window-tasks-tutorial.php';
 
+include_once 'views/windows/window-search-notes.php';
+
 
 
 include_once 'views/windows/window-sb.php';

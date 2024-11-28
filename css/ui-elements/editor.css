@@ -222,7 +222,8 @@ div.clickeable-to-open{
 }
 @media only screen and (max-width: 680px){
   #folders-note-parent{
-    padding:12px;
+    box-shadow: none;
+    padding:8px;
   }
 }
 

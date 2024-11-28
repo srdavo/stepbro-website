@@ -299,6 +299,9 @@ function manageFoldersParent(originButton){ // this column will manage the amoun
     manageReducedFoldersParent();
 }
 function removeFoldersParent(currentFoldersParent) {
+    if(!currentFoldersParent){
+        currentFoldersParent = document.querySelector("#main-folders-container");
+    }
     let currentFoldersParentNextSibling = currentFoldersParent.nextSibling;
     let count = 0;
     let isFirstIteration = true; // Para detectar la primera iteración
@@ -312,17 +315,26 @@ function removeFoldersParent(currentFoldersParent) {
 
         if (folderToRemove.classList && folderToRemove.classList.contains("folders-parent")) {
             if (isFirstIteration) {
-                if(!currentFoldersParent.querySelector(".folder[active]").hasAttribute("data-note-id")){
-                    folderToRemove.remove();                    
+                activeItem = currentFoldersParent.querySelector(".folder[active]");
+                if(activeItem){
+                    if(!activeItem.hasAttribute("data-note-id")){
+                        folderToRemove.remove();                    
+                    }else{
+                        folderToRemove.setAttribute("closing", "");
+                        folderToRemove.addEventListener("animationend", () => { 
+                            folderToRemove.remove(); 
+                            count++; 
+                        }, {once: true});
+                    }
+                    count ++;
+                    isFirstIteration = false;
                 }else{
-                    folderToRemove.setAttribute("closing", "");
-                    folderToRemove.addEventListener("animationend", () => { 
-                        folderToRemove.remove(); 
-                        count++; 
-                    }, {once: true});
+                    folderToRemove.remove();
+                    count++;
+                    isFirstIteration = false;
+                    
                 }
-                count ++;
-                isFirstIteration = false;
+                
             } else {
                 // En las siguientes iteraciones, añadimos el atributo "closing" y esperamos la animación
                 folderToRemove.setAttribute("closing", "");
@@ -457,10 +469,17 @@ function removeSingleFolderParent(originButton){
 function manageActiveFolderSelector(originButton){
     if(originButton.hasAttribute("active")){return false;}
 
-    const activeButton = originButton.closest(".folders-list").querySelector(".folder[active]");
-    if(activeButton){
-        activeButton.removeAttribute("active");
+    const originButtonParent = originButton.closest(".folders-list");
+    if(originButtonParent){
+        activeButton = originButtonParent.querySelector(".folder[active]");
+        if(activeButton){
+            activeButton.removeAttribute("active");
+        }
+    }else{
+        return true;
     }
+
+    
     originButton.setAttribute("active", "");
 
     // const folderMenuButton = document.createElement("div");
@@ -1146,4 +1165,11 @@ function openTrashWindow(){
 function quickCreateFolder(){
     toggleSection("section-notes");
     toggleCreateFolderWindow()
+}
+
+function removeAllActiveItems(){
+    const activeItems = document.querySelectorAll(".folder[active]");
+    activeItems.forEach(item => {
+        item.removeAttribute("active");
+    });
 }

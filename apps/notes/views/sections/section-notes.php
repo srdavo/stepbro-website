@@ -3,10 +3,34 @@
         <div class="simple-container justify-center ">
             <span class="headline-medium bricolage weight-600 on-background-text">Notas</span>
         </div>
-        <div class="simple-container gap-8">
+        <div class="simple-container gap-16 only-on-mobile">
             <div class="simple-container">
                 <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>info</md-icon></md-icon-button>
-
+            </div>
+            <div class="simple-container">
+                <md-filled-tonal-button 
+                    class="solid"
+                    data-flip-id="animate"
+                    onclick="searchFunctions.openSearchWindow(true)"
+                    >
+                    <md-icon slot="icon">search</md-icon>
+                    Buscar
+                </md-filled-tonal-button>
+            </div>
+        </div>
+        <div class="simple-container gap-8 hide-on-mobile">
+            <div class="simple-container">
+                <md-icon-button data-flip-id="animate" title="Sobre notas" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>info</md-icon></md-icon-button>
+            </div>
+            <div class="simple-container">
+                <md-filled-tonal-button 
+                    class="solid"
+                    data-flip-id="animate"
+                    onclick="searchFunctions.openSearchWindow()"
+                    >
+                    <md-icon slot="icon">search</md-icon>
+                    Buscar
+                </md-filled-tonal-button>
             </div>
             <div class="simple-container hide-on-mobile" id="folders-view-selector-parent">
                 <span 
@@ -14,6 +38,7 @@
                     data-folders-view-type="column" 
                     onclick="changeFoldersView(this)"
                     data-tooltip="Vista de columnas"
+                    title="Vista de columnas"
                     active
                     >
                     <md-ripple></md-ripple>
@@ -24,6 +49,7 @@
                     data-folders-view-type="grid" 
                     onclick="changeFoldersView(this)"
                     data-tooltip="Vista de lista"
+                    title="Vista de lista"
                     >
                     <md-ripple></md-ripple>
                     <md-icon>grid_view</md-icon>

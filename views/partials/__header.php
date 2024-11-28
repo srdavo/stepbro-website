@@ -24,7 +24,7 @@ checkSession($cookie_uid);
     <script src="https://accounts.google.com/gsi/client" async></script>
 
     <!-- style and themes -->
-    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=7">
+    <link rel="stylesheet" href="<?= BASE_URL ?>css/style.css?v=1.4.0">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/theme/theme.css?v=7">
     <link rel="stylesheet" href="<?= BASE_URL ?>css/ui-elements/diary-files.css?v=7">
     <link id="theme-style" rel="stylesheet" href="<?= BASE_URL ?>css/theme/colors/black.css">

@@ -25,13 +25,15 @@ include_once '../../config/utilities.php';
   </holder>
 </main>
 
-<script src="js/notes-functions.js?v=7"></script>
-<script src="js/diary-functions.js?v=7"></script>
-<script src="js/folders-functions.js?v=7"></script>
+<script src="js/notes-functions.js?v=1.4.0"></script>
+<script src="js/diary-functions.js?v=1.4.0"></script>
+<script src="js/folders-functions.js?v=1.4.0"></script>
 <script src="js/drag-functions.js?v=7"></script>
 <script src="js/tasks-functions.js?v=7"></script>
 <script src="js/rich-text.js?v=7"></script>
 <script src="js/register-access.js?v=7"></script>
+<script src="js/search-functions.js?v=1.4.0"></script>
+
 
 <!-- Prubas de neuvo editor de texto -->
 <!-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
