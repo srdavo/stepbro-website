@@ -8,7 +8,7 @@
             <md-icon>close</md-icon>
         </md-icon-button>
     </div>
-    <holder>
+    <holder class="on-background-text">
         
         <span class="simple-container direction-column gap-8 display-medium bricolage weight-600" style="line-height:40px">
             <md-icon class="pretty small filled">task</md-icon>

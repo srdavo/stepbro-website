@@ -165,9 +165,11 @@ async function displayFolderList(page = 0){
                     data-${item.item_type}-id="${item.id}"
                     data-${item.item_type}-created-at="${item.created_at}"
                     data-${item.item_type}-name="${itemName}"
+                    data-${item.item_type}-status="${item.status}"
                     data-item-type="${item.item_type}"
                     title="${itemName}"
                     class="folder"
+                    data-flip-id="animate"
                     >
                     <div class="loader-container"></div>
                     <md-ripple></md-ripple>
@@ -274,8 +276,10 @@ function displayFolderContentList(data, originButton){
                     data-${item.item_type}-id="${item.item_id}"
                     data-${item.item_type}-created-at="${item.created_at}"
                     data-${item.item_type}-name="${itemName}"
+                    data-${item.item_type}-status="${item.status}"
                     title="${itemName}"
                     class="folder"
+                    data-flip-id="animate"
                     >
                     <md-ripple></md-ripple>
                     <div class="loader-container"></div>
@@ -1096,7 +1100,7 @@ async function toggleMoveItemWindow(originButton, type = "folder"){
     document.getElementById("modify-move-item-id").setAttribute("data-item-id", itemId);
     document.getElementById("modify-move-item-id").setAttribute("data-item-type", type);
 
-    toggleWindow("#window-move-item", undefined, 1);
+    toggleWindow("#window-move-item", "");
     toggleLoaderIndicator(loaderContainer, "linear");
     await loadFileSystem("move-item-file-system-container", {enableMoveFileButton:true});
     validateItemVisibility(fileSystemContainer, itemId, false, type);    

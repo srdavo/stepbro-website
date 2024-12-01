@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="simple-container direction-column" id="progress-indicator-move-file" style="min-height:4px"></div>
-    <holder>
+    <holder class="on-background-text">
         
         <!-- <div class="content-box padding-16 gap-4">
             <span class="label-normal">Mover</span>

@@ -7,7 +7,7 @@
         <md-icon-button onclick="toggleWindow()">
             <md-icon>close</md-icon>
         </md-icon-button>
-        <span class="simple-container align-center headline-small window-title">Buscador</span>
+        <span class="simple-container align-center headline-small window-title on-background-text">Buscador</span>
     </div>
     <holder class="on-background-text gap-0">
         <form onsubmit="searchFunctions.search(event)" class="simple-container gap-8 flex-wrap justify-right">

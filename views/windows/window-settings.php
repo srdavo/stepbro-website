@@ -196,7 +196,26 @@
                             <span style="background:#0a0a0a;"></span>
                             <md-ripple></md-ripple>
                         </div>
-
+                        <div 
+                            class="ball" 
+                            data-theme="super-blue"
+                            onclick="changeTheme(this)"
+                            >
+                            <span style="background:#0028db;"></span>
+                            <span style="background:#4058ff;"></span>
+                            <span style="background:#afb8ff;"></span>
+                            <md-ripple></md-ripple>
+                        </div>
+                        <div 
+                            class="ball" 
+                            data-theme="red"
+                            onclick="changeTheme(this)"
+                            >
+                            <span style="background:#a50012;"></span>
+                            <span style="background:#db3331;"></span>
+                            <span style="background:#ff958b;"></span>
+                            <md-ripple></md-ripple>
+                        </div>
                     </div>
                     <div class="simple-container">
                         <div 
@@ -274,7 +293,7 @@
                         <div class="content-box direction-row padding-24 border-radius-16 justify-between">
                             <div class="simple-container"><span class="label-large">Versión</span></div>
                             <div class="simple-container"><span class="body-large
-                            ">1.4.0</span></div>
+                            ">1.5.0</span></div>
                         </div>
 
                         <div class="content-box padding-8 border-radius-16 on-background-tex">

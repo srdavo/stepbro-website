@@ -218,14 +218,24 @@
     <form onsubmit="createNote(event, this)" class="simple-container direction-column grow-1" data-note-editor-parent>
         <div class="simple-container bottom-margin-8 justify-between">
             <div class="simple-container">
-                <md-icon-button type="button" onclick="closeNoteEditor(this)"><md-icon>close</md-icon></md-icon-button>
+                <md-icon-button type="button" onclick="closeNoteEditor(this)" data-button-close-editor><md-icon>close</md-icon></md-icon-button>
             </div>
             <div class="simple-container gap-8">
+                <md-icon-button
+                    type="button"
+                    data-flip-id="animate"
+                    data-button-encrypt-note
+                    title="Bloquear nota"
+                    data-tooltip="Bloquear nota"
+                    >
+                    <md-icon>encrypted_add</md-icon>
+                </md-icon-button>
                 <md-icon-button 
                     type="button" 
                     data-flip-id="animate"
                     data-button-open-info
                     onclick="toggleWindow('#window-item-info', 'absolute', 1)"
+                    title="Información"
                     data-tooltip="Información"
                     >
                     <md-icon>info</md-icon>
@@ -234,6 +244,7 @@
                     type="button" 
                     data-button-move-note
                     data-flip-id="animate"
+                    title="Mover"
                     data-tooltip="Mover"
                     >
                     <md-icon>drive_file_move</md-icon>
@@ -241,6 +252,7 @@
                 <md-icon-button 
                     type="button"
                     data-button-delete-note
+                    title="Eliminar"
                     data-tooltip="Eliminar"
                     >
                     <md-icon>delete</md-icon>

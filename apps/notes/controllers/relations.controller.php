@@ -2,6 +2,8 @@
 require_once("../config/connect.php");
 require_once("../models/Relations.php");
 require_once("../../../config/session.php");
+require_once("../helpers/Encrypt.code.php");
+
 
 $Relations = new Relations();
 
@@ -17,6 +19,14 @@ switch ($data["op"]){
             "user_id" => $userid
         ];
         $folder_content = $Relations->getFolderContent($data_array);
+
+        $folder_content = json_decode(json_encode($folder_content), true);
+        foreach ($folder_content as &$item) {
+            if ($item['status'] == 2 && $item['item_type'] === 'note') {
+                $item['item_content'] = $Relations->cleanHTMLContent(Encrypt::decrypt($item['item_content']));
+            }
+        }
+
         $response = [
             'success' => true,
             'data' => $folder_content

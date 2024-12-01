@@ -20,6 +20,9 @@ class Encrypt {
         $iv = substr($ciphertext, 0, 16);
         $ciphertext = substr($ciphertext, 16);
         $compressed = openssl_decrypt($ciphertext, $method, $key, OPENSSL_RAW_DATA, $iv);
+        if ($compressed === false) {
+            return "";  // Decryption failed
+        }
         return gzuncompress($compressed);  // Descomprimir después de desencriptar
     }
 

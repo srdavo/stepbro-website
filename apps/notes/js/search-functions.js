@@ -99,6 +99,7 @@
             resultItem.setAttribute("data-note-id", item.id);
             resultItem.setAttribute("data-note-created-at", item.created_at);
             resultItem.setAttribute("data-note-name", itemName);
+            resultItem.setAttribute("data-note-status", item.status);
             resultItem.setAttribute("title", itemName);
             resultItem.onclick = function() {
                 displayNoteContent(item.id, this);

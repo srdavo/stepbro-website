@@ -4,6 +4,7 @@ function syncNotes(){
 // global variables 
 let timeOut;
 let idNote = null;
+let noteStatus = 1;
 let timeoutPromise = null; 
 let note = document.getElementById("create-note-content");
 let quickNoteId = null;
@@ -22,7 +23,8 @@ async function saveNote(content, isQuickNote = false){
     const data = {
         op: "save_note",
         content: content.replace(/'/g, "\\'"),
-        id: isQuickNote ? note.getAttribute("data-note-id") : idNote 
+        id: isQuickNote ? note.getAttribute("data-note-id") : idNote,
+        status: noteStatus
     }
     const url = `controllers/notes.controller.php`
     try {
@@ -211,6 +213,7 @@ async function getNoteContent(noteId){
                 return result;
             } else { 
                 message(`Hubo un error: ${result.message}`, "error"); 
+                return false;
             }
         } else {
             message("Hubo un error en la solicitud", "error");
@@ -222,6 +225,15 @@ async function getNoteContent(noteId){
 
 
 async function displayNoteContent(noteId, originButton){
+    // 0. Check if note should ask for pin (if it's encrypted)
+    const noteStatus = originButton.getAttribute("data-note-status");
+    if(noteStatus == 2 && encryptedNoteOpen == false){
+        openEncryptedNote(noteId);
+        return;
+    }
+    if(noteStatus == 2 && encryptedNoteOpen == true){
+        encryptedNoteOpen = false;
+    }
 
     // 1. Manage the visually active button from the folders list
     if(!manageActiveFolderSelector(originButton)){return;}
@@ -230,8 +242,8 @@ async function displayNoteContent(noteId, originButton){
     const loaderContainer = originButton.querySelector(".loader-container");
     if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
     const note = await getNoteContent(noteId);
-    if(!note){return;}
     if(loaderContainer){toggleLoaderIndicator(loaderContainer);}
+    if(!note){return;}
 
     if (timeoutPromise) {await timeoutPromise; }
 
@@ -255,12 +267,14 @@ function setNoteDataAttributes(originNoteButton){
     const noteId = originNoteButton.getAttribute("data-note-id");
     const noteName = originNoteButton.getAttribute("data-note-name");
     const noteCreatedAt = originNoteButton.getAttribute("data-note-created-at");
+    const noteStatus = originNoteButton.getAttribute("data-note-status");
 
     const noteEditor = document.getElementById("folders-note-parent").querySelector("[data-note-editor-parent]");
     noteEditor.setAttribute("data-note-id", noteId);
     noteEditor.setAttribute("data-note-name", noteName);
     noteEditor.setAttribute("data-note-created-at", noteCreatedAt);
     noteEditor.setAttribute("data-item-type", "note");
+    noteEditor.setAttribute("data-note-status", noteStatus);
 
     noteEditor.querySelector("[data-button-open-info]").onclick = function(){ 
         toggleNoteInfoWindow({
@@ -271,6 +285,9 @@ function setNoteDataAttributes(originNoteButton){
     }
     noteEditor.querySelector("[data-button-move-note]").onclick = function(){ toggleMoveItemWindow(this, 'note') }
     noteEditor.querySelector("[data-button-delete-note]").onclick = function(){ toggleDeleteNoteDialog(noteId) }
+    setEncryptButtonAction(noteEditor.querySelector("[data-button-encrypt-note]"), noteStatus, noteId);
+    if(noteStatus == 2){noteEditor.querySelector("[data-button-delete-note]").disabled = true;}
+    // noteEditor.querySelector("[data-buttton-encrypt-note").onclick = function(){ openEncryptNoteWindow(); }
 }
 function toggleNoteInfoWindow(noteData){
     document.getElementById("response-info-item-name").textContent = noteData.name;
@@ -278,7 +295,7 @@ function toggleNoteInfoWindow(noteData){
     document.getElementById("response-info-item-id").textContent = noteData.id;
     document.getElementById("response-info-item-created-at").textContent = noteData.created_at;
 
-    toggleWindow('#window-item-info', 'absolute', 2)
+    toggleWindow('#window-item-info', 'absolute')
 }
 function setNoteEditorContent(note){
     const container = document.getElementById("folders-note-parent");
@@ -299,6 +316,7 @@ function setNoteEditorContent(note){
     // code to save notes
     let editor = container.querySelector("form > .editor");
     idNote = note.data[0].id
+    noteStatus = note.data[0].status;
     editor.addEventListener("input", () => {
         clearTimeout(timeOut); 
 
@@ -405,6 +423,8 @@ function createUiNote(noteId = 0, originFolderId = 0, noteTitle = ''){
     newNote.setAttribute("data-note-name", (noteTitle == "") ? "Nota sin nombre" : noteTitle);
     newNote.setAttribute("data-note-created-at", new Date().toLocaleString());
     newNote.setAttribute("data-item-type", "note");
+    newNote.setAttribute("data-item-status", "1");
+    newNote.setAttribute("data-flip-id", "animate");
 
     newNote.querySelector("[data-item-name]").innerHTML = (noteTitle == "") ? "<i class='outline-text'>Nota sin nombre</i>" : noteTitle;
     newNote.querySelector("[data-item-icon]").textContent = "notes";
@@ -773,3 +793,184 @@ async function quickCreateNote(originButton){
     await createNoteInsideFolder(originButton);
 }
 
+
+// Las siguientes funciones son para la encriptación de notas
+
+
+async function setEncryptButtonAction(button = false, noteStatus, noteId){
+    if(!button) return false;    
+    if(hasPin == ""){hasPin = await checkDiaryPin(); console.log("Al usuario aun no le cargaba el pin")}
+    if(hasPin){
+        if(noteStatus == 2){
+            button.onclick = function(){
+                openDecryptNoteWindow(noteId);
+            }
+            button.innerHTML = `<md-icon class='filled'>lock</md-icon>`;
+            button.setAttribute("data-tooltip", "Nota bloqueada");
+            button.setAttribute("title", "Nota bloqueada");
+        }else{
+            button.onclick = function(){ 
+                console.log("El usuario ya tiene pin");
+                openEncryptNoteWindow(noteId);
+            }
+            button.innerHTML = `<md-icon>encrypted_add</md-icon>`;
+            button.setAttribute("data-tooltip", "Bloquear nota");
+            button.setAttribute("title", "Bloquear nota");
+        }
+
+        
+    }else{
+        button.onclick = function(){ 
+            console.log("El usuario aún no tiene pin"); 
+            // openSetEncryptPinWindow(); 
+        }
+    }
+}
+
+function openEncryptNoteWindow(noteId){
+    toggleWindow("#window-encrypt-note", "absolute");
+    document.getElementById("validate-encrypt-note-pin-input").focus();
+    document.getElementById("validate-encrypt-note-pin-form").onsubmit = function(event){ 
+        validateEncryptNotePin(event, noteId) 
+    };
+}
+function openDecryptNoteWindow(noteId){
+    toggleWindow("#window-decrypt-note", "absolute", 1);
+    document.getElementById("validate-decrypt-note-pin-input").focus();
+    document.getElementById("validate-decrypt-note-pin-form").onsubmit = function(event){ 
+        validateEncryptNotePin(event, noteId, "decrypt") 
+    };
+}
+
+async function encryptNote(noteId){
+    const data = {
+        op: "encrypt_note",
+        note_id: noteId,
+    }
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if (result.success) {
+                return true;
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+                if(result.error){throw new Error(result.error)};
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+    return false;
+}
+async function decryptNote(noteId){
+    const data = {
+        op: "decrypt_note",
+        note_id: noteId,
+    }
+    const url = `controllers/notes.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (result) {
+            if (result.success) {
+                return true;
+            } else {
+                message(`Hubo un error: ${result.message}`, "error");
+                if(result.error){throw new Error(result.error)};
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+    return false;
+}
+
+let encryptedNoteOpen = false
+async function validateEncryptNotePin(event, noteId = false, action = "validate"){
+    if(!noteId){return false;}
+    event.preventDefault();
+    var parentId = "#validate-encrypt-note-pin-form";
+    if(action == "open"){parentId = "#validate-open-encrypt-note-pin-form";}
+    if(action == "decrypt"){parentId = "#validate-decrypt-note-pin-form";}
+    if(!checkEmpty(parentId, "input")){return;}
+    toggleButton(parentId, true);
+
+    pin = document.getElementById("validate-encrypt-note-pin-input").value
+    if(action == "open"){pin = document.getElementById("validate-open-encrypt-note-pin-input").value}
+    if(action == "decrypt"){pin = document.getElementById("validate-decrypt-note-pin-input").value}
+
+    const data = {
+        op: "validate_diary_pin",
+        pin: pin
+    }
+    const url = `controllers/diary.controller.php`
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+        toggleButton(parentId, false);
+        if (response.ok) {
+            const result = await response.json();
+            if (result.success) {
+                toggleWindow();
+                if(action == "validate"){
+                    message("Nota bloqueada", "success");
+                    if(await encryptNote(noteId) == true){
+                        updateNoteFrontEnd(noteId, 2);
+                        closeNoteEditor(document.querySelector("#folders-note-parent").querySelector("[data-button-close-editor]"))
+                        return true;
+                    }
+                }
+                if(action == "open"){
+                    // if(encryptedNoteOpen){return false;}
+                    encryptedNoteOpen = true;
+                    displayNoteContent(noteId, document.querySelector(`.folder[data-note-id="${noteId}"]`));
+                    return true;
+                }
+                if(action == "decrypt"){
+                    if(await decryptNote(noteId) == true){
+                        updateNoteFrontEnd(noteId, 1);
+                        closeNoteEditor(document.querySelector("#folders-note-parent").querySelector("[data-button-close-editor]"));
+                        message("Nota desbloqueada correctamente ", "success");
+                        return true;
+                    }
+                }
+            } else {
+                message(`${result.message}`, "error");
+            }
+        } else {
+            message("Hubo un error en la solicitud", "error");
+        }
+    } catch (error) {
+        message("Error: " + error.message, "error");
+    }
+}
+
+function updateNoteFrontEnd(noteId, status){
+    const allNotesOpeners = document.querySelectorAll(`[data-note-id="${noteId}"]`);
+    allNotesOpeners.forEach(opener => {
+        opener.setAttribute("data-note-status", status);
+        opener.setAttribute("data-item-status", status);
+    });
+}
+
+function openEncryptedNote(noteId){
+    toggleWindow("#window-validate-note-pin", "absolute", 1);
+    document.getElementById("validate-open-encrypt-note-pin-input").focus();
+    document.getElementById("validate-open-encrypt-note-pin-form").onsubmit = function(event){ 
+        validateEncryptNotePin(event, noteId, "open") 
+    };
+}

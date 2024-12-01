@@ -2,6 +2,7 @@
 require_once("../config/connect.php");
 require_once("../models/Folders.php");
 require_once("../../../config/session.php");
+require_once("../helpers/Encrypt.code.php");
 
 $Folders = new Folders();
 
@@ -63,21 +64,32 @@ switch ($data["op"]){
     case "get_folders":
         $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
         $limit = 100;
-        $offset = (($page+1) * $limit)-$limit;
-
-        $data_array=[
+        $offset = (($page + 1) * $limit) - $limit;
+    
+        $data_array = [
             "page" => $page,
             "limit" => $limit,
             "offset" => $offset,
             "user_id" => $userid
         ];
+    
         $get_folders = $Folders->getFolders($data_array);
-        if(!$get_folders){
+    
+        // Convertimos a arreglo si es necesario
+        $get_folders = json_decode(json_encode($get_folders), true);
+    
+        if (!$get_folders) {
             $response = [
                 'success' => true,
                 'message' => "No folders found"
             ];
-        }else{
+        } else {
+            foreach ($get_folders as &$item) {
+                if ($item['status'] == 2 && $item['item_type'] === 'note') {
+                    $item['item_content'] = $Folders->cleanHTMLContent(Encrypt::decrypt($item['item_content']));
+                }
+            }
+    
             $response = [
                 'success' => true,
                 'data' => $get_folders,
@@ -87,8 +99,8 @@ switch ($data["op"]){
             ];
         }
         echo json_encode($response);
-
         break;
+        
     case "delete_folder":
         $data_array = [
             "id" => filter_var($data["folder_id"], FILTER_SANITIZE_NUMBER_INT),

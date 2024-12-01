@@ -56,11 +56,13 @@ class Notes extends ActiveRecord{
     public function UpdateNote() {
         $this->content = $this->sanitizeContent();
         $query = "UPDATE notes 
-          SET user_id = '$this->user_id', 
-              title = '$this->title', 
-              content = '$this->content', 
-              created_at = '$this->created_at'
-          WHERE id = '$this->id'";
+            SET user_id = '$this->user_id', 
+                title = '$this->title', 
+                content = '$this->content', 
+                created_at = '$this->created_at'
+            WHERE id = '$this->id'
+            AND user_id = '$this->user_id'
+        ";
 
         $result = self::$db->query($query);
 
@@ -102,6 +104,58 @@ class Notes extends ActiveRecord{
         $query = "UPDATE notes SET status = 0 WHERE id = $this->id";
         $result = self::$db->query($query);
         return $result;
+    }
+
+    public function setNoteAsEncrypted(){
+        if (is_null($this->id)) {
+            return false;
+        }
+
+        $query = "UPDATE notes SET status = 2 WHERE id = ? AND user_id = ?";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("ii", $this->id, $this->user_id);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function setNoteAsDecrypted(){
+        if (is_null($this->id)) {
+            return false;
+        }
+
+        $query = "UPDATE notes SET status = 1 WHERE id = ? AND user_id = ?";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("ii", $this->id, $this->user_id);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkIfNoteIsEncrypted() {
+        $query = "SELECT status FROM notes WHERE id = ?";
+        $stmt = self::$db->prepare($query);
+        $stmt->bind_param("i", $this->id);
+
+        try {
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $data = $result->fetch_assoc();
+            if ($data["status"] == 2) {
+                return true;
+            }
+            return false;
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
     
     public function getDeletedNotes($data_array){

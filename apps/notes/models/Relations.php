@@ -1,7 +1,7 @@
 <?php
 class Relations extends ActiveRecord{
     protected static $table = 'folder_relations';
-    protected static $columns = ["id", "user_id", "folder_id", "item_id", "item_type", "created_at"];
+    protected static $columns = ["id", "user_id", "folder_id", "item_id", "item_type", "created_at", "status"];
 
     public $id;
     public $folder_id;
@@ -11,6 +11,7 @@ class Relations extends ActiveRecord{
     public $item_content;
     public $item_created_at;
     public $created_at;
+    public $status;
 
 
 
@@ -21,6 +22,7 @@ class Relations extends ActiveRecord{
         $this->item_id = $args["item_id"] ?? "";
         $this->item_type = $args["item_type"] ?? "";
         $this->created_at = $args["created_at"] ?? date('Y-m-d H:i:s');
+        $this->status = $args["status"] ?? 1;
     }
 
     // public function getFolderContent($data_array) {
@@ -88,7 +90,8 @@ class Relations extends ActiveRecord{
                 'note' AS item_type,
                 n.title AS item_title,
                 n.content AS item_content,
-                n.created_at AS item_created_at
+                n.created_at AS item_created_at,
+                n.status AS status
             FROM 
                 folder_relations fr
             JOIN 
@@ -98,7 +101,7 @@ class Relations extends ActiveRecord{
                 AND fr.user_id = ?
                 AND n.user_id = ?
                 AND fr.item_type = 'note'
-                AND n.status = 1
+                AND n.status != 0
 
             UNION
 
@@ -110,7 +113,8 @@ class Relations extends ActiveRecord{
                 'folder' AS item_type,
                 f.folder_name AS item_title,
                 NULL AS item_content,
-                f.created_at AS item_created_at
+                f.created_at AS item_created_at,
+                f.status AS status
             FROM 
                 folder_relations fr
             JOIN 
@@ -120,7 +124,7 @@ class Relations extends ActiveRecord{
                 AND fr.user_id = ?
                 AND f.user_id = ?
                 AND fr.item_type = 'folder'
-                AND f.status = 1
+                AND f.status != 0
         ";
         $stmt = self::$db->prepare($query);
         $stmt->bind_param("iiiiii", $data_array["folder_id"], $data_array["user_id"], $data_array["user_id"], $data_array["folder_id"], $data_array["user_id"], $data_array["user_id"]);
@@ -183,5 +187,39 @@ class Relations extends ActiveRecord{
         $query = "DELETE FROM folder_relations WHERE item_id = '$data_array[item_id]' AND item_type = '$data_array[item_type]' AND user_id = '$data_array[user_id]'";
         $result = self::$db->query($query);
         return $result;
+    }
+
+
+    public static function cleanHTMLContent($content) {
+        // Elimina las clases de los elementos
+        $content = preg_replace('/\s*class="[^"]*"/', '', $content);
+    
+        // Reemplaza &nbsp; y otras entidades comunes de espacio en blanco
+        $content = preg_replace('/&nbsp;/', ' ', $content);
+        $content = preg_replace('/\s+/', ' ', $content);
+    
+        // Caso 1: Si comienza con una etiqueta HTML
+        if (strpos($content, '<') === 0) {
+            $firstClosingTagIndex = strpos($content, '>');
+            if ($firstClosingTagIndex !== false) {
+                $afterFirstTag = substr($content, $firstClosingTagIndex + 1);
+                $secondTagIndex = strpos($afterFirstTag, '<');
+                if ($secondTagIndex !== false) {
+                    $firstTagContent = trim(substr($afterFirstTag, 0, $secondTagIndex));
+                    return $firstTagContent;
+                } else {
+                    return trim($afterFirstTag);
+                }
+            }
+        }
+    
+        // Caso 2: Si comienza con texto plano
+        $firstTagIndex = strpos($content, '<');
+        if ($firstTagIndex !== false) {
+            return trim(substr($content, 0, $firstTagIndex));
+        }
+    
+        // Si no hay etiquetas HTML, devuelve el contenido tal como está
+        return trim($content);
     }
 }

@@ -2,7 +2,7 @@
 
 class Folders extends ActiveRecord{
     protected static $table = 'folders';
-    protected static $columns = ["id","user_id","folder_name","created_at"];
+    protected static $columns = ["id","user_id","folder_name","created_at", "status"];
 
     public $id;
     public $user_id;
@@ -12,12 +12,14 @@ class Folders extends ActiveRecord{
 
     public $item_type;
     public $item_content;
+    public $status;
 
     public function __construct($args = []) {
         $this->id = $args["id"] ?? NULL;
         $this->user_id = $args["user_id"] ?? "";
         $this->folder_name = $args["folder_name"] ?? "";
         $this->created_at = $args["created_at"] ?? date('Y-m-d H:i:s');
+        $this->status = $args["status"] ?? 1;
     }
 /*
     public function createFolder(){
@@ -37,7 +39,8 @@ class Folders extends ActiveRecord{
                 'folder' AS item_type,
                 f.folder_name AS item_name,
                 NULL AS item_content, 
-                f.created_at AS created_at
+                f.created_at AS created_at,
+                f.status AS status
             FROM 
                 folders f
             LEFT JOIN 
@@ -45,7 +48,7 @@ class Folders extends ActiveRecord{
             WHERE 
                 fr.id IS NULL 
                 AND f.user_id = '$data_array[user_id]'
-                AND f.status = 1
+                AND f.status != 0
 
             UNION
             SELECT 
@@ -53,7 +56,8 @@ class Folders extends ActiveRecord{
                 'note' AS item_type,
                 n.title AS item_name,
                 n.content AS item_content,
-                n.created_at AS created_at
+                n.created_at AS created_at,
+                n.status AS status
             FROM 
                 notes n
             LEFT JOIN 
@@ -61,7 +65,7 @@ class Folders extends ActiveRecord{
             WHERE 
                 fr.id IS NULL 
                 AND n.user_id = '$data_array[user_id]'
-                AND n.status = 1
+                AND n.status != 0
 
         ";
         $result = self::querySQL($query);
@@ -230,4 +234,38 @@ class Folders extends ActiveRecord{
         $stmt->bind_param("si", $this->folder_name, $this->id);
         return $stmt->execute();
     }
+
+    public static function cleanHTMLContent($content) {
+        // Elimina las clases de los elementos
+        $content = preg_replace('/\s*class="[^"]*"/', '', $content);
+    
+        // Reemplaza &nbsp; y otras entidades comunes de espacio en blanco
+        $content = preg_replace('/&nbsp;/', ' ', $content);
+        $content = preg_replace('/\s+/', ' ', $content);
+    
+        // Caso 1: Si comienza con una etiqueta HTML
+        if (strpos($content, '<') === 0) {
+            $firstClosingTagIndex = strpos($content, '>');
+            if ($firstClosingTagIndex !== false) {
+                $afterFirstTag = substr($content, $firstClosingTagIndex + 1);
+                $secondTagIndex = strpos($afterFirstTag, '<');
+                if ($secondTagIndex !== false) {
+                    $firstTagContent = trim(substr($afterFirstTag, 0, $secondTagIndex));
+                    return $firstTagContent;
+                } else {
+                    return trim($afterFirstTag);
+                }
+            }
+        }
+    
+        // Caso 2: Si comienza con texto plano
+        $firstTagIndex = strpos($content, '<');
+        if ($firstTagIndex !== false) {
+            return trim(substr($content, 0, $firstTagIndex));
+        }
+    
+        // Si no hay etiquetas HTML, devuelve el contenido tal como está
+        return trim($content);
+    }
+    
 }

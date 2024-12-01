@@ -21,6 +21,10 @@ include_once 'views/windows/window-tasks-tutorial.php';
 
 include_once 'views/windows/window-search-notes.php';
 
+include_once 'views/windows/window-encrypt-note.php';
+include_once 'views/windows/window-decrypt-note.php';
+include_once 'views/windows/window-validate-note-pin.php';
+
 
 
 include_once 'views/windows/window-sb.php';

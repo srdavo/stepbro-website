@@ -39,6 +39,7 @@ switch ($data["op"]){
         foreach($results as $result){
             $result->content = Encrypt::decrypt($result->content);
         }
+        $_SESSION["additional_data"]["diary_open"] = false;
         echo json_encode([
             "entries" => $results,
             "noMoreRecords" => $noMoreRecords,

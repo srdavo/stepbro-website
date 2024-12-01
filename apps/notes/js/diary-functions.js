@@ -179,7 +179,8 @@ function displayDiaryContent(day, click = false) {
 
         // Exponemos las funciones necesarias en el objeto DiaryApp
         window.DiaryApp = {
-            getJournal
+            getJournal,
+            checkDiaryPin
         };
     }
 
@@ -264,19 +265,18 @@ async function setDiaryPin(event = false){
     }
 }
 
+let hasPin = "";
 async function startDiary(){
     // esta función decide si el usuario tiene un pin configurado o no
     // y en base a eso decide que ventana mostrar
     const openDiaryButton = document.getElementById("open-diary-nav-button");
-    const hasPin = await checkDiaryPin();
+    hasPin = await checkDiaryPin();
+
     if(hasPin){
         openDiaryButton.onclick = function(){ toggleDiaryPinWindow() }
     }else{
         openDiaryButton.onclick = function(){ toggleSetDiaryPinWindow() }
     }
-
-
-
 }
 
 async function checkDiaryPin(){

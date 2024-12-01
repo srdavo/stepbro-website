@@ -2,6 +2,7 @@
 require_once("../config/connect.php");
 require_once("../models/Notes.php");
 require_once("../../../config/session.php");
+require_once("../helpers/Encrypt.code.php");
 
 $Notes = new Notes();
 
@@ -14,9 +15,23 @@ switch ($data["op"]){
         $data_array = [
             "content" => $data["content"], // filter_var($data["content"], FILTER_SANITIZE_STRING)
             "user_id" => $userid,
-            "id" => $data["id"]
+            "id" => $data["id"],
+            "status" => $data["status"]
         ];
         $note = new Notes($data_array);
+        
+        if($data["status"] == 2){
+            $encrypted_note = Encrypt::encrypt($data["content"]);
+            if (!$encrypted_note) {
+                $response = [
+                    "success" => false,
+                    "message" => "Failed to encrypt note"
+                ];
+                echo json_encode($response);
+                exit;
+            }
+            $note->content = $encrypted_note;
+        }
         $result =  $note->save();
         echo json_encode($result);
         break;
@@ -49,9 +64,22 @@ switch ($data["op"]){
         ];
 
         $note = $Notes->getNoteContent($data_array);
+
+        if($note["data"][0]->status == 2){
+            // if note is encrypted
+            if(!isset($_SESSION["additional_data"]["diary_open"]) || !$_SESSION["additional_data"]["diary_open"]){
+                echo json_encode([
+                    "success" => false,
+                    "message" => "No puedes acceder a una nota bloqueada"
+                ]);
+                exit;
+            }
+            $note_content = Encrypt::decrypt($note["data"][0]->content);
+            $note["data"][0]->content = $note_content;
+            $_SESSION["additional_data"]["diary_open"] = false;
+        }
+
         echo json_encode($note);
-
-
         break;
     case "create_note_inside_folder":
         $data_array = [
@@ -207,6 +235,163 @@ switch ($data["op"]){
         echo json_encode($response);
 
         break;
+    case "encrypt_note":
+        $data_array = [
+            "id" => filter_var($data["note_id"], FILTER_SANITIZE_NUMBER_INT),
+            "note_id" => filter_var($data["note_id"], FILTER_SANITIZE_NUMBER_INT),
+            "user_id" => $userid,
+            "status" => 2
+        ];
+        try {
+            // start a transaction
+            if(!isset($_SESSION["additional_data"]["diary_open"]) || !$_SESSION["additional_data"]["diary_open"]){
+                echo json_encode([
+                    "success" => false,
+                    "message" => "No tienes acceso a esta operación"
+                ]);
+                exit;
+            }
+
+            $db->autocommit(false);
+            $note = new Notes($data_array);
+
+            // 1. Check if note is already encrypted
+            $check_if_encrypted = $note->checkIfNoteIsEncrypted();
+            if ($check_if_encrypted) {
+                throw new Exception("Note is already encrypted ");
+            }
+        
+            // 2. Get note content
+            $note_content = $Notes->getNoteContent($data_array)["data"][0]->content;
+            if($note_content == ""){
+                throw new Exception("Failed to get note content ". $note_content);
+            }
+        
+            // 3. Encrypt note content
+            $encrypted_note = Encrypt::encrypt($note_content);
+            if (!$encrypted_note) {
+                throw new Exception("Failed to encrypt note");
+            }
+            $data_array["content"] = $encrypted_note;
+        
+            // 4. Save encrypted note
+            $note = new Notes($data_array);
+            $result = $note->save();
+            if (!$result["ok"]) {
+                throw new Exception("Failed to save encrypted note ". $result);
+            }
+        
+            // 5. Set note as encrypted
+            $set_note_as_encrypted = $note->setNoteAsEncrypted();
+            if (!$set_note_as_encrypted) {
+                throw new Exception("Failed to update note encryption status ". $set_note_as_encrypted);
+            }
+        
+            // // Confirm the transaction
+            $db->commit();
+        
+            $response = [
+                "success" => true,
+                "check_if_encrypted" => $check_if_encrypted,
+                "note_content" => $note_content,
+                "encrypted_note" => $encrypted_note,
+                "result" => $result,
+                "set_note_as_encrypted" => $set_note_as_encrypted
+                
+            ];
+        } catch (Exception $e) {
+            // revert the transaction
+            $db->rollBack();
+        
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
+        
+        $_SESSION["additional_data"]["diary_open"] = false;
+        echo json_encode($response);
+        
+
+        break;
+    case "decrypt_note":
+        $data_array = [
+            "id" => filter_var($data["note_id"], FILTER_SANITIZE_NUMBER_INT),
+            "note_id" => filter_var($data["note_id"], FILTER_SANITIZE_NUMBER_INT),
+            "user_id" => $userid,
+            "status" => 1
+        ];
+        try {
+            // start a transaction
+            if(!isset($_SESSION["additional_data"]["diary_open"]) || !$_SESSION["additional_data"]["diary_open"]){
+                echo json_encode([
+                    "success" => false,
+                    "message" => "No tienes acceso a esta operación"
+                ]);
+                exit;
+            }
+
+            $db->autocommit(false);
+            $note = new Notes($data_array);
+
+            // 1. Check if note is not encrypted
+            $check_if_encrypted = $note->checkIfNoteIsEncrypted();
+            if (!$check_if_encrypted) {
+                throw new Exception("Note is not encrypted");
+            }
+        
+            // 2. Get note content
+            $note_content = $Notes->getNoteContent($data_array)["data"][0]->content;
+            if($note_content == ""){
+                throw new Exception("Failed to get note content ". $note_content);
+            }
+        
+            // 3. Decrypt note content
+            $decrypted_note = Encrypt::decrypt($note_content);
+            if (!$decrypted_note) {
+                throw new Exception("Failed to decrypt note");
+            }
+            $data_array["content"] = $decrypted_note;
+        
+            // 4. Save decrypted note
+            $note = new Notes($data_array);
+            $result = $note->save();
+            if (!$result["ok"]) {
+                throw new Exception("Failed to save decrypted note ". $result);
+            }
+        
+            // 5. Set note as decrypted
+            $set_note_as_decrypted = $note->setNoteAsDecrypted();
+            if (!$set_note_as_decrypted) {
+                throw new Exception("Failed to update note decryption status ". $set_note_as_decrypted);
+            }
+        
+            // // Confirm the transaction
+            $db->commit();
+        
+            $response = [
+                "success" => true,
+                "check_if_encrypted" => $check_if_encrypted,
+                "note_content" => $note_content,
+                "decrypted_note" => $decrypted_note,
+                "result" => $result,
+                "set_note_as_decrypted" => $set_note_as_decrypted
+                
+            ];
+        } catch (Exception $e) {
+            // revert the transaction
+            $db->rollBack();
+        
+            $response = [
+                "success" => false,
+                "error" => $e->getMessage(),
+            ];
+        }
+
+        $_SESSION["additional_data"]["diary_open"] = false;
+        echo json_encode($response);
+        break;
+
     default:
         $response = [
             "success" => false,
