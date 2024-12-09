@@ -5,7 +5,7 @@
         </div>
         <div class="simple-container gap-16 only-on-mobile">
             <div class="simple-container">
-                <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>info</md-icon></md-icon-button>
+                <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>help</md-icon></md-icon-button>
             </div>
             <div class="simple-container">
                 <md-filled-tonal-button 
@@ -20,7 +20,7 @@
         </div>
         <div class="simple-container gap-8 hide-on-mobile">
             <div class="simple-container">
-                <md-icon-button data-flip-id="animate" title="Sobre notas" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>info</md-icon></md-icon-button>
+                <md-icon-button data-flip-id="animate" title="Sobre notas" onclick="toggleWindow('#window-notes-tutorial')"><md-icon>help</md-icon></md-icon-button>
             </div>
             <div class="simple-container">
                 <md-filled-tonal-button 

@@ -216,6 +216,26 @@
                             <span style="background:#ff958b;"></span>
                             <md-ripple></md-ripple>
                         </div>
+                        <!-- <div 
+                            class="ball" 
+                            data-theme="frutiger-aero"
+                            onclick="changeTheme(this)"
+                            >
+                            <span style="background:blue;"></span>
+                            <span style="background:cyan;"></span>
+                            <span style="background:red;"></span>
+                            <md-ripple></md-ripple>
+                        </div> -->
+                        <div 
+                            class="ball" 
+                            data-theme="modern-1"
+                            onclick="changeTheme(this)"
+                            >
+                            <span style="background:linear-gradient(45deg   , #E7A4DC 0%, #D56CC5 53.2%, #6042E1 100%)"></span>
+                            <span style="background:linear-gradient(180deg, #E7A4DC 0%, #D56CC5 53.2%, #6042E1 100%)"></span>
+                            <span style="background:linear-gradient(0deg, #E7A4DC 0%, #D56CC5 10.2%, #6042E1 100%)"></span>
+                            <md-ripple></md-ripple>
+                        </div>
                     </div>
                     <div class="simple-container">
                         <div 

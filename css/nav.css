@@ -269,7 +269,7 @@ nav button.nav-button md-ripple{
   }
 
   nav.nav-style-3 button.nav-button:hover span:last-child{ display:flex; }
-
+  nav.nav-style-3 button.nav-button.nav-action-button{display: none;}
 
   nav.nav-style-4 > button.nav-button.hide-on-mobile{display:none;}
   nav.nav-style-4{
@@ -336,7 +336,7 @@ nav button.nav-button md-ripple{
 
     margin:0 6px;
     margin-top:6px;
-    margin-bottom:-32px;
+    /* margin-bottom:-32px; */
     
     background: var(--md-sys-color-background);
     box-sizing: border-box;

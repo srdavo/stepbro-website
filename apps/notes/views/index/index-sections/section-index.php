@@ -1,7 +1,7 @@
 <section id="section-index" active class="landing-page">
 
   <!-- title row 1  -->
-  <div class="simple-container direction-column gap-24 align-center justify-center main-title-parent top-margin-32" style="height:300px">
+  <div class="simple-container direction-column gap-24 align-center justify-center main-title-parent" style="height:300px">
     <!-- <span class="display-large bricolage weight-600 text-center">
       stepbro Notes
     </span> -->
