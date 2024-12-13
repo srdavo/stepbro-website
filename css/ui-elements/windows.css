@@ -15,6 +15,8 @@ transparent{
   background: rgba(0, 0, 0, .1);
   /* backdrop-filter: blur(2px); */
 }
+transparent.fade-in-off{animation: background-fade-in 700ms !important;}
+transparent.fade-in-off window{animation: initial !important;}
 @media (prefers-color-scheme: dark) {
   transparent{background: rgba(0, 0, 0, .2);}
   window{
@@ -32,6 +34,7 @@ transparent[closing] window{
 @keyframes window-out-absolute{to{transform:scale(0.1);}}
 @keyframes fade-in{from{opacity: 0;}to{opacity: 1;}}
 @keyframes fade-out{from{opacity: 1;}to{opacity: 0;}}
+@keyframes background-fade-in{from{background: rgba(0, 0, 0, 0);}to{background: rgba(0, 0, 0, 0.1);}}
 
 @media only screen and (min-width: 680px){
   transparent.right[closing] window, transparent.left[closing] window, transparent.top[closing] window, transparent.bottom[closing] window{
@@ -170,6 +173,7 @@ window.integrated holder{padding:24px;}
       border-radius: 0;
       animation: window-border-radius 1000ms cubic-bezier(.56,.27,0,1), blur-in 300ms cubic-bezier(.37,.35,0,1);
   }  
+  transparent.fade-in-off window{animation: window-border-radius 1000ms cubic-bezier(.56,.27,0,1) !important;}
   
   window.absolute{position:relative; inset: 0 !important;}
   
@@ -249,3 +253,28 @@ window.not-animated {
 @keyframes moveIn { from{ opacity: 0; transform: translateX(100%); } }
 
 
+[beautiful-closing]{
+  animation: beautiful-closing 1700ms !important; 
+}
+transparent[beautiful-closing]{
+  animation: background-fade-out 700ms !important; 
+}
+transparent[beautiful-closing] window{
+  animation: window-background-out 700ms !important;
+}
+
+@keyframes beautiful-closing {}
+@keyframes background-fade-out{
+  from{background: rgba(0, 0, 0, 0.1);}
+  to{background: rgba(0, 0, 0, 0);}
+}
+@keyframes window-background-out{
+  from{
+    background:var(--md-sys-color-background);
+    border-radius:0px;
+  }
+  to{
+    background:transparent;
+    border-radius:32px;
+  }
+}

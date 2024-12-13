@@ -5,6 +5,7 @@
     <script src="<?= BASE_URL ?>js/ui-functions.js?v=1.4.0"></script>
     <script src="<?= BASE_URL ?>js/account-functions.js?v=7"></script>
     <script src="<?= BASE_URL ?>js/suggestions-functions.js?v=7"></script>
+    <script src="<?= BASE_URL ?>js/beautiful-windows.js?v=7"></script>
   
 
   <!-- <script src="js/calories-functions.js?v=1"></script> -->

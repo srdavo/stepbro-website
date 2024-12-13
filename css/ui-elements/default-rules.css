@@ -164,3 +164,8 @@
   transform: scale(1.03);
 }
 .hidden{display:none !important}
+
+.line-height-0-5{line-height:0.5 !important;}
+.line-height-0-75{line-height:0.75 !important;}
+.line-height-1{line-height:1 !important;}
+.line-height-1-5{line-height:1.5 !important;}

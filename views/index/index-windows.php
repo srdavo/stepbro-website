@@ -5,3 +5,5 @@
 // include_once 'views/index/index-windows/window-forgot-password-new-password.php';
 include_once 'views/index/index-windows/window-account.php';
 include_once 'views/index/index-windows/window-apps.php';
+
+include_once 'views/windows/window-beautiful-test.php';
