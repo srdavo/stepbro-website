@@ -200,6 +200,12 @@ function toggleWindow(windowId, position, scale, appearStyle = false){
   const windowNew = document.querySelector(windowId);
   if(windowNew){
     transparent = windowNew.closest('transparent');
+  }else{
+    transparent = document.querySelector("window.active").closest('transparent');
+  }
+
+  if (transparent.hasAttribute('data-beautiful_transparent')) {
+    transparent.removeAttribute('data-beautiful_transparent');
   }
 
   // Close any other open window

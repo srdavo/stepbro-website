@@ -249,3 +249,69 @@ window.not-animated {
 @keyframes moveIn { from{ opacity: 0; transform: translateX(100%); } }
 
 
+/* All new beautiful window modications */
+@keyframes transparent-background-fade-in{
+  from{background: rgba(0, 0, 0, 0);}
+  to{background: rgba(0, 0, 0, 0.1);}
+}
+@keyframes transparent-background-fade-out{
+  from{background: rgba(0, 0, 0, 0.1);}
+  to{background: rgba(0, 0, 0, 0);}
+}
+@keyframes border-radius-window-out{
+  from{border-radius: 0;}
+  to{border-radius: 32px;}
+}
+
+transparent[data-beautiful_transparent]{
+  animation: transparent-background-fade-in 700ms;
+  pointer-events: all; 
+  /* considerar esto ^ */
+}
+transparent[data-beautiful_transparent] window{
+  animation:initial;
+}
+transparent[data-beautiful_transparent] window holder{
+  animation: fade-in 700ms cubic-bezier(.75,0,.41,-0.06);
+}
+transparent[data-beautiful_transparent] window [data-close_button]{
+  animation: fade-in 700ms;
+}
+
+transparent[data-beautiful_transparent][closing]{
+  animation: transparent-background-fade-out 700ms;
+}
+transparent[data-beautiful_transparent][closing] window [data-close_button]{
+  animation: fade-out 700ms;
+}
+transparent[data-beautiful_transparent][closing] window holder{
+  animation: fade-out 700ms cubic-bezier(.18,.97,0,1);
+}
+transparent[data-beautiful_transparent] window [data-prepared_area] > *{
+  transition:all 700ms;
+}
+
+.apply-blur-animation{
+  animation: blurFadeIn 700ms;
+}
+
+@keyframes blurFadeIn {
+  0%{
+    filter: blur(0px);
+  }
+  50%{
+    filter:blur(4px);
+  }
+  100%{
+    filter: blur(0px);
+  }
+}
+
+@media only screen and (max-width: 680px){
+  transparent[data-beautiful_transparent] window{
+    animation: window-border-radius 1000ms cubic-bezier(.56,.27,0,1);
+  }
+  transparent[data-beautiful_transparent][closing] window{
+    animation: border-radius-window-out 700ms cubic-bezier(.56,.27,0,1);
+  }
+}
