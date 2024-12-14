@@ -79,6 +79,9 @@ md-icon.pretty.medium{
   padding:8px;
   border-radius:64px;
 }
+md-icon.pretty-minimal{
+  --md-icon-size: 64px;
+}
 md-icon.absolute-card{
   --md-icon-size: 164px;
   font-variation-settings: 'FILL' 1;
