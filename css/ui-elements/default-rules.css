@@ -189,3 +189,11 @@
 .line-height-0-85{line-height:0.85 !important;}
 .line-height-1{line-height:1 !important;}
 .line-height-1-5{line-height:1.5 !important;}
+
+
+.image-fit-cover {
+  object-fit: cover;
+}
+.image-start-top {
+  object-position: top;
+}

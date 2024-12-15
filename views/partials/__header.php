@@ -1,5 +1,5 @@
 <?php 
-define('BASE_URL', '/');
+define('BASE_URL', '/cocounut-sb/');
 include $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'controllers/auth_controller.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL ."config/session.php";
@@ -115,6 +115,7 @@ checkSession($cookie_uid);
     if(isset($_SESSION['id'])){
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-settings.php';
       include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-send-suggestion.php';
+      include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-app-messages.php';
 
       if($_SESSION['additional_data']['permissions'] == 7){
         include_once $_SERVER['DOCUMENT_ROOT'] . BASE_URL .'views/windows/window-admin-panel.php';

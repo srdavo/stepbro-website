@@ -167,6 +167,19 @@
 <button 
   class="nav-button hide-on-mobile nav-action-button"  
   data-section="section-diary"
+  onclick="toggleWindow('#window-app-message-example')"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">notifications</span>
+  </span>
+  <span>Ver mensajes</span>
+</button>
+
+<button 
+  class="nav-button hide-on-mobile nav-action-button"  
+  data-section="section-diary"
   onclick="toggleWindow('#window-send-suggestion')"
   data-flip-id="animate"
   >

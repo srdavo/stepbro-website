@@ -74,3 +74,7 @@ md-filled-tonal-icon-button.solid-high, md-filled-tonal-button.solid-high{
   --md-sys-color-secondary-container: var(--md-sys-color-surface-container-high);
   --md-sys-color-on-secondary-container: var(--md-sys-color-on-surface-variant);
 }
+
+md-filled-tonal-icon-button.color-translucent{
+  opacity: 0.3;
+}
