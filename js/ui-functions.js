@@ -9,16 +9,29 @@ function toggleSection(objetiveSectionId) {
     });
     return;
   }
-  if(activeSection) {activeSection.removeAttribute('active'); activeSection.classList.remove("section-open");}
-  if(activeNavButton) {activeNavButton.removeAttribute('active');}
-  if(document.getElementById(objetiveSectionId)) {
-    document.getElementById(objetiveSectionId).setAttribute('active', '');
-    nav.querySelector(`button[data-section="${objetiveSectionId}"]`).setAttribute('active', '');
-    document.getElementById(objetiveSectionId).classList.add("section-open");
 
-    if((window.location.pathname).split("/").pop() === "home"){
-      localStorage.setItem("currentSection", objetiveSectionId);
+  // if (!document.startViewTransition) {
+  //   updateDom(objetiveSectionId);
+  //   return;
+  // }
 
+  // const transition = document.startViewTransition(() => {
+    // updateDom(objetiveSectionId)
+  // });
+  // transition.finished
+  updateDom(objetiveSectionId);
+  function updateDom( objetiveSectionId ) {
+    if(activeSection) {activeSection.removeAttribute('active'); activeSection.classList.remove("section-open");}
+    if(activeNavButton) {activeNavButton.removeAttribute('active');}
+    if(document.getElementById(objetiveSectionId)) {
+      document.getElementById(objetiveSectionId).setAttribute('active', '');
+      nav.querySelector(`button[data-section="${objetiveSectionId}"]`).setAttribute('active', '');
+      document.getElementById(objetiveSectionId).classList.add("section-open");
+
+      if((window.location.pathname).split("/").pop() === "home"){
+        localStorage.setItem("currentSection", objetiveSectionId);
+
+      }
     }
   }
 }

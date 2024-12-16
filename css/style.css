@@ -3,7 +3,7 @@
 @import url(ui-elements/content-box.css?v=7); /* Its a basic container with many uses */ 
 @import url(ui-elements/default-rules.css?v=7); /* Brings classes with propetys that all elements could use */ 
 @import url(ui-elements/message.css?v=7); /* Brings the styles for the message box */
-@import url(ui-elements/windows.css?v=7); /* Brings the styles for the message box */
+@import url(ui-elements/windows.css?v=98); /* Brings the styles for the message box */
 @import url(ui-elements/tables.css?v=7); /* Brings the styles for the tables */
 @import url(ui-elements/data-line.css?v=7); /* Brings the styles for the data line */
 @import url(ui-elements/select.css); /* Brings the styles for the data line */
@@ -16,6 +16,7 @@
 @import url(ui-elements/button.css?v=7);
 @import url(ui-elements/task.css?v=7);
 @import url(ui-elements/search.css);
+@import url(ui-elements/view-transitions.css?v=12);
 
 
 :root {
@@ -193,3 +194,4 @@ h4{
   font-weight: 600;
   background:var(--md-sys-color-surface-container);
 }
+
