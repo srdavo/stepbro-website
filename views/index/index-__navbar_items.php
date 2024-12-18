@@ -10,6 +10,17 @@
   <span>Inicio</span>
 </button>
 
+<button 
+  class="nav-button" 
+  onclick="window.location.href='mailto:luisdavid.gris@gmail.com'; return false;"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">mail</span>
+  </span>
+  <span>Contactanos</span>
+</button>
+
 <div class="simple-container grow-1"></div>
 <?php
       if(isset($_SESSION['id'])){

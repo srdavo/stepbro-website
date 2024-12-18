@@ -80,6 +80,11 @@ md-icon.pretty.medium{
   padding:8px;
   border-radius:64px;
 }
+md-icon.pretty-minimal-medium{
+  --md-icon-size: 32px;
+  padding:8px;
+  border-radius:64px;
+}
 md-icon.pretty-minimal{
   --md-icon-size: 64px;
 }

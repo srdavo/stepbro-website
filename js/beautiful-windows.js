@@ -95,7 +95,10 @@ async function togglePrettyWindow(windowSelector = false, sharedElements = false
 
         // we asume there is window open
         const desiredElement = document.querySelector("[data-shared_elements]");
-        if(!desiredElement){message("Element does not exists in the document", "error");return;}
+        if(!desiredElement){
+            toggleWindow();
+            return;
+        }
         const activeTransparent = document.querySelector("transparent.active");        
         const activeWindow = document.querySelector("window.active");
 
@@ -236,4 +239,105 @@ async function togglePrettyWindow(windowSelector = false, sharedElements = false
 
 function generateRandomNumberForVT(){
     return Math.floor(100000 + Math.random() * 900000);
+}
+
+
+
+async function togglePrettyWSection(sectionSelector = false, sharedElements = []){
+    if(!sectionSelector){return false;}
+    const instanceRandomNumber = generateRandomNumberForVT();
+    const viewTransitionClass = "vt-shared-element-animation";
+    const viewTransitionClassChildes = "vt-shared-element-animation-childes"; 
+    const currentActiveWindow = document.querySelector("window.active") || false;
+    
+    if (typeof sectionSelector === 'string') {
+        desiredSection = currentActiveWindow.querySelector(sectionSelector);
+    }else{
+        desiredSection = sectionSelector;
+    }
+
+    const activeSection = currentActiveWindow.querySelector(".w-section[active]") || false;
+    if(activeSection == desiredSection){return false;}
+
+  
+
+    activeSection.style.viewTransitionName = `vt-shared-${instanceRandomNumber}`;
+    activeSection.style.viewTransitionClass = viewTransitionClass;
+
+    desiredSection.style.viewTransitionName = `vt-shared-${instanceRandomNumber}`;
+    desiredSection.style.viewTransitionClass = viewTransitionClass;
+    if(sharedElements != false){
+        sharedElements.map((element) => {
+            const originElementShared = activeSection.querySelector(`[${element}]`);
+            if(!originElementShared){
+                console.error(`Element [${element}] does not exists in the origin element`);
+                return;
+            }
+
+            const desiredElementShared = desiredSection.querySelector(`[${element}]`);
+
+            if(!desiredElementShared){
+                console.error(`Element [${element}] does not exists in the desired window`);
+                return;
+            }
+
+            desiredElementShared.style.viewTransitionName = `vt-shared-${element}`;
+            desiredElementShared.style.viewTransitionClass = viewTransitionClassChildes;
+            originElementShared.style.viewTransitionName = `vt-shared-${element}`;
+            originElementShared.style.viewTransitionClass = viewTransitionClassChildes;
+        })
+    }
+
+    if(!document.startViewTransition){
+        updateDom(activeSection, desiredSection);
+
+        desiredSection.style.viewTransitionName = '';
+        desiredSection.style.viewTransitionClass = '';
+
+        if(sharedElements != false){
+            sharedElements.map((element) => {
+                const desiredElementShared = desiredSection.querySelector(`[${element}]`);
+                desiredElementShared.style.viewTransitionName = '';
+                desiredElementShared.style.viewTransitionClass = '';                
+            })
+        }
+        return;
+    }
+
+    const transition = document.startViewTransition(() => {
+
+        activeSection.style.viewTransitionName = '';
+        activeSection.style.viewTransitionClass = '';
+
+        if(sharedElements != false){
+            sharedElements.map((element) => {
+                const originElementShared = activeSection.querySelector(`[${element}]`);
+                originElementShared.style.viewTransitionName = '';
+                originElementShared.style.viewTransitionClass = '';                
+            })
+        }
+
+        updateDom(activeSection, desiredSection);
+
+    });
+    await transition.finished;
+
+    function updateDom(activeSection, desiredSection){
+        activeSection.removeAttribute("active");
+        desiredSection.setAttribute("active", "");
+    }
+
+    desiredSection.style.viewTransitionName = '';
+    desiredSection.style.viewTransitionClass = '';
+
+    if(sharedElements != false){
+        sharedElements.map((element) => {
+            const desiredElementShared = desiredSection.querySelector(`[${element}]`);
+            desiredElementShared.style.viewTransitionName = '';
+            desiredElementShared.style.viewTransitionClass = '';                
+        })
+    }
+
+
+
 }
