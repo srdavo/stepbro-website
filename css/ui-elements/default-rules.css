@@ -33,6 +33,7 @@
 .v-margin{margin:8px 0;}
 .v-margin-large{margin:16px 0;}
 .v-margin-extra-large{margin:24px 0;}
+.top-margin-0{margin-top:0px;}
 .top-margin-8{margin-top:8px;}
 .top-margin-16{margin-top:16px;}
 .top-margin-24{margin-top:24px;}
@@ -52,6 +53,7 @@
 .bottom-margin-64{margin-bottom:64px;}
 .left-margin-16{margin-left:16px;}
 .left-margin-24{margin-left:24px;}
+.margin-0{margin:0px !important;}
 .margin-8{margin:8px;}
 .margin-16{margin:16px;}
 .margin-24{margin:24px;}
@@ -84,6 +86,9 @@
 .h-padding-16{padding-left:16px !important; padding-right:16px !important;}
 .h-padding-24{padding-left:24px !important; padding-right:24px !important;}
 
+.top-padding-0{padding-top:0px !important;}
+.top-padding-0-16{padding-top:0px !important;}
+
 .v-padding-0{padding-top:0px !important; padding-bottom:0px !important;}
 .v-padding-8{padding-top:8px !important; padding-bottom:8px !important;}
 .v-padding-16{padding-top:16px !important; padding-bottom:16px !important;}
@@ -110,6 +115,9 @@
   .justify-between-wide-screen{justify-content: initial;}
   .grow-0-1{flex-grow:1;}
   .align-center-0{align-items:initial;}
+
+
+  .top-padding-0-16{padding-top:16px !important;}
 }
 
 .simple-container{display:flex;}

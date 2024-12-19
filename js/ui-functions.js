@@ -1,8 +1,16 @@
 let nav = document.querySelector('nav');
-function toggleSection(objetiveSectionId) {
+function toggleSection(objetiveSectionId, specialScrollTarget = false) {
   activeSection = document.querySelector('section[active]');
   activeNavButton = nav.querySelector('nav button[active]');
   if (activeSection.id === objetiveSectionId) {
+    if(specialScrollTarget){
+      document.querySelector(specialScrollTarget).scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
     activeSection.scrollTo({
       top: 0,
       behavior: 'smooth'

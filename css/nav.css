@@ -357,9 +357,12 @@ nav button.nav-button md-ripple{
     font-family: 'inter', sans-serif;
     color:var(--md-sys-color-outline);
   }
-  nav.nav-style-5 button.nav-button span.icon-holder{
-    
+  nav.nav-style-5 button.nav-button:not([active]):hover{
+    color:var(--md-sys-color-on-background)
   }
+  /* nav.nav-style-5 button.nav-button span.icon-holder{
+    
+  } */
   nav.nav-style-5 button.nav-button span.icon-holder{
     width:auto;
     height:auto;

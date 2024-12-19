@@ -1,7 +1,7 @@
-<section id="section-index" class="padding-8" active>
+<section id="section-index" class="top-padding-0-16" active>
 
-  <div class="simple-container direction-column gap-8 grow-1 border-radius-24 overflow-auto scrollbar-hidden">
-    <div class="content-box justify-center align-center height-100 gap-16" style="padding:48px">
+  <div class="simple-container direction-column gap-8 grow-1 border-radius-24 overflow-auto scrollbar-hidden" id="index-scroll-target">
+    <div class="content-box light-color justify-center align-center height-100 gap-16" style="padding:48px">
       <!-- <h1 class="display-large dm-sans" style="font-size:10vw; color:var(--md-sys-color-on-surface-variant); font-weight:600; line-height:0.95">Cocounut</h1> -->
 
       <div class="simple-container">
@@ -34,7 +34,7 @@
 
         .index-letter:hover{
           font-weight:1000;
-          transform:scale(1.1);
+          transform:scale(1.2);
           /* color:var(--md-sys-color-primary-container); */
           /* text-shadow: 0px 0px 128px var(--md-sys-color-primary-container); */
           margin:0 4px;
@@ -85,7 +85,7 @@
 
       <div 
         onclick="togglePrettyWindow('#window-info-projects', ['data-icon', 'data-title'])"
-        class="content-box width-auto grow-1 basis-normal direction-column justify-center padding-32 cursor-pointer hover-outline"
+        class="content-box light-color width-auto grow-1 basis-normal direction-column justify-center padding-32 cursor-pointer hover-outline"
         >
         <md-icon class="pretty-minimal filled" data-icon>apps</md-icon>
         <span class="display-large dm-sans" data-title>Nuestros proyectos</span>

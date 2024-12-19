@@ -1,7 +1,7 @@
-@import url(nav.css?v=7.0.0); /* Brings the Nav Bar styles */ 
+@import url(nav.css?v=1.7.0); /* Brings the Nav Bar styles */ 
 @import url(ui-structure.css?v=7.0.0); /* Brings the main styles for the structure, important */ 
 @import url(ui-elements/content-box.css?v=7); /* Its a basic container with many uses */ 
-@import url(ui-elements/default-rules.css?v=7); /* Brings classes with propetys that all elements could use */ 
+@import url(ui-elements/default-rules.css?v=1.7.0); /* Brings classes with propetys that all elements could use */ 
 @import url(ui-elements/message.css?v=7); /* Brings the styles for the message box */
 @import url(ui-elements/windows.css?v=98); /* Brings the styles for the message box */
 @import url(ui-elements/tables.css?v=7); /* Brings the styles for the tables */
@@ -16,7 +16,7 @@
 @import url(ui-elements/button.css?v=7);
 @import url(ui-elements/task.css?v=7);
 @import url(ui-elements/search.css);
-@import url(ui-elements/view-transitions.css?v=12);
+@import url(ui-elements/view-transitions.css?v=1.7.0);
 
 
 :root {

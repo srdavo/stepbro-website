@@ -83,10 +83,12 @@ function toggleBeautifulWindow(windowSelector = false, cloneChanges = false){
 }
 async function togglePrettyWindow(windowSelector = false, sharedElements = false){
     const instanceRandomNumber = generateRandomNumberForVT();
-    const viewTransitionClass = "vt-shared-element-animation";
-    const viewTransitionClassChildes = "vt-shared-element-animation-childes"; 
+    
 
     if(!windowSelector){
+
+        viewTransitionClass = "vt-shared-element-animation";
+        viewTransitionClassChildes = "vt-shared-element-animation-childes-close"; 
 
         if (!document.startViewTransition) {
             toggleWindow();
@@ -164,6 +166,9 @@ async function togglePrettyWindow(windowSelector = false, sharedElements = false
 
         return;
     }
+
+    viewTransitionClass = "vt-shared-element-animation";
+    viewTransitionClassChildes = "vt-shared-element-animation-childes-open"; 
 
     if (!document.startViewTransition) {
         toggleWindow(windowSelector);
@@ -250,6 +255,7 @@ async function togglePrettyWSection(sectionSelector = false, sharedElements = []
     const viewTransitionClassChildes = "vt-shared-element-animation-childes"; 
     const currentActiveWindow = document.querySelector("window.active") || false;
     
+    let desiredSection;
     if (typeof sectionSelector === 'string') {
         desiredSection = currentActiveWindow.querySelector(sectionSelector);
     }else{
@@ -259,6 +265,7 @@ async function togglePrettyWSection(sectionSelector = false, sharedElements = []
     const activeSection = currentActiveWindow.querySelector(".w-section[active]") || false;
     if(activeSection == desiredSection){return false;}
 
+    
   
 
     activeSection.style.viewTransitionName = `vt-shared-${instanceRandomNumber}`;
@@ -280,13 +287,25 @@ async function togglePrettyWSection(sectionSelector = false, sharedElements = []
                 console.error(`Element [${element}] does not exists in the desired window`);
                 return;
             }
-
+            
             desiredElementShared.style.viewTransitionName = `vt-shared-${element}`;
             desiredElementShared.style.viewTransitionClass = viewTransitionClassChildes;
             originElementShared.style.viewTransitionName = `vt-shared-${element}`;
             originElementShared.style.viewTransitionClass = viewTransitionClassChildes;
         })
     }
+
+    const restChildes = Array.from(desiredSection.children).filter(element => {
+        return !element.style.viewTransitionName && !element.style.viewTransitionClass;
+    });
+    if(restChildes.length > 0){
+        restChildes.forEach((element) => {
+            element.style.viewTransitionName = `vt-shared-${generateRandomNumberForVT()}`;
+            element.style.viewTransitionClass = `vt-general-elements`;
+        });
+    }
+    
+   
 
     if(!document.startViewTransition){
         updateDom(activeSection, desiredSection);
@@ -337,6 +356,14 @@ async function togglePrettyWSection(sectionSelector = false, sharedElements = []
             desiredElementShared.style.viewTransitionClass = '';                
         })
     }
+
+    if(restChildes.length > 0){
+        restChildes.forEach((element) => {
+            element.style.viewTransitionName = ``;
+            element.style.viewTransitionClass = ``;
+        });
+    }
+    
 
 
 

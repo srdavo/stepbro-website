@@ -118,8 +118,7 @@
                         <div 
                             class="ball" 
                             data-theme="black"
-                            onclick="changeTheme(this)"
-                            active 
+                            onclick="changeTheme(this)" 
                             >
                             <span style="background:#000000;"></span>
                             <span style="background:#122644;"></span>
@@ -190,6 +189,7 @@
                             class="ball" 
                             data-theme="oled"
                             onclick="changeTheme(this)"
+                            active
                             >
                             <span style="background:#000000;"></span>
                             <span style="background:#0f0f0f;"></span>

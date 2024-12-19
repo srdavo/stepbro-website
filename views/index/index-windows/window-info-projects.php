@@ -15,18 +15,17 @@
     <holder class="on-background-text overflow-hidden">
 
         <div class="simple-container direction-column grow-1 align-center on-background-text gap-16 overflow-hidden">
-            <div class="simple-container direction-column width-100 max-width-1200 overflow-hidden gap-16 overflow-hidden">
+            <div class="simple-container direction-column width-100 max-width-1200 grow-1 overflow-hidden gap-16 overflow-hidden">
                 
-                <div class="w-section overflow-auto direction-column simple-container gap-8" id="w-section-info-projects-1" active>
+                <div class="w-section overflow-auto simple-container grow-1 flex-wrap" id="w-section-info-projects-1" active>
 
-                    <div class="simple-container gap-16 align-center bottom-margin-32">
-                        <md-icon class="pretty-minimal-medium filled" data-icon data-w_section_previus_icon>apps</md-icon>
-                        <span class="display-large dm-sans" data-title data-w_section_previus_title>Nuestros proyectos</span>
+                    <div class="simple-container grow-1 basis-normal  direction-column justify-center">
+                        <md-icon class="pretty-minimal filled" data-icon data-w_section_previus_icon>apps</md-icon>
+                        <span class="display-large dm-sans" data-title >Nuestros proyectos</span>
                     </div>
-                    
-                    <div class="simple-container gap-16 grow-1 flex-wrap">
+                    <div class="simple-container grow-1 overflow-auto max-height-100 basis-normal direction-column justify-center gap-16">
 
-                        <div class="content-box light-color padding-32 basis-normal grow-1 user-select-none hover-outline" data-w_section_container>
+                        <div class="content-box light-color padding-32 basis-normal user-select-none hover-outline" data-w_section_container>
                             <div class="simple-container direction-column justify-center gap-16 grow-1">
                                 <span class="label-large primary-text">stepbro notes</span>
 
@@ -40,10 +39,10 @@
                                 <span class="headline-small line-height-1 text-wrap-pretty outline-text">Una app de notas con sistema de carpetas, lista de tareas y diario encriptado.</span>
                                 <div class="simple-container grow-1"></div>
                                 <div class="simple-container flex-wrap gap-8">
-                                    <md-filled-button href="apps/notes/home"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
+                                    <md-filled-button data-w_section_shared_button href="apps/notes/home"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
                                     <md-filled-tonal-button
-                                        class="solid" 
-                                        onclick="togglePrettyWSection('#w-section-info-projects-2',['data-w_section_container'])">
+                                        class="solid"
+                                        onclick="togglePrettyWSection('#w-section-info-projects-2',['data-w_section_container', 'data-w_section_shared_button'])">
                                         <md-icon slot="icon">visibility</md-icon>
                                         Más información
                                     </md-filled-tonal-button>
@@ -51,8 +50,9 @@
                                 </div>
                             </div>
                         </div>
+                        
 
-                        <div class="content-box padding-32 light-color basis-normal grow-1 user-select-none hover-outline">
+                        <div class="content-box padding-32 light-color basis-normal user-select-none hover-outline">
                             <div class="simple-container direction-column justify-center gap-16 grow-1">
                                 <span class="label-large primary-text">stepbro fitness / MuscleMaster </span>
 
@@ -88,7 +88,7 @@
 
                 <div class="w-section overflow-auto simple-container direction-column gap-8" id="w-section-info-projects-2">
                     <div class="simple-container align-center gap-16 bottom-margin-8 flex-wrap">
-                        <md-icon-button onclick="togglePrettyWSection('#w-section-info-projects-1',['data-w_section_container'])"><md-icon>arrow_back</md-icon></md-icon-button>
+                        <md-icon-button onclick="togglePrettyWSection('#w-section-info-projects-1',['data-w_section_container', 'data-w_section_shared_button'])"><md-icon>arrow_back</md-icon></md-icon-button>
                         <div class="simple-container align-center gap-8">
                             <md-icon class="filled" data-w_section_previus_icon>apps</md-icon>
                             <span class="headline-small dm-sans" data-w_section_previus_title>Nuestros proyectos > </span>
@@ -121,10 +121,10 @@
                             </div>
                             <span class="display-medium dm-sans weight-500 line-height-0-85" data-w_section_title>stepbro Notes</span>
                             <div class="simple-container grow-1"></div>
-                            <md-filled-button href="apps/notes/home" class="hide-on-mobile"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
+                            <md-filled-button href="apps/notes/home" class="hide-on-mobile" data-w_section_shared_button><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
 
                         </div>
-                        <span class="headline-small line-height-1-5 text-wrap-pretty outline-text">Stepbro Notes es una aplicación multiplataforma diseñada para llevar tu organización al siguiente nivel. Ofrece un completo <span class="primary-text">sistema de carpetas</span> para ordenar tus notas de forma clara y eficiente, un práctico <span class="primary-text">to-do list</span> para gestionar tus tareas con estados personalizados, y un <span class="primary-text">diario encriptado</span> con contraseña para mantener tus pensamientos privados y protegidos. Todo con un <span class="primary-text">diseño fluido, estético y pensado para facilitar tu día a día</span>.</span>
+                        <span class="body-large line-height-1-5 text-wrap-pretty outline-text">Stepbro Notes es una aplicación multiplataforma diseñada para llevar tu organización al siguiente nivel. Ofrece un completo <span class="primary-text">sistema de carpetas</span> para ordenar tus notas de forma clara y eficiente, un práctico <span class="primary-text">to-do list</span> para gestionar tus tareas con estados personalizados, y un <span class="primary-text">diario encriptado</span> con contraseña para mantener tus pensamientos privados y protegidos. Todo con un <span class="primary-text">diseño fluido, estético y pensado para facilitar tu día a día</span>.</span>
                         <md-filled-button href="apps/notes/home" class="only-on-mobile top-margin-24"><md-icon slot="icon">open_in_new</md-icon>Abrir app</md-filled-button>
                     </div>
 

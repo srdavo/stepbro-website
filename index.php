@@ -6,10 +6,10 @@ include_once 'views/partials/__header.php';
   <?php include_once "views/index/index-windows.php"; ?>
 </transparent>
 <main class="direction-column">
-  <nav class="nav-style-4">
+  <nav class="nav-style-5 justify-center margin-0">
     <?php include_once 'views/index/index-__navbar_items.php'; ?>
   </nav>
-  <holder>
+  <holder class="top-margin-0">
     <?php include_once 'views/index/index-sections.php'; ?>  
   </holder>
 </main>
