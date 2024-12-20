@@ -536,6 +536,9 @@ function getTime(){
 }
 
 function toggleWSection(wSectionId, originButton){
+  if (wSectionId.charAt(0) === '#') {
+    wSectionId = wSectionId.substring(1);
+  }
   if(originButton === undefined){
     holder = document.getElementById(wSectionId).closest("HOLDER");
   }else{
@@ -622,3 +625,9 @@ function toggleOvermessage(overId){
   overmessage.classList.add("active");
 
 }
+
+
+
+// function lazyLoad(){
+
+// }

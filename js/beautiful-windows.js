@@ -248,11 +248,22 @@ function generateRandomNumberForVT(){
 
 
 
-async function togglePrettyWSection(sectionSelector = false, sharedElements = []){
+async function togglePrettyWSection(sectionSelector = false, sharedElements = [], animationDirection = false){
     if(!sectionSelector){return false;}
     const instanceRandomNumber = generateRandomNumberForVT();
-    const viewTransitionClass = "vt-shared-element-animation";
-    const viewTransitionClassChildes = "vt-shared-element-animation-childes"; 
+    var viewTransitionClass = "vt-shared-element-animation";
+    var viewTransitionClassChildes = "vt-shared-element-animation-childes"; 
+    if(animationDirection){
+        if(animationDirection == "forward"){
+            viewTransitionClass = "vt-shared-element-animation";
+            viewTransitionClassChildes = "vt-shared-element-animation-childes-open";
+        }
+        if(animationDirection == "backward"){
+            viewTransitionClass = "vt-shared-element-animation";
+            viewTransitionClassChildes = "vt-shared-element-animation-childes-close";
+        }
+    }
+
     const currentActiveWindow = document.querySelector("window.active") || false;
     
     let desiredSection;
@@ -300,6 +311,7 @@ async function togglePrettyWSection(sectionSelector = false, sharedElements = []
     });
     if(restChildes.length > 0){
         restChildes.forEach((element) => {
+            console.log(element);
             element.style.viewTransitionName = `vt-shared-${generateRandomNumberForVT()}`;
             element.style.viewTransitionClass = `vt-general-elements`;
         });

@@ -19,7 +19,7 @@
       >
       <md-ripple></md-ripple>
       <span class="icon-holder" >
-        <span class="material-symbols-rounded">mail</span>
+        <span class="material-symbols-rounded only-on-mobile">mail</span>
       </span>
       <span>Contactanos</span>
     </button>
