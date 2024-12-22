@@ -301,7 +301,7 @@ function setNoteEditorContent(note){
     const container = document.getElementById("folders-note-parent");
     container.innerHTML = "";
     const noteEditor = document.getElementById("template-note-editor").content.cloneNode(true);  
-    noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content;   
+    noteEditor.querySelector("form > .editor").innerHTML = note.data[0].content; 
     container.appendChild(noteEditor);
 
     // Start the Rich text editor, format buttons, etc
@@ -821,7 +821,7 @@ async function setEncryptButtonAction(button = false, noteStatus, noteId){
         
     }else{
         button.onclick = function(){ 
-            console.log("El usuario aún no tiene pin"); 
+            message("Configura tu pin del Diario para utilizar esta función", "");
             // openSetEncryptPinWindow(); 
         }
     }
@@ -968,7 +968,7 @@ function updateNoteFrontEnd(noteId, status){
 }
 
 function openEncryptedNote(noteId){
-    toggleWindow("#window-validate-note-pin", "absolute", 1);
+    toggleWindow("#window-validate-note-pin", "absolute");
     document.getElementById("validate-open-encrypt-note-pin-input").focus();
     document.getElementById("validate-open-encrypt-note-pin-form").onsubmit = function(event){ 
         validateEncryptNotePin(event, noteId, "open") 

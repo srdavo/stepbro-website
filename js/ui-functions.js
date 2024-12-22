@@ -1,24 +1,45 @@
 let nav = document.querySelector('nav');
-function toggleSection(objetiveSectionId) {
+function toggleSection(objetiveSectionId, specialScrollTarget = false) {
   activeSection = document.querySelector('section[active]');
   activeNavButton = nav.querySelector('nav button[active]');
   if (activeSection.id === objetiveSectionId) {
+    if(specialScrollTarget){
+      document.querySelector(specialScrollTarget).scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+      return;
+    }
+
     activeSection.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
     return;
   }
-  if(activeSection) {activeSection.removeAttribute('active'); activeSection.classList.remove("section-open");}
-  if(activeNavButton) {activeNavButton.removeAttribute('active');}
-  if(document.getElementById(objetiveSectionId)) {
-    document.getElementById(objetiveSectionId).setAttribute('active', '');
-    nav.querySelector(`button[data-section="${objetiveSectionId}"]`).setAttribute('active', '');
-    document.getElementById(objetiveSectionId).classList.add("section-open");
 
-    if((window.location.pathname).split("/").pop() === "home"){
-      localStorage.setItem("currentSection", objetiveSectionId);
+  // if (!document.startViewTransition) {
+  //   updateDom(objetiveSectionId);
+  //   return;
+  // }
 
+  // const transition = document.startViewTransition(() => {
+    // updateDom(objetiveSectionId)
+  // });
+  // transition.finished
+  updateDom(objetiveSectionId);
+  function updateDom( objetiveSectionId ) {
+    if(activeSection) {activeSection.removeAttribute('active'); activeSection.classList.remove("section-open");}
+    if(activeNavButton) {activeNavButton.removeAttribute('active');}
+    if(document.getElementById(objetiveSectionId)) {
+      document.getElementById(objetiveSectionId).setAttribute('active', '');
+      nav.querySelector(`button[data-section="${objetiveSectionId}"]`).setAttribute('active', '');
+      document.getElementById(objetiveSectionId).classList.add("section-open");
+
+      if((window.location.pathname).split("/").pop() === "home"){
+        localStorage.setItem("currentSection", objetiveSectionId);
+
+      }
     }
   }
 }
@@ -200,6 +221,12 @@ function toggleWindow(windowId, position, scale, appearStyle = false){
   const windowNew = document.querySelector(windowId);
   if(windowNew){
     transparent = windowNew.closest('transparent');
+  }else{
+    transparent = document.querySelector("window.active").closest('transparent');
+  }
+
+  if (transparent.hasAttribute('data-beautiful_transparent')) {
+    transparent.removeAttribute('data-beautiful_transparent');
   }
 
   // Close any other open window
@@ -509,6 +536,9 @@ function getTime(){
 }
 
 function toggleWSection(wSectionId, originButton){
+  if (wSectionId.charAt(0) === '#') {
+    wSectionId = wSectionId.substring(1);
+  }
   if(originButton === undefined){
     holder = document.getElementById(wSectionId).closest("HOLDER");
   }else{
@@ -595,3 +625,9 @@ function toggleOvermessage(overId){
   overmessage.classList.add("active");
 
 }
+
+
+
+// function lazyLoad(){
+
+// }

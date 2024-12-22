@@ -1,7 +1,7 @@
 <section id="section-index" active class="landing-page">
 
   <!-- title row 1  -->
-  <div class="simple-container direction-column gap-24 align-center justify-center main-title-parent top-margin-32" style="height:300px">
+  <div class="simple-container direction-column gap-24 align-center justify-center main-title-parent" style="height:300px">
     <!-- <span class="display-large bricolage weight-600 text-center">
       stepbro Notes
     </span> -->
@@ -138,7 +138,10 @@
   </div>
 
   <div class="simple-container grow-1 top-margin-64 light-color align-center">
-      <!-- <md-text-button href="<?= BASE_URL ?>">Ir a página principal de stepbro</md-text-button> -->
+    <div class="content-box light-color align-center">
+      <md-text-button href="<?= BASE_URL ?>">Ir a página principal de stepbro</md-text-button>
+
+    </div>
   </div>
 
     

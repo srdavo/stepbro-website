@@ -7,7 +7,7 @@
         <md-icon-button onclick="toggleWindow()">
             <md-icon>close</md-icon>
         </md-icon-button>
-        <span class="simple-container align-center headline-small window-title">Información</span>
+        <span class="simple-container align-center headline-small window-title on-background-text">Información</span>
     </div>
     <holder class="on-background-text">
         <div class="content-box direction-row light-color h-gap-24 padding-16 border-radius-16 justify-between">

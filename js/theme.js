@@ -17,7 +17,7 @@ function resetTheme(){
 }
 
 function loadTheme(){
-    newTheme = localStorage.getItem('sb-selected-theme') || "black";
+    newTheme = localStorage.getItem('sb-selected-theme') || "oled";
     document.getElementById('theme-style').setAttribute('href', `${BASE_URL}css/theme/colors/${newTheme}.css`);
 
     document.addEventListener("DOMContentLoaded", function(event) {

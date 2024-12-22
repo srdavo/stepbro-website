@@ -112,7 +112,7 @@
 </button>
 
 <button 
-  class="nav-button hide-on-mobile"  
+  class="nav-button hide-on-mobile nav-action-button"  
   data-section="section-diary"
   onclick="quickCreateNote(this)"
   data-flip-id="animate"
@@ -124,7 +124,7 @@
   <span>Crear nota</span>
 </button>
 <button 
-  class="nav-button hide-on-mobile"  
+  class="nav-button hide-on-mobile nav-action-button"  
   data-section="section-diary"
   onclick="quickCreateFolder()"
   data-flip-id="animate"
@@ -136,7 +136,7 @@
   <span>Crear carpeta</span>
 </button>
 <button 
-  class="nav-button hide-on-mobile"  
+  class="nav-button hide-on-mobile nav-action-button"  
   data-section="section-diary"
   onclick="quickCreateTask()"
   data-flip-id="animate"
@@ -148,7 +148,7 @@
   <span>Crear tarea</span>
 </button>
 <button 
-  class="nav-button hide-on-mobile"  
+  class="nav-button hide-on-mobile nav-action-button"  
   data-section="section-diary"
   onclick="openTrashWindow()"
   data-flip-id="animate"
@@ -165,7 +165,7 @@
 
 <div class="simple-container hide-on-mobile grow-1"></div>
 <button 
-  class="nav-button hide-on-mobile"  
+  class="nav-button hide-on-mobile nav-action-button"  
   data-section="section-diary"
   onclick="toggleWindow('#window-send-suggestion')"
   data-flip-id="animate"

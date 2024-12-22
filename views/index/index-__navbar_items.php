@@ -1,17 +1,30 @@
-<button 
-  class="nav-button" active 
-  data-section="section-index" 
-  onclick="toggleSection('section-index')"
-  >
-  <md-ripple></md-ripple>
-  <span class="icon-holder" >
-    <span class="material-symbols-rounded">home</span>
-  </span>
-  <span>Inicio</span>
-</button>
+<div class="simple-container grow-1 justify-between-wide-screen h-padding-16 max-width-1200">
+  <div class="simple-container grow-0-1">
+    <button 
+      class="nav-button stepbro" active 
+      data-section="section-index" 
+      onclick="toggleSection('section-index', '#index-scroll-target')"
+      >
+      <md-ripple></md-ripple>
+      <span class="icon-holder" >
+        <span class="material-symbols-rounded only-on-mobile">home</span>
+      </span>
+      <span>stepbro</span>
+    </button>
+  </div>
+  <div class="simple-container grow-0-1">
+    <button 
+      class="nav-button" 
+      onclick="window.location.href='mailto:luisdavid.gris@gmail.com'; return false;"
+      >
+      <md-ripple></md-ripple>
+      <span class="icon-holder" >
+        <span class="material-symbols-rounded only-on-mobile">mail</span>
+      </span>
+      <span>Contactanos</span>
+    </button>
 
-<div class="simple-container grow-1"></div>
-<?php
+    <?php
       if(isset($_SESSION['id'])){
         echo "
           <button 
@@ -43,6 +56,11 @@
         ";
       }
     ?>
+  </div>
+</div>
+
+
+
 
 
 

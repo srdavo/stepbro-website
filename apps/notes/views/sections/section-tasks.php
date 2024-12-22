@@ -5,7 +5,7 @@
       <span class="body-large outline-text">Arrastra las tareas a su columna deseada</span>
     </div>
     <div class="simple-container flex-wrap gap-8">
-      <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-tasks-tutorial')"><md-icon>info</md-icon></md-icon-button>
+      <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-tasks-tutorial')"><md-icon>help</md-icon></md-icon-button>
 
       <div class="simple-container align-center gap-8 flex-wrap ">
         <span class="label-large outline-text">Filtrar mes:</span>
@@ -25,7 +25,7 @@
       <span class="headline-medium bricolage weight-600 on-background-text">Tareas</span>
     </div>
     <div class="simple-container gap-8">
-      <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-tasks-tutorial')"><md-icon>info</md-icon></md-icon-button>
+      <md-icon-button data-flip-id="animate" onclick="toggleWindow('#window-tasks-tutorial')"><md-icon>help</md-icon></md-icon-button>
       <md-filled-button onclick="toggleCreateTaskWindow()" data-flip-id="animate">
         <md-icon slot="icon">add</md-icon>
         <span>Crear tarea</span>

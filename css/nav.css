@@ -269,7 +269,7 @@ nav button.nav-button md-ripple{
   }
 
   nav.nav-style-3 button.nav-button:hover span:last-child{ display:flex; }
-
+  nav.nav-style-3 button.nav-button.nav-action-button{display: none;}
 
   nav.nav-style-4 > button.nav-button.hide-on-mobile{display:none;}
   nav.nav-style-4{
@@ -297,6 +297,7 @@ nav button.nav-button md-ripple{
     width:fit-content;
     padding:12px 24px;
 
+    font-family: "inter", sans-serif; 
     font-size:16px;
     border-radius:64px;
   }
@@ -336,7 +337,7 @@ nav button.nav-button md-ripple{
 
     margin:0 6px;
     margin-top:6px;
-    margin-bottom:-32px;
+    /* margin-bottom:-32px; */
     
     background: var(--md-sys-color-background);
     box-sizing: border-box;
@@ -356,9 +357,12 @@ nav button.nav-button md-ripple{
     font-family: 'inter', sans-serif;
     color:var(--md-sys-color-outline);
   }
-  nav.nav-style-5 button.nav-button span.icon-holder{
-    
+  nav.nav-style-5 button.nav-button:not([active]):hover{
+    color:var(--md-sys-color-on-background)
   }
+  /* nav.nav-style-5 button.nav-button span.icon-holder{
+    
+  } */
   nav.nav-style-5 button.nav-button span.icon-holder{
     width:auto;
     height:auto;
