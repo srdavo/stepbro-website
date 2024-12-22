@@ -1,5 +1,8 @@
 <?php 
+// include_once 'prueba.php';
 include_once 'views/partials/__header.php'; 
+
+ // echo $_ENV["prueba"];
 ?>
 
 <transparent>
