@@ -221,6 +221,17 @@
                 <md-icon-button type="button" onclick="closeNoteEditor(this)" data-button-close-editor><md-icon>close</md-icon></md-icon-button>
             </div>
             <div class="simple-container gap-8">
+
+            <md-icon-button 
+                type="button" 
+                title="Generate PDF"
+                onclick="createPdf()"
+                data-tooltip="PDF"
+            >
+                <md-icon>insert_drive_file</md-icon>
+            </md-icon-button>
+
+
                 <md-icon-button
                     type="button"
                     data-flip-id="animate"

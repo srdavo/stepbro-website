@@ -974,3 +974,33 @@ function openEncryptedNote(noteId){
         validateEncryptNotePin(event, noteId, "open") 
     };
 }
+
+
+async function createPdf(){
+    const content = document.getElementById("templated-note-editor").innerHTML
+        const data = {
+            content
+        }
+        console.log(data)
+        const url = `helpers/GeneratePdfs.php`
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(data),
+            });
+        if (response.ok) {
+            const blob = await response.blob();  
+            const url = URL.createObjectURL(blob);  
+            const link = document.createElement('a');  
+            link.href = url;
+            link.download = 'Nota_de_StepbroNotes.pdf';  
+            link.click();  
+            URL.revokeObjectURL(url); 
+        } else {
+            console.log('Error en la generación del PDF');
+        }
+            
+    } catch (error){
+        console.log(error);
+    }
+}
