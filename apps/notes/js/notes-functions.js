@@ -784,6 +784,7 @@ function resetQuickNoteEditor(){
 
 
 
+
 function scrollQuickNotesToView(){
     document.getElementById("home-quick-notes-container").scrollIntoView({behavior: "smooth"});
 }
