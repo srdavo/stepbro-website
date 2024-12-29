@@ -53,7 +53,28 @@
   </span>
   <span>Inicio</span>
 </button>
-
+<button 
+  class="nav-button" 
+  data-section="section-patients" 
+  onclick="toggleSection('section-patients')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">groups</span>
+  </span>
+  <span>Pacientes</span>
+</button>
+<button 
+  class="nav-button" 
+  data-section="section-appointments" 
+  onclick="toggleSection('section-appointments')"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">schedule</span>
+  </span>
+  <span>Citas</span>
+</button>
 
 
 <button 
@@ -65,16 +86,14 @@
 
 <button 
   class="nav-button hide-on-mobile nav-action-button"  
-  data-section="section-diary"
-  onclick="openTrashWindow()"
+  onclick="ApptsManager.openCreateApptWindow()"
   data-flip-id="animate"
-  disabled="true"
   >
   <md-ripple></md-ripple>
   <span class="icon-holder" >
-    <span class="material-symbols-rounded">inbox</span>
+    <span class="material-symbols-rounded">add</span>
   </span>
-  <span>Ejemplo</span>
+  <span>Agendar cita</span>
 </button>
 
 

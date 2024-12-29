@@ -26,10 +26,23 @@ include_once '../../config/utilities.php';
 </main>
 
 <script>
-//   document.addEventListener("DOMContentLoaded", function(event) {
+  document.addEventListener("DOMContentLoaded", function(event) {
+    // let patientsList = PatientsManager.getPatients();
+    // console.log(patientsList);
 
-//   });
+    // PatientsManager.displayPatientsTable(0, false, PatientsManager.patientsList)
+
+    
+  });
 </script>
+
+<script src="js/main.js?v=1.0.2" type="module"></script>
+
+
+<!-- <script src="js/patients-functions.js?v=1.0.3"></script> -->
+<script src="js/permissions-functions.js?v=1.0.0"></script>
+<!-- <script src="js/appointments-functions.js?v=1.0.1"></script> -->
+
 
 
 <?php 

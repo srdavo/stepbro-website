@@ -7,5 +7,5 @@
     <span class="icon-holder only-on-mobile">
     <span class="material-symbols-rounded">home</span>
     </span>
-    cocounut
+    Super-beautiful
 </button>

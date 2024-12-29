@@ -11,9 +11,13 @@
         <form 
             onsubmit="PatientsManager.createPatient(event)" 
             class="simple-container gap-16 direction-column"
-            id="form-create_patient"
+            id="form-create-patient"
             >
-            <md-outlined-text-field label="Nombre" id="create-patient_name"></md-outlined-text-field>
+            <md-outlined-text-field 
+                label="Nombre" 
+                id="create-patient_name"
+                name="patient-name"
+            ></md-outlined-text-field>
             <div class="simple-container justify-right">
                 <md-filled-button type="submit">Registrar</md-filled-button>
             </div>
