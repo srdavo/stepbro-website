@@ -1,6 +1,55 @@
 
 (function(){
     let adminPanel = document.querySelector("#window-admin-panel");
+    let emailUsers = [];
+    document.addEventListener('DOMContentLoaded', () => {
+        // Se le asigna las funciones de las funciones Email a los botones
+        const btnSendEmail = document.getElementById('sendEmail')
+        btnSendEmail.onclick = () => {
+            if(!checkEmpty("#admin-panel-form-send-user-email", "input")){return;}
+
+            if(verifyContentEmail() && emailUsers.length) {
+                const EmailContent = getEmailContent();
+                sendEmail(EmailContent.header, EmailContent.content, emailUsers);
+            }else {
+                message("rellena todos los campos")
+            }
+            
+
+        }
+
+        const btnSendEmailAllUsers = document.getElementById('sendEmailAllUsers')
+        btnSendEmailAllUsers.ondblclick = () => {
+            if(verifyContentEmail()) {
+                const EmailContent = getEmailContent();
+                sendEmailAllUsers(EmailContent.header, EmailContent.content);
+            }else {
+                // console.log('Completa los campos')
+            }
+        }
+
+
+        document.getElementById('email-options').addEventListener('change', (e) => {
+            // Selección de los elementos que se mostrarán
+            const option1 = document.getElementById('emailOption1');
+            const option2 = document.getElementById('emailOption2');
+            const emailLabel = document.getElementById('Email-label');
+            // Ocultar todos los divs
+            option1.classList.add('hidden');
+            option2.classList.add('hidden');
+    
+            // Mostrar el div correspondiente a la selección
+            if (e.target.value == "1") {
+                option1.classList.remove('hidden');
+                emailLabel.textContent = "Enviar a usarios"
+            } else if (e.target.value == "2") {
+                option2.classList.remove('hidden');
+                emailLabel.textContent = "-- Enviar a TODOS LOS USUARIOS -- "
+
+            }
+        });
+
+    });
 
     async function syncAdminPanel(){
         // users
@@ -311,6 +360,148 @@
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     }
 
+        
+
+        document.getElementById('admin-panel-email-user-search').addEventListener('input', async (event) => {
+            const term = event.target.value;
+            const data = {
+                op: "get_usersLike",
+                term
+            }
+            const url = `${BASE_URL}controllers/admin.controller.php`;
+            if (term.length >= 3) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json'}
+                    });
+                    const result = await response.json();
+                    const users = result.data
+                    
+                    // Mostrar resultados en la página
+                    const results = document.getElementById('admin-panel-email-user-search-result');
+                    results.innerHTML = ''; // Limpiar resultados anteriores
+                    
+                    users.forEach(user => {
+                        const item = document.createElement('div');
+                        item.className = "content-box padding-16 cursor-pointer border-radius-16 on-background-text hover-outline"
+                        const mdRipple = document.createElement("md-ripple");
+                        
+
+                        if (user.name) {
+                            item.textContent = `${user.name} - ${user.email}`;
+                        } else {
+                            item.textContent = user.email;
+                        }
+
+                        item.appendChild(mdRipple);
+
+                        item.addEventListener('click', () => {
+                            addUsersSelected(user);
+                        });
+                        
+                        results.appendChild(item);
+                    });
+                } catch (error) {
+                    console.error('Error al buscar usuarios:', error);
+                }
+            }
+        });
+
+        function addUsersSelected(user) {
+            const alreadyExistsEmail = emailUsers.some(e => e === user.email);
+            if (alreadyExistsEmail) return;
+
+
+            emailUsers.push(user.email)
+            const selectedUsers = document.getElementById('admin-panel-email-selected-users');
+        
+            // Crear un elemento para el usuario seleccionado
+            const selected = document.createElement('div');
+            selected.className = "content-box padding-16 cursor-pointer border-radius-16 on-background-text hover-outline"
+            const mdRipple = document.createElement("md-ripple");
+
+            selected.textContent = user.name ? `${user.name} - ${user.email}` : user.email;
+            selected.dataset.email = user.email;
+            selected.classList.add('seleccionado'); // Clase para estilo, si es necesario
+        
+            // Añadir evento de doble clic para eliminar
+            selected.addEventListener('dblclick', () => {
+                emailUsers = emailUsers.filter(email => email !== selected.dataset.email);
+                selected.remove();
+                
+            });
+        
+            selectedUsers.appendChild(selected);
+        }
+
+        // Email Functions
+
+        function verifyContentEmail(){
+            // verifica si el header y el mensaje del Email tienen contenido (Devuelve un boolean)
+            const header = document.getElementById('headerEmail');
+            const content = document.getElementById('contentEmail');
+
+            if (header.value.trim() === '' || content.value.trim() === '') return false;
+            return true;
+        }
+
+   
+        async function sendEmail(header,content,users){
+                
+            const data = {
+                op: "sendEmail",
+                header,
+                content,
+                users
+            }
+            const url = `${BASE_URL}controllers/email.controller.php`;
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json'}
+                    });
+                    const result = await response.json();
+                } catch (error) {
+                    console.error('Error al enviar el correo:', error);
+                }
+        }
+
+        async function sendEmailAllUsers(header,content){
+                
+            const data = {
+                op: "sendEmailAllUsers",
+                header,
+                content,
+            }
+            // console.log('Enviando correo');
+            // console.log(data);
+
+            const url = `${BASE_URL}controllers/email.controller.php`;
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json'}
+                    });
+                    const result = await response.json();
+                    // console.log(result);
+                } catch (error) {
+                    console.error('Error al enviar los correos:', error);
+                }
+        }
+
+        function getEmailContent(){
+            const header = document.getElementById('headerEmail').value;
+            const content = document.getElementById('contentEmail').value;
+
+            return {
+                header,
+                content
+            }
+        }
 })();
 
 

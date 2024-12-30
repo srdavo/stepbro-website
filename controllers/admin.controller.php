@@ -66,6 +66,24 @@ switch ($data["op"]){
         }
         echo json_encode($response);
         break;
+
+        case "get_usersLike":
+    
+
+            $result = $admin->getUsersLike($data["term"]);
+            if($result["success"]){
+                $response = [
+                    "success" => true,
+                    "data" => $result["data"]
+                ];
+            }else{
+                $response = [
+                    "success" => false,
+                    "message" => "Error al obtener los usuarios"
+                ];
+            }
+            echo json_encode($response);
+            break;
     case "get_suggestions":
         $page = filter_var($data["page"], FILTER_SANITIZE_NUMBER_INT);
         $limit = 100;
