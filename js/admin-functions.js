@@ -1,6 +1,53 @@
 
 (function(){
     let adminPanel = document.querySelector("#window-admin-panel");
+    let emailUsers = [];
+    document.addEventListener('DOMContentLoaded', () => {
+        // Se le asigna las funciones de las funciones Email a los botones
+        const btnSendEmail = document.getElementById('sendEmail')
+        btnSendEmail.onclick = () => {
+            if(verifyContentEmail() && emailUsers.length) {
+                const EmailContent = getEmailContent();
+                sendEmail(EmailContent.header, EmailContent.content, emailUsers);
+            }else {
+                console.log('Completa los campos')
+            }
+            
+
+        }
+
+        const btnSendEmailAllUsers = document.getElementById('sendEmailAllUsers')
+        btnSendEmailAllUsers.ondblclick = () => {
+            if(verifyContentEmail()) {
+                const EmailContent = getEmailContent();
+                sendEmailAllUsers(EmailContent.header, EmailContent.content);
+            }else {
+                console.log('Completa los campos')
+            }
+        }
+
+
+        document.getElementById('email-options').addEventListener('change', (e) => {
+            // Selección de los elementos que se mostrarán
+            const option1 = document.getElementById('emailOption1');
+            const option2 = document.getElementById('emailOption2');
+            const emailLabel = document.getElementById('Email-label');
+            // Ocultar todos los divs
+            option1.classList.add('hidden');
+            option2.classList.add('hidden');
+    
+            // Mostrar el div correspondiente a la selección
+            if (e.target.value == "1") {
+                option1.classList.remove('hidden');
+                emailLabel.textContent = "Enviar a usarios"
+            } else if (e.target.value == "2") {
+                option2.classList.remove('hidden');
+                emailLabel.textContent = "-- Enviar a TODOS LOS USUARIOS -- "
+
+            }
+        });
+
+    });
 
     async function syncAdminPanel(){
         // users
@@ -311,6 +358,144 @@
         return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     }
 
+        
+
+        document.getElementById('buscar').addEventListener('input', async (event) => {
+            const term = event.target.value;
+            const data = {
+                op: "get_usersLike",
+                term
+            }
+            const url = `${BASE_URL}controllers/admin.controller.php`;
+            if (term.length >= 3) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json'}
+                    });
+                    const result = await response.json();
+                    const users = result.data
+                    console.log(users)
+                    
+                    // Mostrar resultados en la página
+                    const results = document.getElementById('resultados');
+                    results.innerHTML = ''; // Limpiar resultados anteriores
+                    
+                    users.forEach(user => {
+                        const li = document.createElement('li');
+                        if (user.name) {
+                            li.textContent = user.name;
+                        } else {
+                            li.textContent = user.email;
+                        }
+
+                        li.addEventListener('click', () => {
+                            addUsersSelected(user);
+                        });
+                        
+                        results.appendChild(li);
+                    });
+                } catch (error) {
+                    console.error('Error al buscar usuarios:', error);
+                }
+            }
+        });
+
+        function addUsersSelected(user) {
+            const alreadyExistsEmail = emailUsers.some(e => e === user.email);
+            if (alreadyExistsEmail) return;
+
+
+            emailUsers.push(user.email)
+            const seleccionados = document.getElementById('seleccionados');
+        
+            // Crear un elemento para el usuario seleccionado
+            const seleccionado = document.createElement('div');
+            seleccionado.textContent = user.name || user.email;
+            seleccionado.dataset.email = user.email;
+            seleccionado.classList.add('seleccionado'); // Clase para estilo, si es necesario
+        
+            // Añadir evento de doble clic para eliminar
+            seleccionado.addEventListener('dblclick', () => {
+                emailUsers = emailUsers.filter(email => email !== seleccionado.dataset.email);
+                seleccionado.remove();
+                
+            });
+        
+            seleccionados.appendChild(seleccionado);
+        }
+
+        // Email Functions
+
+        function verifyContentEmail(){
+            console.log('Desde verify')
+            // verifica si el header y el mensaje del Email tienen contenido (Devuelve un boolean)
+            const header = document.getElementById('headerEmail');
+            const content = document.getElementById('contentEmail');
+
+            if (header.value.trim() === '' || content.value.trim() === '') return false;
+            return true;
+        }
+
+   
+        async function sendEmail(header,content,users){
+                
+            const data = {
+                op: "sendEmail",
+                header,
+                content,
+                users
+            }
+            console.log('Enviando correo');
+            console.log(data);
+            const url = `${BASE_URL}controllers/email.controller.php`;
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json'}
+                    });
+                    const result = await response.json();
+                    console.log(result);
+                } catch (error) {
+                    console.error('Error al enviar el correo:', error);
+                }
+        }
+
+        async function sendEmailAllUsers(header,content){
+                
+            const data = {
+                op: "sendEmailAllUsers",
+                header,
+                content,
+            }
+            console.log('Enviando correo');
+            console.log(data);
+
+            const url = `${BASE_URL}controllers/email.controller.php`;
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: { 'Content-Type': 'application/json'}
+                    });
+                    const result = await response.json();
+                    console.log(result);
+                } catch (error) {
+                    console.error('Error al enviar los correos:', error);
+                }
+        }
+
+        function getEmailContent(){
+            const header = document.getElementById('headerEmail').value;
+            const content = document.getElementById('contentEmail').value;
+
+            return {
+                header,
+                content
+            }
+        }
 })();
 
 
