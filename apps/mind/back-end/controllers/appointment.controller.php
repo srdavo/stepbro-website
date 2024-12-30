@@ -71,7 +71,9 @@ switch ($data["op"]){
             "user_id" => $userid,
             "owner_id" => $data["owner_id"] ?? null,
             "action_id" => 10,
-            "page" => $data["page"] ?? 0
+            "page" => $data["page"] ?? 0,
+            "filters" => $data["filters"] ?? [],
+            "limit" => Pagination::getPageLimit($data["limit"] ?? null)
         ];
 
         try {
@@ -81,24 +83,27 @@ switch ($data["op"]){
             if (!$permissions) { throw new Exception('Insufficient permissions'); }
             if (!is_null($data_array['owner_id'])) { $data_array['user_id'] = $data['owner_id']; }
 
-            $pagination_values = Pagination::PaginationValues($data_array["page"]);
-            $limit = $pagination_values["limit"];
-            $offset = $pagination_values["offset"];
+            $pagination_values = Pagination::PaginationValues($data_array["page"], $data_array["limit"]);
+            $data_array["limit"] = $pagination_values["limit"];
+            $data_array["offset"] = $pagination_values["offset"];
 
-            $total_rows = Appointment::getTotalTableRows($data_array["user_id"]);
-            if(!$total_rows){ throw new Exception('Failed to get total rows'); }
+            $total_rows = Appointment::getRowsCount($data_array["user_id"], $data_array["filters"]);
+            if($total_rows === false){ throw new Exception('Failed to get total rows'); }
 
-            $result = Appointment::allByUserIdWithPagination($data_array["user_id"], $limit, $offset);
-            if(!$result){ throw new Exception('Failed to save patient'); }
+            $result = Appointment::getAppts($data_array);
+            if($result === false){ throw new Exception('Failed to get data'); }
 
             $db->commit();
             $response = [
                 "success" => true,
                 "data" => $result,
+                "stats" => [
+                    "total_cost" => $total_rows["total_cost"]
+                ],
                 "pagination" => [
-                    "total_rows" => $total_rows,
-                    "limit" => $limit,
-                    "offset" => $offset
+                    "total_rows" => $total_rows["count"],
+                    "limit" => $data_array["limit"],
+                    "offset" => $data_array["offset"]
                 ]
             ];
 

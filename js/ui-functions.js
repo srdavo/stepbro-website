@@ -413,6 +413,24 @@ function dateToPrettyDate(date, showYear) {
   }
   return `${parseInt(day)}/${month}`;
 }
+
+function dateToShort(date) {
+  if (!date) return '';
+  const shortMonths = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  const [year, month, day] = date.split("-");
+  return `${parseInt(day)} ${shortMonths[parseInt(month) - 1]}`;
+}
+
+function timeToAmPm(time) {
+  if (!time) return '';
+  const [hours, minutes] = time.split(':');
+  let hour = parseInt(hours);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12;
+  hour = hour ? hour : 12; // convert 0 to 12
+  return `${hour}:${minutes} ${ampm}`;
+}
+
 function formatTime(time){
   if(time === undefined){return;}
   if(time === "00:00:00"){return "-";}

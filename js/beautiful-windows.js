@@ -88,7 +88,7 @@ async function togglePrettyWindow(windowSelector = false, sharedElements = false
     if(!windowSelector){
 
         viewTransitionClass = "vt-shared-element-animation";
-        viewTransitionClassChildes = "vt-shared-element-animation-childes-close"; 
+        viewTransitionClassChildes = "vt-shared-element-animation-childes-open"; 
 
         if (!document.startViewTransition) {
             toggleWindow();
@@ -168,7 +168,7 @@ async function togglePrettyWindow(windowSelector = false, sharedElements = false
     }
 
     viewTransitionClass = "vt-shared-element-animation";
-    viewTransitionClassChildes = "vt-shared-element-animation-childes-open"; 
+    viewTransitionClassChildes = "vt-shared-element-animation-childes"; 
 
     if (!document.startViewTransition) {
         toggleWindow(windowSelector);

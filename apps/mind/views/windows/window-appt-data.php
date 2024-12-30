@@ -1,7 +1,7 @@
 <window
     id="window-appt-data"
     data-flip-id="animate"
-    class="increased slim h-auto"
+    class="increased semi-slim h-auto"
     >
     <div class="simple-container padding-16 justify-between flex-wrap align-center gap-8">
         <div class="simple-container gap-8 align-center">
@@ -27,12 +27,6 @@
             >
 
             <div class="simple-container gap-16 flex-wrap">                
-                <div class="simple-container direction-column gap-8 grow-1 basis-normal">
-                    <span class="label-normal outline-text left-margin-8">Fecha y hora</span>
-                    <input type="date" name="appt-date">
-                    <input type="time" name="appt-time">
-                </div>
-
                 <div class="simple-container direction-column gap-8 grow-1 basis-normal">
                     <span class="label-normal outline-text left-margin-8">Datos generales</span>
                     <md-filled-text-field 
@@ -61,6 +55,12 @@
                             <div slot="headline">Cita cancelada</div>
                         </md-select-option>
                     </md-filled-select>
+                </div>
+
+                <div class="simple-container direction-column gap-8 grow-1 basis-normal">
+                    <span class="label-normal outline-text left-margin-8">Fecha y hora</span>
+                    <input type="date" name="appt-date">
+                    <input type="time" name="appt-time">
                 </div>
             </div>
             <div class="simple-container justify-between align-center">

@@ -14,7 +14,7 @@ const apptService = (() =>{
             const result = await response.json();
             if (!result.success) { throw new Error(result.message || "Error desconocido en la respuesta");}
         
-            return result.data;
+            return result;
         } catch (error) {
             message(`Hubo un error: ${error.message}`, "error");
             return null;
@@ -40,6 +40,7 @@ const apptService = (() =>{
         }
     }
 
+    window.getAppts = getAppts;
 
     return {
         insertAppt,

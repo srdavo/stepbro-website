@@ -95,6 +95,17 @@
   </span>
   <span>Agendar cita</span>
 </button>
+<button
+  class="nav-button hide-on-mobile nav-action-button"
+  onclick="toggleWindow('#window-create-patient')"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder" >
+    <span class="material-symbols-rounded">person_add</span>
+  </span>
+  <span>Nuevo paciente</span>
+</button>
 
 
 

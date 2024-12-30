@@ -2,7 +2,7 @@
 include_once '../../views/partials/__header.php'; 
 include_once '../../config/utilities.php';
 ?>
-
+<script src="../../components/cocounut-chart.js"></script>
 
 <transparent>
   <?php include_once "views/windows.php"; ?>

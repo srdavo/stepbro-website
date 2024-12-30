@@ -11,7 +11,8 @@ import ApptsManager from './managers/apptsManager.js';
         await PatientsManager.displayPatientsTable();
 
         await ApptsManager.loadAppts();
-        await ApptsManager.displayApptsTable();
+        ApptsManager.displayApptsTable();
+        ApptsManager.populateAppointmentPatientFilter();
 
 
         window.PatientsManager = PatientsManager;
