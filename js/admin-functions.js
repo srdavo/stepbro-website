@@ -6,11 +6,13 @@
         // Se le asigna las funciones de las funciones Email a los botones
         const btnSendEmail = document.getElementById('sendEmail')
         btnSendEmail.onclick = () => {
+            if(!checkEmpty("#admin-panel-form-send-user-email", "input")){return;}
+
             if(verifyContentEmail() && emailUsers.length) {
                 const EmailContent = getEmailContent();
                 sendEmail(EmailContent.header, EmailContent.content, emailUsers);
             }else {
-                console.log('Completa los campos')
+                message("rellena todos los campos")
             }
             
 
@@ -22,7 +24,7 @@
                 const EmailContent = getEmailContent();
                 sendEmailAllUsers(EmailContent.header, EmailContent.content);
             }else {
-                console.log('Completa los campos')
+                // console.log('Completa los campos')
             }
         }
 
@@ -360,7 +362,7 @@
 
         
 
-        document.getElementById('buscar').addEventListener('input', async (event) => {
+        document.getElementById('admin-panel-email-user-search').addEventListener('input', async (event) => {
             const term = event.target.value;
             const data = {
                 op: "get_usersLike",
@@ -376,25 +378,30 @@
                     });
                     const result = await response.json();
                     const users = result.data
-                    console.log(users)
                     
                     // Mostrar resultados en la página
-                    const results = document.getElementById('resultados');
+                    const results = document.getElementById('admin-panel-email-user-search-result');
                     results.innerHTML = ''; // Limpiar resultados anteriores
                     
                     users.forEach(user => {
-                        const li = document.createElement('li');
+                        const item = document.createElement('div');
+                        item.className = "content-box padding-16 cursor-pointer border-radius-16 on-background-text hover-outline"
+                        const mdRipple = document.createElement("md-ripple");
+                        
+
                         if (user.name) {
-                            li.textContent = user.name;
+                            item.textContent = `${user.name} - ${user.email}`;
                         } else {
-                            li.textContent = user.email;
+                            item.textContent = user.email;
                         }
 
-                        li.addEventListener('click', () => {
+                        item.appendChild(mdRipple);
+
+                        item.addEventListener('click', () => {
                             addUsersSelected(user);
                         });
                         
-                        results.appendChild(li);
+                        results.appendChild(item);
                     });
                 } catch (error) {
                     console.error('Error al buscar usuarios:', error);
@@ -408,28 +415,30 @@
 
 
             emailUsers.push(user.email)
-            const seleccionados = document.getElementById('seleccionados');
+            const selectedUsers = document.getElementById('admin-panel-email-selected-users');
         
             // Crear un elemento para el usuario seleccionado
-            const seleccionado = document.createElement('div');
-            seleccionado.textContent = user.name || user.email;
-            seleccionado.dataset.email = user.email;
-            seleccionado.classList.add('seleccionado'); // Clase para estilo, si es necesario
+            const selected = document.createElement('div');
+            selected.className = "content-box padding-16 cursor-pointer border-radius-16 on-background-text hover-outline"
+            const mdRipple = document.createElement("md-ripple");
+
+            selected.textContent = user.name ? `${user.name} - ${user.email}` : user.email;
+            selected.dataset.email = user.email;
+            selected.classList.add('seleccionado'); // Clase para estilo, si es necesario
         
             // Añadir evento de doble clic para eliminar
-            seleccionado.addEventListener('dblclick', () => {
-                emailUsers = emailUsers.filter(email => email !== seleccionado.dataset.email);
-                seleccionado.remove();
+            selected.addEventListener('dblclick', () => {
+                emailUsers = emailUsers.filter(email => email !== selected.dataset.email);
+                selected.remove();
                 
             });
         
-            seleccionados.appendChild(seleccionado);
+            selectedUsers.appendChild(selected);
         }
 
         // Email Functions
 
         function verifyContentEmail(){
-            console.log('Desde verify')
             // verifica si el header y el mensaje del Email tienen contenido (Devuelve un boolean)
             const header = document.getElementById('headerEmail');
             const content = document.getElementById('contentEmail');
@@ -447,8 +456,6 @@
                 content,
                 users
             }
-            console.log('Enviando correo');
-            console.log(data);
             const url = `${BASE_URL}controllers/email.controller.php`;
                 try {
                     const response = await fetch(url, {
@@ -457,7 +464,6 @@
                         headers: { 'Content-Type': 'application/json'}
                     });
                     const result = await response.json();
-                    console.log(result);
                 } catch (error) {
                     console.error('Error al enviar el correo:', error);
                 }
@@ -470,8 +476,8 @@
                 header,
                 content,
             }
-            console.log('Enviando correo');
-            console.log(data);
+            // console.log('Enviando correo');
+            // console.log(data);
 
             const url = `${BASE_URL}controllers/email.controller.php`;
                 try {
@@ -481,7 +487,7 @@
                         headers: { 'Content-Type': 'application/json'}
                     });
                     const result = await response.json();
-                    console.log(result);
+                    // console.log(result);
                 } catch (error) {
                     console.error('Error al enviar los correos:', error);
                 }

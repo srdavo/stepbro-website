@@ -1,7 +1,6 @@
 <?php 
 include_once '../../views/partials/__header.php'; 
 include_once '../../config/utilities.php';
-include_once '../../email/email_functions.php';
 ?>
 
 
