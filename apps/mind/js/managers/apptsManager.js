@@ -140,12 +140,15 @@ const ApptsManager = (() => {
             item.setAttribute("data-flip-id", "animate");
             item.onclick = () => openApptDataWindow(item);
 
+            const icon = (appt.appt_status == "1") ? "circle" : (appt.appt_status == "2") ? "check_circle" : "cancel";
+            const iconClass = (appt.appt_status == "1") ? "on-background-text" : (appt.appt_status == "2") ? "primary-text filled" : "error-text";
+
             item.className = "content-box direction-row padding-16 border-radius-16 cursor-pointer user-select-none on-background-text";
 
             item.innerHTML = `
                 <md-ripple></md-ripple>
                 <div class="simple-container body-large">
-                    <md-icon class="dynamic">circle</md-icon>
+                    <md-icon class="dynamic ${iconClass}">${icon}</md-icon>
                 </div>
                 <div class="simple-container direction-column grow-1 gap-4">
                     <span class="label-medium">${dateToShort(appt.appt_date)}, ${timeToAmPm(appt.appt_time)}</span>
@@ -214,8 +217,8 @@ const ApptsManager = (() => {
     function setApptsStatsData(){
         const statsContainer = document.getElementById("appts-stats-data-container");
         statsContainer.querySelector("[name='total-appts']").textContent = `${apptsForTable.pagination.total_rows} citas`;        
-        statsContainer.querySelector("[name='total-cancelled-appts']").textContent = apptsForTable.data.filter(appt => appt.appt_status == "3").length;
-        statsContainer.querySelector("[name='total-income']").textContent = formatMoney(apptsForTable.stats.total_cost)                
+        statsContainer.querySelector("[name='total-cancelled-appts']").textContent = `${apptsForTable.data.filter(appt => appt.appt_status == "3").length} citas` ;
+        statsContainer.querySelector("[name='total-income']").textContent = formatMoney(apptsForTable.stats.total_cost)               
         
     }
 
