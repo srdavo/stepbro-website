@@ -17,8 +17,11 @@
     </div>
     <holder class="on-background-text gap-16">
         <div class="content-box light-color border-radius-16 padding-16 gap-8">
-            <span class="label-normal">Paciente</span>
-            <span class="body-large" name="patient-name"><span class="outline-text"><i>Nombre del paciente</i></span></span>
+            <span class="label-normal outline-text">Paciente</span>
+            <div class="simple-container gap-8">
+                <span class="body-large data-line hover-outline cursor-pointer" name="patient-name"><span class="outline-text"><i>Nombre del paciente</i></span></span>
+                <span class="data-line body-large simple-container align-center cursor-pointer light-color"><md-ripple></md-ripple><md-icon class="dynamic outline-text">arrow_outward</md-icon></span>
+            </div>
         </div>
 
         <form 
@@ -46,10 +49,10 @@
                         label="Estado de la cita"
                         >
                         <md-select-option value="1">
-                            <div slot="headline">Cita completada</div>
+                            <div slot="headline">Cita pendiente</div>
                         </md-select-option>
                         <md-select-option value="2">
-                            <div slot="headline">Cita pendiente</div>
+                            <div slot="headline">Cita completada</div>
                         </md-select-option>
                         <md-select-option value="3">
                             <div slot="headline">Cita cancelada</div>
@@ -65,7 +68,14 @@
             </div>
             <div class="simple-container justify-between align-center">
                 <div class="simple-container gap-8">
-                    <md-icon-button type="button"><md-icon>delete</md-icon></md-icon-button>
+                    
+                    <md-icon-button 
+                        type="button"
+                        onclick="TrashManager.openConfirmationDialog('appt')"
+                        >
+                        <md-icon>delete</md-icon>
+                    </md-icon-button>
+
                     <md-icon-button type="button"><md-icon>history</md-icon></md-icon-button>
                 </div>
                 <div class="simple-container">

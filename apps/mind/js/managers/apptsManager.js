@@ -11,14 +11,22 @@ const ApptsManager = (() => {
         apptsForTable = await apptService.getAppts({filters: getFiltersValue()});
     }
 
+    let currentOpenApptId = "";
+
+    // window create
     const createApptWindow = document.getElementById("window-create-appt");
     const createApptForm = document.getElementById("form-create-appt");
 
+    // Window data
     const editApptWindow = document.getElementById("window-appt-data");
     const editApptForm = document.getElementById("form-edit-appt");
 
-    const apptsTableContainer = document.getElementById("response-container-appts-table");
+    // Dialog data
+    const apptDataDialog = document.getElementById("dialog-appt-data");
+    const apptDataDialogForm = apptDataDialog.querySelector("#form-dialog-appt-data");
 
+    // table
+    const apptsTableContainer = document.getElementById("response-container-appts-table");
     const apptsTableFiltersForm = document.getElementById("form-appts-table-filters");
 
     function populateAppointmentPatientFilter() {
@@ -95,8 +103,6 @@ const ApptsManager = (() => {
         const result = await apptService.insertAppt(data)
         if(!result) return false;
 
-        console.log(result);
-        console.log(result.id)
         appts.push({
             id: result.appt_id,
             patient_id: data.patient_id,
@@ -106,17 +112,65 @@ const ApptsManager = (() => {
         // displayApptsTable();
         message("Cita creada correctamente");
     }
-    function openApptDataWindow(origin){
-        toggleWindow(`#${editApptWindow.id}`, "absolute", 1, true);
-        const apptDataset = getDataset(origin);
+    async function editAppt(event = false, apptId, patientId){
+        if(event !== false) event.preventDefault();
+        const data = {
+            id: apptId,
+            patient_id: patientId,
+            appt_date: editApptForm.querySelector("[name='appt-date']").value.trim(),
+            appt_time: editApptForm.querySelector("[name='appt-time']").value.trim(),
+            appt_cost: editApptForm.querySelector("[name='appt-cost']").value.trim(),
+            appt_concept: editApptForm.querySelector("[name='appt-concept']").value.trim(),
+            appt_status: editApptForm.querySelector("[name='appt-status']").value.trim(),
+        };
+        const result = await apptService.updateAppt(data);
+        if(!result) return false;
 
-        // editApptWindow.querySelector("[name='patient-name']").innerHTML = apptDataset.patient_name;
+        const apptIndex = apptsForTable.data.findIndex(appt => appt.id == apptId);
+        if (apptIndex !== -1) {
+            apptsForTable.data[apptIndex] = {
+                ...apptsForTable.data[apptIndex],
+                id: apptId,
+                appt_date: data.appt_date,
+                appt_time: data.appt_time,
+                appt_cost: data.appt_cost,
+                appt_concept: data.appt_concept,
+                appt_status: data.appt_status,
+            }
+        }
+        displayApptsTable(undefined, true);
+        toggleWindow();
+        message("Cita actualizada correctamente");
+    }
+
+    function openApptDataWindow(origin){
+        toggleWindow(`#${editApptWindow.id}`, "absolute", 1, true, true);
+        const apptDataset = getDataset(origin);
+        
+        currentOpenApptId = apptDataset.id;
+        editApptWindow.querySelector("[name='patient-name']").innerHTML = apptDataset.patient_name;
         editApptForm.querySelector("[name='appt-date']").value = apptDataset.appt_date;
         editApptForm.querySelector("[name='appt-time']").value = apptDataset.appt_time;
         editApptForm.querySelector("[name='appt-cost']").value = parseFloat(apptDataset.appt_cost) || 0;
         editApptForm.querySelector("[name='appt-concept']").value = apptDataset.appt_concept;
         editApptForm.querySelector("[name='appt-status']").value = apptDataset.appt_status;
+
+        editApptForm.onsubmit = function(event){ editAppt(event, apptDataset.id, apptDataset.patient_id); }
         
+    }
+    function openApptDataDialog(origin){
+        toggleDialog("dialog-appt-data");
+        const apptDataset = getDataset(origin);
+
+        currentOpenApptId = apptDataset.id;
+        apptDataDialogForm.querySelector("[name='patient-name']").textContent = apptDataset.patient_name;
+        apptDataDialogForm.querySelector("[name='appt-date']").textContent = apptDataset.appt_date;
+        apptDataDialogForm.querySelector("[name='appt-time']").textContent = apptDataset.appt_time;
+        apptDataDialogForm.querySelector("[name='appt-cost']").textContent = formatMoney(apptDataset.appt_cost);
+        apptDataDialogForm.querySelector("[name='appt-concept']").textContent = (apptDataset.appt_concept == "") ? "-" : apptDataset.appt_concept;
+        apptDataDialogForm.querySelector("[name='appt-status']").textContent = (apptDataset.appt_status == "1") ? "Pendiente" : (apptDataset.appt_status == "2") ? "Completada" : "Cancelada";
+
+        apptDataDialog.querySelector("[name='button-recover']").onclick = function() { TrashManager.openRecoverDialog("appt"); }
     }
 
     function displayApptsTable(data = apptsForTable.data, replace = false) {
@@ -134,11 +188,18 @@ const ApptsManager = (() => {
         handleLoadMoreButton();
         setApptsStatsData();
     }
-    function buildApptsTable(appts) {
+    function buildApptsTable(appts, displayArea = "table") {
+        if(appts.length <= 0){
+            const item = document.createElement("div");
+            item.className = "content-box align-center justify-center user-select-none";
+            item.innerHTML = `<span class="body-large outline-text">No hay citas</span>`;
+            return [item];
+        }
         return appts.map(appt => {
             const item = document.createElement("div");
             item.setAttribute("data-flip-id", "animate");
-            item.onclick = () => openApptDataWindow(item);
+            if(displayArea === "table"){ item.onclick = () => openApptDataWindow(item);}
+            if(displayArea === "trash"){ item.onclick = () => openApptDataDialog(item);}
 
             const icon = (appt.appt_status == "1") ? "circle" : (appt.appt_status == "2") ? "check_circle" : "cancel";
             const iconClass = (appt.appt_status == "1") ? "on-background-text" : (appt.appt_status == "2") ? "primary-text filled" : "error-text";
@@ -152,7 +213,7 @@ const ApptsManager = (() => {
                 </div>
                 <div class="simple-container direction-column grow-1 gap-4">
                     <span class="label-medium">${dateToShort(appt.appt_date)}, ${timeToAmPm(appt.appt_time)}</span>
-                    <span class="body-large">${PatientsManager.patients().find(patient => patient.id == appt.patient_id)?.patient_name}</span>
+                    <span class="body-large">${appt.patient_name}</span>
                 </div>
             `;
 
@@ -231,6 +292,8 @@ const ApptsManager = (() => {
         displayApptsTable,
         displayNextPage,
         populateAppointmentPatientFilter,
+        buildApptsTable,
+        currentOpenApptId: () => currentOpenApptId,
         // appts: () => appts,
         apptsForTable: () => apptsForTable,
     }

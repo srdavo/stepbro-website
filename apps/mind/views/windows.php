@@ -7,3 +7,5 @@ include_once 'views/windows/window-test-cfo.php';
 include_once 'views/windows/window-test-create_permission.php';
 
 include_once 'views/windows/window-income.php';
+
+include_once 'views/windows/window-trash.php';

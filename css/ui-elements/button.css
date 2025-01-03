@@ -29,3 +29,21 @@ button.style-1{
 button.style-1:hover{
     transform: scale(1.1);
 }
+
+
+button.style-2{
+    font-family: "Inter", sans-serif;
+    font-size:14px;
+    padding:8px 12px;
+    border:none;
+    border-radius:12px;
+    
+    background:var(--md-sys-color-surface-container);
+    color:var(--md-sys-color-on-background-text);
+    cursor:pointer;
+    transition: background 0.3s, color 125ms;
+}
+button.style-2[active]{
+    background:var(--md-sys-color-primary-container);
+    color:var(--md-sys-color-on-primary-container);
+}

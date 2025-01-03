@@ -10,6 +10,7 @@ CREATE TABLE appointments (
     appt_status TINYINT(1) DEFAULT 1,
     appt_cost DECIMAL(10,2) DEFAULT 0,
     appt_note TEXT,
+    row_status TINYINT(1) DEFAULT 1,
     FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE
 );
 

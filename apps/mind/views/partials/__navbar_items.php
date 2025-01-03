@@ -106,6 +106,17 @@
   </span>
   <span>Nuevo paciente</span>
 </button>
+<button
+  class="nav-button hide-on-mobile nav-action-button"
+  id="button-open-trash"
+  data-flip-id="animate"
+  >
+  <md-ripple></md-ripple>
+  <span class="icon-holder">
+    <span class="material-symbols-rounded">delete</span>
+  </span>
+  <span>Abrir papelera</span>
+</button>
 
 
 

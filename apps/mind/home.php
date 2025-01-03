@@ -19,7 +19,7 @@ include_once '../../config/utilities.php';
       </md-fab>
     </div> -->
     <?php 
-    //   include_once 'views/modals/dialogs.php'; 
+      include_once 'views/dialogs/dialogs.php'; 
       include_once 'views/sections.php'; 
     ?>  
   </holder>
@@ -36,7 +36,7 @@ include_once '../../config/utilities.php';
   });
 </script>
 
-<script src="js/main.js?v=1.0.2" type="module"></script>
+<script src="js/main.js?v=2" type="module"></script>
 
 
 <!-- <script src="js/patients-functions.js?v=1.0.3"></script> -->
